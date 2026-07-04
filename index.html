@@ -266,11 +266,11 @@
     <!-- СТРАНИЦА ВХОДА -->
     <div class="login-screen" id="loginScreen">
         <div class="login-box">
-            <h2>❤️ Добро пожаловать ❤️</h2>
-            <p>Чтобы получить доступ к заданиям, введи дату начала наших отношений</p>
+            <h2>❤️ Привет принцесса ❤️</h2>
+            <p>Чтобы получить доступ к заданиям, введи дату начала наших ежедневных обнимашек)</p>
             <input type="date" class="date-input" id="dateInput">
             <button class="login-btn" onclick="checkDate()">Войти 💕</button>
-            <p class="error-msg" id="errorMsg">Неверная дата! Попробуй ещё раз 😔</p>
+            <p class="error-msg" id="errorMsg">не-а) ошибОчка</p>
         </div>
     </div>
 
@@ -278,12 +278,12 @@
     <div class="main-site" id="mainSite">
         <button class="logout-btn" onclick="logout()">Выйти</button>
         <h1>10 Дней до встречи ❤️</h1>
-        <p class="subtitle">Каждый день здесь будет открываться новое задание для тебя</p>
+        <p class="subtitle">Каждый день здесь будет открываться новое задание для тебя ❤️</p>
 
         <div class="grid" id="calendarGrid"></div>
         
         <div class="footer-note">
-             <strong>Маленькая просьба:</strong> пожалуйста, проходи задания по порядку — каждый день по одному. Так будет интереснее, и я смогу ждать твоих ответов с нетерпением! Но если очень хочется заглянуть вперёд — я не буду ругаться 😉
+             <strong>Маленькая просьба:</strong> пожалуйста, проходи задания по порядку — каждый день по одному.Но если очень хочется заглянуть вперёд — я не буду ругаться 😉
         </div>
     </div>
 
@@ -307,7 +307,7 @@
             
             <div class="game-win" id="gameWin">
                 <h3>🎉 Поздравляю! 🎉</h3>
-                <p>Ты поймала 67 сердечек! Вот твой секрет:</p>
+                <p>Ты поймала 67 сердечек! Умничка:</p>
             </div>
             
             <div class="game-lose" id="gameLose">
@@ -494,7 +494,7 @@
                 x: Math.random() * (canvas.width - 40) + 20,
                 y: -30,
                 size: 35 + Math.random() * 15,
-                speed: 2 + Math.random() * 2
+                speed: 1 + Math.random() * 1.5
             });
         }
 
