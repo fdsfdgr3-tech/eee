@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Дней с Любимой ❤️</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .login-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+            animation: fadeIn 0.5s;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .login-box h2 {
+            color: #d63384;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .login-box p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .date-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        
+        .date-input:focus {
+            outline: none;
+            border-color: #d63384;
+        }
+        
+        .login-btn {
+            background: #d63384;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
+        .login-btn:hover {
+            background: #a82268;
+        }
+        
+        .error-msg {
+            color: #dc3545;
+            margin-top: 15px;
+            display: none;
+            font-weight: bold;
+        }
+        
+        .main-site {
+            display: none;
+        }
+        
+        h1 { color: #d63384; margin-bottom: 10px; }
+        .subtitle { font-size: 1.2rem; color: #555; margin-bottom: 30px; }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover { transform: translateY(-5px); }
+
+        .card.active {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%);
+            border: 2px solid #fff;
+        }
+
+        .card.done {
+            background: #d4edda;
+            border: 2px solid #28a745;
+        }
+        .card.done::after { content: "✅"; font-size: 1.5rem; display: block; margin-top: 5px;}
+
+        .day-number { font-size: 2rem; font-weight: bold; color: #d63384; }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            text-align: left;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            z-index: 10;
+        }
+        .task-title { color: #d63384; font-size: 1.5rem; margin-bottom: 15px;}
+        .task-desc { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;}
+        .secret-msg { 
+            display: none; 
+            background: #fff3cd; 
+            padding: 15px; 
+            border-radius: 10px; 
+            margin-top: 15px;
+            border-left: 5px solid #ffc107;
+        }
+        .btn {
+            background: #d63384;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .btn:hover { background: #a82268; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #gameCanvas {
+            border: 3px solid #d63384;
+            border-radius: 10px;
+            display: block;
+            margin: 20px auto;
+            cursor: none;
+        }
+        .game-info {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #d63384;
+        }
+        .game-container {
+            display: none;
+        }
+        .game-win {
+            display: none;
+            background: #d4edda;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .game-win h3 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        .game-lose {
+            display: none;
+            background: #f8d7da;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .game-lose h3 {
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+        
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: 2px solid #d63384;
+            color: #d63384;
+            padding: 8px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .logout-btn:hover {
+            background: #d63384;
+            color: white;
+        }
+        
+        .timer {
+            font-size: 1.5rem;
+            color: #d63384;
+            font-weight: bold;
+        }
+        
+        .footer-note {
+            max-width: 800px;
+            margin: 40px auto 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .footer-note strong {
+            color: #d63384;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- СТРАНИЦА ВХОДА -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <h2>❤️ Добро пожаловать ❤️</h2>
+            <p>Чтобы получить доступ к заданиям, введи дату начала наших отношений</p>
+            <input type="date" class="date-input" id="dateInput">
+            <button class="login-btn" onclick="checkDate()">Войти 💕</button>
+            <p class="error-msg" id="errorMsg">Неверная дата! Попробуй ещё раз 😔</p>
+        </div>
+    </div>
+
+    <!-- ОСНОВНОЙ САЙТ -->
+    <div class="main-site" id="mainSite">
+        <button class="logout-btn" onclick="logout()">Выйти</button>
+        <h1>10 Дней до встречи ❤️</h1>
+        <p class="subtitle">Каждый день здесь будет открываться новое задание для тебя</p>
+
+        <div class="grid" id="calendarGrid"></div>
+        
+        <div class="footer-note">
+             <strong>Маленькая просьба:</strong> пожалуйста, проходи задания по порядку — каждый день по одному. Так будет интереснее, и я смогу ждать твоих ответов с нетерпением! Но если очень хочется заглянуть вперёд — я не буду ругаться 😉
+        </div>
+    </div>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 class="task-title" id="modalTitle"></h2>
+            <p class="task-desc" id="modalDesc"></p>
+            
+            <div class="game-container" id="gameContainer">
+                <div class="game-info">
+                    <div>Поймано: <span id="score">0</span>/67</div>
+                    <div class="timer">⏱️ <span id="timer">2:00</span></div>
+                </div>
+                <canvas id="gameCanvas" width="400" height="500"></canvas>
+                <p style="text-align: center; color: #666; font-size: 0.9rem;">Двигай мышкой или пальцем, чтобы ловить сердечки!</p>
+            </div>
+            
+            <button class="btn" id="completeBtn" onclick="completeTask()">Я выполнила! 💖</button>
+            
+            <div class="game-win" id="gameWin">
+                <h3>🎉 Поздравляю! 🎉</h3>
+                <p>Ты поймала 67 сердечек! Вот твой секрет:</p>
+            </div>
+            
+            <div class="game-lose" id="gameLose">
+                <h3> Время вышло!</h3>
+                <p>Ты поймала <span id="finalScore">0</span> из 67 сердечек. Попробуй ещё раз!</p>
+                <button class="btn" onclick="startGame()" style="margin-top: 15px;">Играть снова 🔄</button>
+            </div>
+            
+            <div class="secret-msg" id="secretMsg">
+                <p id="secretText"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- ПРОВЕРКА ДАТЫ ---
+        const correctDate = '2026-03-27';
+        
+        if (localStorage.getItem('loggedIn') === 'true') {
+            showMainSite();
+        }
+        
+        function checkDate() {
+            const inputDate = document.getElementById('dateInput').value;
+            
+            if (inputDate === correctDate) {
+                localStorage.setItem('loggedIn', 'true');
+                showMainSite();
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+                document.getElementById('dateInput').value = '';
+                setTimeout(() => {
+                    document.getElementById('errorMsg').style.display = 'none';
+                }, 3000);
+            }
+        }
+        
+        function showMainSite() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainSite').style.display = 'block';
+            initCalendar();
+        }
+        
+        function logout() {
+            localStorage.removeItem('loggedIn');
+            location.reload();
+        }
+        
+        // --- ЗАДАНИЯ ---
+        const tasks = [
+            { title: "День 1: 🎮 МИНИ-ИГРА!", desc: "Поймай 67 сердечек за 2 минуты! Двигай корзинку мышкой или пальцем.", secret: "Ты поймала моё сердце! Я люблю тебя бесконечно ❤️", isGame: true },
+            { title: "День 2: Вкусный день", desc: "Купи себе сегодня что-то вкусное (кофе, десерт) и сфоткай. Это за мой счет!", secret: "Хочу кормить тебя вкусняшками каждый день." },
+            { title: "День 3: Голос", desc: "Запиши голосовое сообщение, как ты скучаешь. Мне нужно услышать твой голос.", secret: "Твой голос — мой любимый звук во вселенной." },
+            { title: "День 4: Исследователь", desc: "Найди в городе что-то странное или смешное и сфоткай.", secret: "С тобой даже скучный город стал бы интересным." },
+            { title: "День 5: Привет!", desc: "Сделай селфи из окна и скинь мне в телеграм. Хочу видеть, где ты!", secret: "Ты самая красивая, даже когда просто смотришь в окно." },
+            { title: "День 6: Киновечер", desc: "Посмотри сегодня фильм 'Ла-Ла Ленд' (или любой другой). Будем думать, что смотрим вместе.", secret: "Моя главная роль — быть рядом с тобой." },
+            { title: "День 7: Релакс", desc: "Сегодня день лени. Лежи в ванной, читай, ничего не делай. Фоткай атмосферу.", secret: "Ты заслуживаешь отдыха, моя королева." },
+            { title: "День 8: Мечты", desc: "Скинь скриншот вещи, которую ты хочешь, но жалеешь денег. Я подумаю 😉", secret: "Для тебя мне ничего не жалко." },
+            { title: "День 9: Музыка", desc: "Скинь 3 песни, которые ассоциируются у тебя с нами.", secret: "Наш плейлист — саундтрек моей жизни." },
+            { title: "День 10: ФИНАЛ!", desc: "Собирай вещи! Я уже бегу встречать тебя.", secret: "Я тебя ОЧЕНЬ ЛЮБЛЮ. Скорее бы обнять!" }
+        ];
+
+        // --- ЛОГИКА КАЛЕНДАРЯ (все открыты сразу) ---
+        function initCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            tasks.forEach((task, index) => {
+                const card = document.createElement('div');
+                card.className = 'card active';
+                card.innerHTML = `<div class="day-number">${index + 1}</div><div>День</div>`;
+                card.onclick = () => openModal(index);
+                grid.appendChild(card);
+            });
+        }
+
+        function openModal(index) {
+            document.getElementById('modalTitle').innerText = tasks[index].title;
+            document.getElementById('modalDesc').innerText = tasks[index].desc;
+            document.getElementById('secretText').innerText = tasks[index].secret;
+            document.getElementById('secretMsg').style.display = 'none';
+            document.getElementById('gameWin').style.display = 'none';
+            document.getElementById('gameLose').style.display = 'none';
+            
+            if (tasks[index].isGame) {
+                document.getElementById('gameContainer').style.display = 'block';
+                document.getElementById('completeBtn').style.display = 'none';
+                startGame();
+            } else {
+                document.getElementById('gameContainer').style.display = 'none';
+                document.getElementById('completeBtn').style.display = 'block';
+            }
+            
+            document.getElementById('taskModal').style.display = 'flex';
+            window.currentTaskIndex = index;
+        }
+
+        function closeModal() {
+            document.getElementById('taskModal').style.display = 'none';
+            if (gameInterval) {
+                cancelAnimationFrame(gameInterval);
+                gameInterval = null;
+            }
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function completeTask() {
+            document.getElementById('secretMsg').style.display = 'block';
+            document.getElementById('completeBtn').style.display = 'none';
+            
+            // Помечаем карточку как выполненную
+            const cards = document.querySelectorAll('.card');
+            if (cards[window.currentTaskIndex]) {
+                cards[window.currentTaskIndex].classList.remove('active');
+                cards[window.currentTaskIndex].classList.add('done');
+            }
+        }
+
+        // --- МИНИ-ИГРА "ЛОВИ СЕРДЕЧКИ" ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        const heartImage = new Image();
+        heartImage.src = 'heart.png';
+        
+        const backgroundImage = new Image();
+        backgroundImage.src = 'background.png';
+        
+        let hearts = [];
+        let score = 0;
+        let timeLeft = 120;
+        let gameInterval = null;
+        let timerInterval = null;
+        let basketX = canvas.width / 2;
+        const basketWidth = 80;
+        const basketHeight = 20;
+        const maxScore = 67;
+        const gameTime = 120;
+
+        function drawBackground() {
+            if (backgroundImage.complete && backgroundImage.naturalWidth !== 0) {
+                ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+            } else {
+                ctx.fillStyle = '#dc143c';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        function drawHeart(x, y, size) {
+            if (heartImage.complete && heartImage.naturalWidth !== 0) {
+                ctx.drawImage(heartImage, x - size/2, y - size/2, size, size);
+            } else {
+                ctx.fillStyle = '#ff4d6d';
+                ctx.beginPath();
+                const topCurveHeight = size * 0.3;
+                ctx.moveTo(x, y + topCurveHeight);
+                ctx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+                ctx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + (size + topCurveHeight) / 1.5, x, y + size);
+                ctx.bezierCurveTo(x, y + (size + topCurveHeight) / 1.5, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+                ctx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
+
+        function drawBasket() {
+            ctx.fillStyle = '#d63384';
+            ctx.fillRect(basketX - basketWidth / 2, canvas.height - basketHeight - 10, basketWidth, basketHeight);
+            ctx.strokeStyle = '#d63384';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(basketX - basketWidth / 3, canvas.height - basketHeight - 10, 15, Math.PI, 0);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(basketX + basketWidth / 3, canvas.height - basketHeight - 10, 15, Math.PI, 0);
+            ctx.stroke();
+        }
+
+        function createHeart() {
+            hearts.push({
+                x: Math.random() * (canvas.width - 40) + 20,
+                y: -30,
+                size: 35 + Math.random() * 15,
+                speed: 2 + Math.random() * 2
+            });
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 0) {
+                loseGame();
+            }
+        }
+
+        function gameLoop() {
+            drawBackground();
+            drawBasket();
+            
+            for (let i = hearts.length - 1; i >= 0; i--) {
+                const heart = hearts[i];
+                heart.y += heart.speed;
+                
+                drawHeart(heart.x, heart.y, heart.size);
+                
+                if (heart.y + heart.size/2 > canvas.height - basketHeight - 10 &&
+                    heart.y < canvas.height - 10 &&
+                    heart.x > basketX - basketWidth / 2 &&
+                    heart.x < basketX + basketWidth / 2) {
+                    hearts.splice(i, 1);
+                    score++;
+                    document.getElementById('score').innerText = score;
+                    
+                    if (score >= maxScore) {
+                        winGame();
+                        return;
+                    }
+                }
+                else if (heart.y > canvas.height + 50) {
+                    hearts.splice(i, 1);
+                }
+            }
+            
+            if (Math.random() < 0.04) {
+                createHeart();
+            }
+            
+            gameInterval = requestAnimationFrame(gameLoop);
+        }
+
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            basketX = e.clientX - rect.left;
+            basketX = Math.max(basketWidth / 2, Math.min(canvas.width - basketWidth / 2, basketX));
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            basketX = e.touches[0].clientX - rect.left;
+            basketX = Math.max(basketWidth / 2, Math.min(canvas.width - basketWidth / 2, basketX));
+        });
+
+        function startGame() {
+            hearts = [];
+            score = 0;
+            timeLeft = gameTime;
+            document.getElementById('score').innerText = score;
+            document.getElementById('timer').innerText = '2:00';
+            document.getElementById('gameWin').style.display = 'none';
+            document.getElementById('gameLose').style.display = 'none';
+            
+            if (gameInterval) {
+                cancelAnimationFrame(gameInterval);
+            }
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            gameLoop();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function winGame() {
+            cancelAnimationFrame(gameInterval);
+            clearInterval(timerInterval);
+            gameInterval = null;
+            timerInterval = null;
+            document.getElementById('gameWin').style.display = 'block';
+            document.getElementById('secretMsg').style.display = 'block';
+            
+            const cards = document.querySelectorAll('.card');
+            if (cards[0]) {
+                cards[0].classList.remove('active');
+                cards[0].classList.add('done');
+            }
+        }
+
+        function loseGame() {
+            cancelAnimationFrame(gameInterval);
+            clearInterval(timerInterval);
+            gameInterval = null;
+            timerInterval = null;
+            document.getElementById('finalScore').innerText = score;
+            document.getElementById('gameLose').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
