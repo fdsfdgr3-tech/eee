@@ -2,59 +2,68 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>10 Дней с Любимой ❤️</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: url('red-background-with-heart-motif-free-vector.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-            margin: 0;
-            min-height: 100vh;
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+            text-align: center;
+            padding: 15px;
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        /* СТРАНИЦА ВХОДА */
         .login-screen {
-            display: flex; 
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 90vh;
             animation: fadeIn 0.5s;
+            padding: 20px;
         }
         
         .login-box {
             background: white;
-            padding: 40px;
+            padding: 30px 20px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            max-width: 400px;
-            width: 90%;
+            width: 100%;
+            max-width: 350px;
         }
         
         .login-box h2 {
             color: #d63384;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
         }
         
         .login-box p {
             color: #666;
-            margin-bottom: 25px;
-            line-height: 1.6;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-size: 0.95rem;
         }
         
         .date-input {
             width: 100%;
             padding: 15px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             border: 2px solid #ffb6c1;
             border-radius: 10px;
             text-align: center;
-            margin-bottom: 20px;
-            box-sizing: border-box;
+            margin-bottom: 15px;
+            -webkit-appearance: none;
         }
         
         .date-input:focus {
@@ -66,15 +75,16 @@
             background: #d63384;
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 15px 30px;
             border-radius: 25px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
             width: 100%;
+            min-height: 50px;
             transition: background 0.3s;
         }
         
-        .login-btn:hover {
+        .login-btn:hover, .login-btn:active {
             background: #a82268;
         }
         
@@ -83,35 +93,54 @@
             margin-top: 15px;
             display: none;
             font-weight: bold;
+            font-size: 0.9rem;
         }
         
+        /* ОСНОВНОЙ САЙТ */
         .main-site {
             display: none;
+            padding: 10px;
         }
         
-        h1 { color: #d63384; margin-bottom: 10px; }
-        .subtitle { font-size: 1.2rem; color: #555; margin-bottom: 30px; }
+        h1 { 
+            color: #d63384; 
+            margin-bottom: 10px; 
+            font-size: 1.8rem;
+        }
+        
+        .subtitle { 
+            font-size: 1rem; 
+            color: #555; 
+            margin-bottom: 25px; 
+        }
         
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            max-width: 800px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 500px;
             margin: 0 auto;
         }
         
         .card {
             background: white;
             border-radius: 15px;
-            padding: 20px;
+            padding: 20px 15px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.2s;
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         
-        .card:hover { transform: translateY(-5px); }
+        .card:active { 
+            transform: scale(0.95); 
+        }
 
         .card.active {
             background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%);
@@ -122,40 +151,78 @@
             background: #d4edda;
             border: 2px solid #28a745;
         }
-        .card.done::after { content: "✅"; font-size: 1.5rem; display: block; margin-top: 5px;}
-
-        .day-number { font-size: 2rem; font-weight: bold; color: #d63384; }
         
+        .card.done::after { 
+            content: "✅"; 
+            font-size: 1.5rem; 
+            display: block; 
+            margin-top: 5px;
+        }
+
+        .day-number { 
+            font-size: 1.8rem; 
+            font-weight: bold; 
+            color: #d63384; 
+        }
+        
+        /* МОДАЛЬНОЕ ОКНО */
         .modal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(0,0,0,0.8);
             justify-content: center;
             align-items: center;
             z-index: 100;
+            padding: 10px;
         }
+        
         .modal-content {
             background: white;
-            padding: 30px;
+            padding: 25px 20px;
             border-radius: 20px;
-            max-width: 600px;
-            width: 90%;
-            text-align: left;
-            position: relative;
+            width: 100%;
+            max-width: 400px;
             max-height: 90vh;
             overflow-y: auto;
+            position: relative;
+            text-align: left;
         }
+        
         .close-btn {
             position: absolute;
-            top: 10px; right: 15px;
-            font-size: 24px;
+            top: 10px; 
+            right: 15px;
+            font-size: 28px;
             cursor: pointer;
             color: #999;
             z-index: 10;
+            background: none;
+            border: none;
+            padding: 5px;
+            min-width: 40px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .task-title { color: #d63384; font-size: 1.5rem; margin-bottom: 15px;}
-        .task-desc { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;}
+        
+        .task-title { 
+            color: #d63384; 
+            font-size: 1.3rem; 
+            margin-bottom: 15px;
+            padding-right: 30px;
+        }
+        
+        .task-desc { 
+            font-size: 1rem; 
+            line-height: 1.6; 
+            margin-bottom: 20px; 
+        }
+        
         .secret-msg { 
             display: none; 
             background: #fff3cd; 
@@ -163,102 +230,156 @@
             border-radius: 10px; 
             margin-top: 15px;
             border-left: 5px solid #ffc107;
+            font-size: 0.95rem;
         }
+        
         .btn {
             background: #d63384;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 15px 25px;
             border-radius: 20px;
             font-size: 1rem;
             cursor: pointer;
+            width: 100%;
+            min-height: 50px;
+            margin-top: 10px;
         }
-        .btn:hover { background: #a82268; }
+        
+        .btn:hover, .btn:active { 
+            background: #a82268; 
+        }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ИГРА */
         #gameCanvas {
             border: 3px solid #d63384;
             border-radius: 10px;
             display: block;
-            margin: 20px auto;
+            margin: 15px auto;
             cursor: none;
+            max-width: 100%;
+            height: auto;
         }
+        
         .game-info {
             display: flex;
             justify-content: space-around;
             margin: 10px 0;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
             color: #d63384;
+            flex-wrap: wrap;
+            gap: 10px;
         }
+        
         .game-container {
             display: none;
         }
-        .game-win {
+        
+        .game-win, .game-lose {
             display: none;
-            background: #d4edda;
             padding: 20px;
             border-radius: 15px;
             margin-top: 20px;
             text-align: center;
         }
+        
+        .game-win {
+            background: #d4edda;
+        }
+        
         .game-win h3 {
             color: #28a745;
             margin-bottom: 10px;
         }
+        
         .game-lose {
-            display: none;
             background: #f8d7da;
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-            text-align: center;
         }
+        
         .game-lose h3 {
             color: #dc3545;
             margin-bottom: 10px;
         }
         
         .logout-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: transparent;
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: white;
             border: 2px solid #d63384;
             color: #d63384;
-            padding: 8px 15px;
+            padding: 8px 12px;
             border-radius: 15px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            z-index: 50;
+            min-height: 40px;
         }
-        .logout-btn:hover {
+        
+        .logout-btn:hover, .logout-btn:active {
             background: #d63384;
             color: white;
         }
         
         .timer {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: #d63384;
             font-weight: bold;
         }
         
         .footer-note {
-            max-width: 800px;
-            margin: 40px auto 20px;
-            padding: 20px;
+            max-width: 500px;
+            margin: 30px auto 20px;
+            padding: 20px 15px;
             background: white;
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             color: #555;
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.6;
         }
+        
         .footer-note strong {
             color: #d63384;
+        }
+        
+        /* Адаптация для очень маленьких экранов */
+        @media (max-width: 360px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .card {
+                padding: 15px 10px;
+                min-height: 90px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .day-number {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* Адаптация для планшетов */
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(5, 1fr);
+                max-width: 800px;
+            }
+            
+            .modal-content {
+                max-width: 500px;
+            }
         }
     </style>
 </head>
@@ -267,11 +388,11 @@
     <!-- СТРАНИЦА ВХОДА -->
     <div class="login-screen" id="loginScreen">
         <div class="login-box">
-            <h2>❤️ Привет принцесса ❤️</h2>
-            <p>Чтобы получить доступ к заданиям, введи дату начала наших ежедневных обнимашек)</p>
+            <h2>❤️ Добро пожаловать ❤️</h2>
+            <p>Чтобы получить доступ к заданиям, введи дату начала наших отношений</p>
             <input type="date" class="date-input" id="dateInput">
             <button class="login-btn" onclick="checkDate()">Войти 💕</button>
-            <p class="error-msg" id="errorMsg">не-а) ошибОчка</p>
+            <p class="error-msg" id="errorMsg">Неверная дата! Попробуй ещё раз 😔</p>
         </div>
     </div>
 
@@ -279,19 +400,19 @@
     <div class="main-site" id="mainSite">
         <button class="logout-btn" onclick="logout()">Выйти</button>
         <h1>10 Дней до встречи ❤️</h1>
-        <p class="subtitle">Каждый день здесь будет открываться новое задание для тебя ❤️</p>
+        <p class="subtitle">Каждый день здесь будет открываться новое задание для тебя</p>
 
         <div class="grid" id="calendarGrid"></div>
         
         <div class="footer-note">
-             <strong>Маленькая просьба:</strong> пожалуйста, проходи задания по порядку — каждый день по одному.Но если очень хочется заглянуть вперёд — я не буду ругаться 😉
+            <strong>Маленькая просьба:</strong> пожалуйста, проходи задания по порядку — каждый день по одному. Так будет интереснее, и я смогу ждать твоих ответов с нетерпением! Но если очень хочется заглянуть вперёд — я не буду ругаться 😉
         </div>
     </div>
 
     <!-- Модальное окно -->
     <div class="modal" id="taskModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <button class="close-btn" onclick="closeModal()">&times;</button>
             <h2 class="task-title" id="modalTitle"></h2>
             <p class="task-desc" id="modalDesc"></p>
             
@@ -300,15 +421,15 @@
                     <div>Поймано: <span id="score">0</span>/67</div>
                     <div class="timer">⏱️ <span id="timer">2:00</span></div>
                 </div>
-                <canvas id="gameCanvas" width="400" height="500"></canvas>
-                <p style="text-align: center; color: #666; font-size: 0.9rem;">Двигай мышкой или пальцем, чтобы ловить сердечки!</p>
+                <canvas id="gameCanvas" width="350" height="450"></canvas>
+                <p style="text-align: center; color: #666; font-size: 0.9rem;">Двигай пальцем, чтобы ловить сердечки!</p>
             </div>
             
             <button class="btn" id="completeBtn" onclick="completeTask()">Я выполнила! 💖</button>
             
             <div class="game-win" id="gameWin">
-                <h3>🎉 Поздравляю! 🎉</h3>
-                <p>Ты поймала 67 сердечек! Умничка:</p>
+                <h3>🎉 Поздравляю! </h3>
+                <p>Ты поймала 67 сердечек! Вот твой секрет:</p>
             </div>
             
             <div class="game-lose" id="gameLose">
@@ -359,7 +480,7 @@
         
         // --- ЗАДАНИЯ ---
         const tasks = [
-            { title: "День 1: 🎮 МИНИ-ИГРА!", desc: "Поймай 67 сердечек за 2 минуты! Двигай корзинку мышкой или пальцем.", secret: "Ты поймала моё сердце! Я люблю тебя бесконечно ❤️", isGame: true },
+            { title: "День 1: 🎮 МИНИ-ИГРА!", desc: "Поймай 67 сердечек за 2 минуты! Двигай корзинку пальцем.", secret: "Ты поймала моё сердце! Я люблю тебя бесконечно ❤️", isGame: true },
             { title: "День 2: Вкусный день", desc: "Купи себе сегодня что-то вкусное (кофе, десерт) и сфоткай. Это за мой счет!", secret: "Хочу кормить тебя вкусняшками каждый день." },
             { title: "День 3: Голос", desc: "Запиши голосовое сообщение, как ты скучаешь. Мне нужно услышать твой голос.", secret: "Твой голос — мой любимый звук во вселенной." },
             { title: "День 4: Исследователь", desc: "Найди в городе что-то странное или смешное и сфоткай.", secret: "С тобой даже скучный город стал бы интересным." },
@@ -371,7 +492,7 @@
             { title: "День 10: ФИНАЛ!", desc: "Собирай вещи! Я уже бегу встречать тебя.", secret: "Я тебя ОЧЕНЬ ЛЮБЛЮ. Скорее бы обнять!" }
         ];
 
-        // --- ЛОГИКА КАЛЕНДАРЯ (все открыты сразу) ---
+        // --- ЛОГИКА КАЛЕНДАРЯ ---
         function initCalendar() {
             const grid = document.getElementById('calendarGrid');
             grid.innerHTML = '';
@@ -422,7 +543,6 @@
             document.getElementById('secretMsg').style.display = 'block';
             document.getElementById('completeBtn').style.display = 'none';
             
-            // Помечаем карточку как выполненную
             const cards = document.querySelectorAll('.card');
             if (cards[window.currentTaskIndex]) {
                 cards[window.currentTaskIndex].classList.remove('active');
@@ -430,7 +550,7 @@
             }
         }
 
-        // --- МИНИ-ИГРА "ЛОВИ СЕРДЕЧКИ" ---
+        // --- МИНИ-ИГРА ---
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         
@@ -446,7 +566,7 @@
         let gameInterval = null;
         let timerInterval = null;
         let basketX = canvas.width / 2;
-        const basketWidth = 80;
+        const basketWidth = 70;
         const basketHeight = 20;
         const maxScore = 67;
         const gameTime = 120;
@@ -483,10 +603,10 @@
             ctx.strokeStyle = '#d63384';
             ctx.lineWidth = 3;
             ctx.beginPath();
-            ctx.arc(basketX - basketWidth / 3, canvas.height - basketHeight - 10, 15, Math.PI, 0);
+            ctx.arc(basketX - basketWidth / 3, canvas.height - basketHeight - 10, 12, Math.PI, 0);
             ctx.stroke();
             ctx.beginPath();
-            ctx.arc(basketX + basketWidth / 3, canvas.height - basketHeight - 10, 15, Math.PI, 0);
+            ctx.arc(basketX + basketWidth / 3, canvas.height - basketHeight - 10, 12, Math.PI, 0);
             ctx.stroke();
         }
 
@@ -494,7 +614,7 @@
             hearts.push({
                 x: Math.random() * (canvas.width - 40) + 20,
                 y: -30,
-                size: 35 + Math.random() * 15,
+                size: 30 + Math.random() * 15,
                 speed: 1 + Math.random() * 1.5
             });
         }
@@ -545,16 +665,19 @@
             gameInterval = requestAnimationFrame(gameLoop);
         }
 
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            basketX = e.clientX - rect.left;
-            basketX = Math.max(basketWidth / 2, Math.min(canvas.width - basketWidth / 2, basketX));
-        });
-
+        // Управление тачем (для телефонов)
         canvas.addEventListener('touchmove', (e) => {
             e.preventDefault();
             const rect = canvas.getBoundingClientRect();
-            basketX = e.touches[0].clientX - rect.left;
+            const touch = e.touches[0];
+            basketX = touch.clientX - rect.left;
+            basketX = Math.max(basketWidth / 2, Math.min(canvas.width - basketWidth / 2, basketX));
+        }, { passive: false });
+
+        // Управление мышкой (для компьютеров)
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            basketX = e.clientX - rect.left;
             basketX = Math.max(basketWidth / 2, Math.min(canvas.width - basketWidth / 2, basketX));
         });
 
