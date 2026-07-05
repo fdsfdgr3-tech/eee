@@ -23,7 +23,6 @@
             -webkit-text-size-adjust: 100%;
         }
         
-        /* СТРАНИЦА ВХОДА */
         .login-screen {
             display: flex;
             flex-direction: column;
@@ -35,7 +34,7 @@
         }
         
         .login-box {
-            background: blue;
+            background: white;
             padding: 30px 20px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -82,10 +81,9 @@
             cursor: pointer;
             width: 100%;
             min-height: 50px;
-            transition: background 0.3s;
         }
         
-        .login-btn:hover, .login-btn:active {
+        .login-btn:active {
             background: #a82268;
         }
         
@@ -97,7 +95,6 @@
             font-size: 0.9rem;
         }
         
-        /* ОСНОВНОЙ САЙТ */
         .main-site {
             display: none;
             padding: 10px;
@@ -146,6 +143,7 @@
         .card.active {
             background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%);
             border: 2px solid #fff;
+            animation: pulse 2s infinite;
         }
 
         .card.done {
@@ -160,13 +158,26 @@
             margin-top: 5px;
         }
 
+        .card.locked {
+            background: #e0e0e0;
+            color: #999;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .card.locked::after {
+            content: "🔒";
+            font-size: 2rem;
+            display: block;
+            margin-top: 5px;
+        }
+
         .day-number { 
             font-size: 1.8rem; 
             font-weight: bold; 
             color: #d63384; 
         }
         
-        /* МОДАЛЬНОЕ ОКНО */
         .modal {
             display: none;
             position: fixed;
@@ -247,7 +258,7 @@
             margin-top: 10px;
         }
         
-        .btn:hover, .btn:active { 
+        .btn:active { 
             background: #a82268; 
         }
 
@@ -256,13 +267,17 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ИГРА */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(214, 51, 132, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(214, 51, 132, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(214, 51, 132, 0); }
+        }
+
         #gameCanvas {
             border: 3px solid #d63384;
             border-radius: 10px;
             display: block;
             margin: 15px auto;
-            cursor: none;
             max-width: 100%;
             height: auto;
         }
@@ -323,7 +338,7 @@
             min-height: 40px;
         }
         
-        .logout-btn:hover, .logout-btn:active {
+        .logout-btn:active {
             background: #d63384;
             color: white;
         }
@@ -350,10 +365,14 @@
             color: #d63384;
         }
         
-        /* Адаптация для очень маленьких экранов */
+        .day-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
         @media (max-width: 360px) {
             .grid {
-                grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
             }
             
@@ -371,7 +390,6 @@
             }
         }
         
-        /* Адаптация для планшетов */
         @media (min-width: 768px) {
             .grid {
                 grid-template-columns: repeat(5, 1fr);
@@ -386,7 +404,6 @@
 </head>
 <body>
 
-    <!-- СТРАНИЦА ВХОДА -->
     <div class="login-screen" id="loginScreen">
         <div class="login-box">
             <h2>❤️ Добро пожаловать ❤️</h2>
@@ -397,20 +414,18 @@
         </div>
     </div>
 
-    <!-- ОСНОВНОЙ САЙТ -->
     <div class="main-site" id="mainSite">
         <button class="logout-btn" onclick="logout()">Выйти</button>
         <h1>10 Дней до встречи ❤️</h1>
-        <p class="subtitle">Каждый день здесь будет открываться новое задание для тебя</p>
+        <p class="subtitle">Каждый день открывается новое задание</p>
 
         <div class="grid" id="calendarGrid"></div>
         
         <div class="footer-note">
-            <strong>Маленькая просьба:</strong> пожалуйста, проходи задания по порядку — каждый день по одному. Так будет интереснее, и я смогу ждать твоих ответов с нетерпением! Но если очень хочется заглянуть вперёд — я не буду ругаться 😉
+            <strong>Маленькая просьба:</strong> пожалуйста, проходи задания по порядку — каждый день по одному. Так будет интереснее! 😉
         </div>
     </div>
 
-    <!-- Модальное окно -->
     <div class="modal" id="taskModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">&times;</button>
@@ -429,12 +444,12 @@
             <button class="btn" id="completeBtn" onclick="completeTask()">Я выполнила! 💖</button>
             
             <div class="game-win" id="gameWin">
-                <h3>🎉 Поздравляю! </h3>
+                <h3>🎉 Поздравляю! 🎉</h3>
                 <p>Ты поймала 67 сердечек! Вот твой секрет:</p>
             </div>
             
             <div class="game-lose" id="gameLose">
-                <h3> Время вышло!</h3>
+                <h3>😔 Время вышло!</h3>
                 <p>Ты поймала <span id="finalScore">0</span> из 67 сердечек. Попробуй ещё раз!</p>
                 <button class="btn" onclick="startGame()" style="margin-top: 15px;">Играть снова 🔄</button>
             </div>
@@ -446,7 +461,6 @@
     </div>
 
     <script>
-        // --- ПРОВЕРКА ДАТЫ ---
         const correctDate = '2026-03-27';
         
         if (localStorage.getItem('loggedIn') === 'true') {
@@ -479,9 +493,11 @@
             location.reload();
         }
         
-        // --- ЗАДАНИЯ ---
+        // СТАРТОВАЯ ДАТА — СЕГОДНЯ (5 июля 2026)
+        const startDate = new Date('2026-07-05');
+        
         const tasks = [
-            { title: "День 1: 🎮 МИНИ-ИГРА!", desc: "Поймай 67 сердечек за 2 минуты! Двигай корзинку пальцем.", secret: "Ты поймала моё сердце! Я люблю тебя бесконечно ❤️", isGame: true },
+            { title: "День 1:  МИНИ-ИГРА!", desc: "Поймай 67 сердечек за 2 минуты! Двигай корзинку пальцем.", secret: "Ты поймала моё сердце! Я люблю тебя бесконечно ❤️", isGame: true },
             { title: "День 2: Вкусный день", desc: "Купи себе сегодня что-то вкусное (кофе, десерт) и сфоткай. Это за мой счет!", secret: "Хочу кормить тебя вкусняшками каждый день." },
             { title: "День 3: Голос", desc: "Запиши голосовое сообщение, как ты скучаешь. Мне нужно услышать твой голос.", secret: "Твой голос — мой любимый звук во вселенной." },
             { title: "День 4: Исследователь", desc: "Найди в городе что-то странное или смешное и сфоткай.", secret: "С тобой даже скучный город стал бы интересным." },
@@ -493,16 +509,44 @@
             { title: "День 10: ФИНАЛ!", desc: "Собирай вещи! Я уже бегу встречать тебя.", secret: "Я тебя ОЧЕНЬ ЛЮБЛЮ. Скорее бы обнять!" }
         ];
 
-        // --- ЛОГИКА КАЛЕНДАРЯ ---
         function initCalendar() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
             const grid = document.getElementById('calendarGrid');
             grid.innerHTML = '';
 
             tasks.forEach((task, index) => {
+                const dayDate = new Date(startDate);
+                dayDate.setDate(startDate.getDate() + index);
+                
                 const card = document.createElement('div');
-                card.className = 'card active';
-                card.innerHTML = `<div class="day-number">${index + 1}</div><div>День</div>`;
-                card.onclick = () => openModal(index);
+                card.className = 'card';
+                
+                const dayLabel = document.createElement('div');
+                dayLabel.className = 'day-label';
+                dayLabel.innerText = 'День';
+                
+                const dayNumber = document.createElement('div');
+                dayNumber.className = 'day-number';
+                dayNumber.innerText = index + 1;
+                
+                card.appendChild(dayNumber);
+                card.appendChild(dayLabel);
+                
+                if (today < dayDate) {
+                    // Будущее — заблокировано
+                    card.classList.add('locked');
+                } else if (today.getTime() === dayDate.getTime()) {
+                    // Сегодня — активно
+                    card.classList.add('active');
+                    card.onclick = () => openModal(index);
+                } else {
+                    // Прошлое — выполнено
+                    card.classList.add('done');
+                    card.onclick = () => openModal(index);
+                }
+                
                 grid.appendChild(card);
             });
         }
@@ -551,7 +595,6 @@
             }
         }
 
-        // --- МИНИ-ИГРА ---
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         
@@ -666,7 +709,6 @@
             gameInterval = requestAnimationFrame(gameLoop);
         }
 
-        // Управление тачем (для телефонов)
         canvas.addEventListener('touchmove', (e) => {
             e.preventDefault();
             const rect = canvas.getBoundingClientRect();
@@ -675,7 +717,6 @@
             basketX = Math.max(basketWidth / 2, Math.min(canvas.width - basketWidth / 2, basketX));
         }, { passive: false });
 
-        // Управление мышкой (для компьютеров)
         canvas.addEventListener('mousemove', (e) => {
             const rect = canvas.getBoundingClientRect();
             basketX = e.clientX - rect.left;
