@@ -18,8 +18,14 @@
             overflow-x: hidden;
         }
         
-        .login-screen, .main-site { display: none; }
-        .login-screen.active, .main-site.active { display: block; }
+        /* Экран входа - показывается по умолчанию */
+        .login-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+        }
         
         .login-box {
             background: white;
@@ -27,10 +33,12 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             max-width: 350px;
-            margin: 50px auto;
+            width: 100%;
         }
         
         .login-box h2 { color: #d63384; margin-bottom: 15px; font-size: 1.5rem; }
+        .login-box p { color: #666; margin-bottom: 20px; }
+        
         .login-box input {
             width: 100%;
             padding: 15px;
@@ -54,7 +62,18 @@
         }
         .btn:active { background: #a82268; }
         
+        .error-msg {
+            color: #dc3545;
+            margin-top: 10px;
+            display: none;
+            font-weight: bold;
+        }
+        
+        /* Основной сайт */
+        .main-site { display: none; }
+        
         h1 { color: #d63384; font-size: 1.8rem; margin-bottom: 10px; }
+        .subtitle { font-size: 1rem; color: #555; margin-bottom: 20px; }
         
         .grid {
             display: grid;
@@ -87,6 +106,7 @@
         .card.locked::after { content: "🔒"; font-size: 2rem; }
         .day-number { font-size: 1.8rem; font-weight: bold; color: #d63384; }
         
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -127,7 +147,7 @@
         .task-title { color: #d63384; font-size: 1.3rem; margin-bottom: 15px; }
         .task-desc { font-size: 1rem; line-height: 1.6; margin-bottom: 20px; }
         
-        /* Приветствие */
+        /* Приветствие рисовалки */
         .welcome-screen { display: none; text-align: center; }
         .welcome-screen.active { display: block; }
         .welcome-screen h2 { color: #d63384; font-size: 1.4rem; margin-bottom: 15px; }
@@ -286,34 +306,55 @@
             min-height: 45px;
             margin-top: 10px;
         }
+        
+        .footer-note {
+            max-width: 500px;
+            margin: 30px auto 20px;
+            padding: 20px 15px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .footer-note strong { color: #d63384; }
     </style>
 </head>
 <body>
 
+    <!-- ЭКРАН ВХОДА -->
     <div class="login-screen" id="loginScreen">
         <div class="login-box">
             <h2>❤️ Добро пожаловать ❤️</h2>
             <p>Введи дату начала наших отношений</p>
             <input type="date" id="dateInput">
             <button class="btn" onclick="checkDate()">Войти 💕</button>
+            <p class="error-msg" id="errorMsg">Неверная дата! Попробуй ещё раз 😔</p>
         </div>
     </div>
 
+    <!-- ОСНОВНОЙ САЙТ -->
     <div class="main-site" id="mainSite">
         <button class="logout-btn" onclick="logout()">Выйти</button>
         <h1>10 Дней до встречи ❤️</h1>
+        <p class="subtitle">Каждый день открывается новое задание</p>
         <div class="grid" id="calendarGrid"></div>
+        <div class="footer-note">
+            <strong>Маленькая просьба:</strong> пожалуйста, проходи задания по порядку — каждый день по одному 😉
+        </div>
     </div>
 
+    <!-- МОДАЛЬНОЕ ОКНО -->
     <div class="modal" id="taskModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">&times;</button>
             <h2 class="task-title" id="modalTitle"></h2>
             <p class="task-desc" id="modalDesc"></p>
             
-            <!-- Приветствие -->
+            <!-- Приветствие рисовалки -->
             <div class="welcome-screen" id="welcomeScreen">
-                <div class="welcome-emoji">🎨</div>
+                <div class="welcome-emoji"></div>
                 <h2>Сейчас мы будем рисовать!</h2>
                 <p>Выбери уровень сложности и покажи свои художественные таланты! Я тоже нарисовал свой вариант — потом сравним 😉</p>
                 <button class="btn" onclick="showLevels()">Выбрать уровень 🖌️</button>
@@ -357,9 +398,9 @@
                 
                 <div class="drawing-tools">
                     <input type="color" class="color-picker" id="colorPicker" value="#d63384">
-                    <button class="tool-btn" onclick="setTool('brush')">️ Кисть</button>
-                    <button class="tool-btn" onclick="setTool('eraser')">🧹 Ластик</button>
-                    <button class="tool-btn" onclick="clearCanvas()">🗑️ Очистить</button>
+                    <button class="tool-btn" onclick="setTool('brush', this)">🖌️ Кисть</button>
+                    <button class="tool-btn" onclick="setTool('eraser', this)"> Ластик</button>
+                    <button class="tool-btn" onclick="clearCanvas()">️ Очистить</button>
                 </div>
                 
                 <input type="range" class="brush-size" id="brushSize" min="2" max="20" value="5">
@@ -377,7 +418,7 @@
                         <p class="comparison-label">Твой рисунок</p>
                     </div>
                     <div>
-                        <img id="myDrawing" src="my-drawing.png" alt="Мой рисунок">
+                        <img id="myDrawing" src="" alt="Мой рисунок">
                         <p class="comparison-label">Мой рисунок</p>
                     </div>
                 </div>
@@ -388,6 +429,7 @@
                 <button class="btn" onclick="showSecret()" style="margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
+            <!-- Секретное сообщение -->
             <div class="secret-msg" id="secretMsg">
                 <p id="secretText"></p>
             </div>
@@ -396,13 +438,13 @@
 
     <script>
         // ===== НАСТРОЙКИ TELEGRAM =====
-        // ⚠️ ВСТАВЬ СЮДА НОВЫЙ ТОКЕН (после пересоздания в BotFather)
         const TELEGRAM_BOT_TOKEN = 'ВСТАВЬ_СЮДА_НОВЫЙ_ТОКЕН';
         const TELEGRAM_CHAT_ID = 'ВСТАВЬ_СЮДА_CHAT_ID';
         
         const correctDate = '2026-03-27';
         const startDate = new Date('2026-07-05');
         
+        // Проверяем, залогинен ли пользователь
         if (localStorage.getItem('loggedIn') === 'true') {
             showMainSite();
         }
@@ -412,12 +454,18 @@
             if (inputDate === correctDate) {
                 localStorage.setItem('loggedIn', 'true');
                 showMainSite();
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+                document.getElementById('dateInput').value = '';
+                setTimeout(() => {
+                    document.getElementById('errorMsg').style.display = 'none';
+                }, 3000);
             }
         }
         
         function showMainSite() {
-            document.getElementById('loginScreen').classList.remove('active');
-            document.getElementById('mainSite').classList.add('active');
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainSite').style.display = 'block';
             initCalendar();
         }
         
@@ -426,14 +474,10 @@
             location.reload();
         }
         
+        // ===== ЗАДАНИЯ =====
         const tasks = [
             { title: "День 1: МИНИ-ИГРА!", desc: "Поймай 67 сердечек за 2 минуты!", secret: "Ты поймала моё сердце! ❤️", isGame: true },
-            { 
-                title: "День 2: 🎨 РИСОВАЛКА!", 
-                desc: "Сегодня мы будем рисовать!", 
-                secret: "Ты рисуешь даже лучше меня! Люблю тебя! ❤️", 
-                isDrawing: true 
-            },
+            { title: "День 2: 🎨 РИСОВАЛКА!", desc: "Сегодня мы будем рисовать!", secret: "Ты рисуешь даже лучше меня! Люблю тебя! ❤️", isDrawing: true },
             { title: "День 3: Голос", desc: "Запиши голосовое сообщение, как ты скучаешь.", secret: "Твой голос — мой любимый звук." },
             { title: "День 4: Исследователь", desc: "Найди в городе что-то странное и сфоткай.", secret: "С тобой даже скучный город интересен." },
             { title: "День 5: Привет!", desc: "Сделай селфи из окна и скинь мне.", secret: "Ты самая красивая!" },
@@ -456,16 +500,16 @@
                 
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.innerHTML = `<div class="day-number">${index + 1}</div><div>День</div>`;
+                card.innerHTML = '<div class="day-number">' + (index + 1) + '</div><div>День</div>';
                 
                 if (today < dayDate) {
                     card.classList.add('locked');
                 } else if (today.getTime() === dayDate.getTime()) {
                     card.classList.add('active');
-                    card.onclick = () => openModal(index);
+                    card.onclick = (function(idx) { return function() { openModal(idx); }; })(index);
                 } else {
                     card.classList.add('done');
-                    card.onclick = () => openModal(index);
+                    card.onclick = (function(idx) { return function() { openModal(idx); }; })(index);
                 }
                 
                 grid.appendChild(card);
@@ -480,14 +524,17 @@
         };
 
         function openModal(index) {
+            // Сбрасываем все экраны модалки
+            document.getElementById('welcomeScreen').classList.remove('active');
+            document.getElementById('levelSelection').classList.remove('active');
+            document.getElementById('drawingContainer').classList.remove('active');
+            document.getElementById('comparison').classList.remove('active');
+            document.getElementById('secretMsg').classList.remove('active');
+            document.getElementById('statusMsg').className = 'status-msg';
+            
             document.getElementById('modalTitle').innerText = tasks[index].title;
             document.getElementById('modalDesc').innerText = tasks[index].desc;
             document.getElementById('secretText').innerText = tasks[index].secret;
-            document.getElementById('secretMsg').classList.remove('active');
-            document.getElementById('comparison').classList.remove('active');
-            document.getElementById('drawingContainer').classList.remove('active');
-            document.getElementById('welcomeScreen').classList.remove('active');
-            document.getElementById('levelSelection').classList.remove('active');
             
             if (tasks[index].isDrawing) {
                 document.getElementById('welcomeScreen').classList.add('active');
@@ -510,7 +557,7 @@
             }
         }
 
-        // ===== УПРАВЛЕНИЕ ЭКРАНАМИ =====
+        // ===== УПРАВЛЕНИЕ ЭКРАНАМИ РИСОВАЛКИ =====
         function showLevels() {
             document.getElementById('welcomeScreen').classList.remove('active');
             document.getElementById('levelSelection').classList.add('active');
@@ -526,6 +573,11 @@
             document.getElementById('levelSelection').classList.remove('active');
             document.getElementById('drawingContainer').classList.add('active');
             document.getElementById('currentLevel').innerText = 'Рисуем: ' + levelNames[level];
+            
+            // Показываем правильный рисунок для сравнения
+            const myDrawing = document.getElementById('myDrawing');
+            myDrawing.src = 'my-drawing-' + level + '.png';
+            
             initDrawing();
         }
 
@@ -538,7 +590,7 @@
 
         async function sendToTelegram() {
             if (TELEGRAM_BOT_TOKEN === 'ВСТАВЬ_СЮДА_НОВЫЙ_ТОКЕН') {
-                showStatus('❌ Токен бота не настроен! Напиши своему парню ', 'error');
+                showStatus('❌ Токен бота не настроен! Напиши своему парню', 'error');
                 return;
             }
             
@@ -546,7 +598,7 @@
             
             try {
                 const canvas = document.getElementById('drawingCanvas');
-                canvas.toBlob(async (blob) => {
+                canvas.toBlob(async function(blob) {
                     const formData = new FormData();
                     formData.append('chat_id', TELEGRAM_CHAT_ID);
                     formData.append('photo', blob, 'drawing.png');
@@ -554,13 +606,13 @@
                     const levelEmoji = {
                         'sun': '☀️',
                         'heart': '💖',
-                        'cat': '🐱'
+                        'cat': ''
                     };
                     
-                    const caption = `🎨 Рисунок от любимой!\nУровень: ${levelEmoji[currentLevel]} ${levelNames[currentLevel]}\n📅 День 2`;
+                    const caption = '🎨 Рисунок от любимой!\nУровень: ' + levelEmoji[currentLevel] + ' ' + levelNames[currentLevel] + '\n📅 День 2';
                     formData.append('caption', caption);
                     
-                    const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+                    const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendPhoto', {
                         method: 'POST',
                         body: formData
                     });
@@ -646,10 +698,10 @@
         canvas.addEventListener('touchmove', draw, { passive: false });
         canvas.addEventListener('touchend', stopDraw);
 
-        function setTool(tool) {
+        function setTool(tool, btn) {
             currentTool = tool;
-            document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
         }
 
         function clearCanvas() {
@@ -659,13 +711,15 @@
             }
         }
 
-        document.getElementById('brushSize').addEventListener('input', (e) => {
+        document.getElementById('brushSize').addEventListener('input', function(e) {
             document.getElementById('brushSizeValue').innerText = e.target.value;
         });
 
         function finishDrawing() {
             const userCanvas = document.getElementById('userDrawing');
             const userCtx = userCanvas.getContext('2d');
+            userCtx.fillStyle = 'white';
+            userCtx.fillRect(0, 0, 175, 175);
             userCtx.drawImage(canvas, 0, 0, 175, 175);
             
             document.getElementById('drawingContainer').classList.remove('active');
