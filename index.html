@@ -326,7 +326,7 @@
 
     <div class="main-site" id="mainSite">
         <button class="logout-btn" onclick="logout()">Выйти</button>
-        <h1> ❤️</h1>
+        <h1>10 Дней до встречи ❤️</h1>
         <p class="subtitle">Все задания открыты! Проходи в любом порядке 😉</p>
         <div class="grid" id="calendarGrid"></div>
         <div class="footer-note">
@@ -342,8 +342,8 @@
             
             <div class="welcome-screen" id="welcomeScreen">
                 <div class="welcome-emoji">🎨</div>
-                <h2>Сейчас ты будешь рисовать!</h2>
-                <p>3 картинки на выбор 😉</p>
+                <h2>Сейчас мы будем рисовать!</h2>
+                <p>Выбери уровень сложности и покажи свои художественные таланты! Я тоже нарисовал свой вариант — потом сравним 😉</p>
                 <button class="btn" onclick="showLevels()">Выбрать уровень 🖌️</button>
             </div>
             
@@ -383,7 +383,7 @@
                 
                 <div class="drawing-tools">
                     <input type="color" class="color-picker" id="colorPicker" value="#d63384">
-                    <button class="tool-btn" onclick="setTool('brush', this)">️ Кисть</button>
+                    <button class="tool-btn" onclick="setTool('brush', this)">🖌️ Кисть</button>
                     <button class="tool-btn" onclick="setTool('eraser', this)">🧹 Ластик</button>
                     <button class="tool-btn" onclick="clearCanvas()">🗑️ Очистить</button>
                 </div>
@@ -395,7 +395,7 @@
             </div>
             
             <div class="comparison" id="comparison">
-                <h3> Сравним рисунки!</h3>
+                <h3>🎨 Сравним рисунки!</h3>
                 <div class="comparison-images">
                     <div>
                         <canvas id="userDrawing" width="175" height="175"></canvas>
@@ -422,7 +422,7 @@
     <script>
         // ===== НАСТРОЙКИ TELEGRAM =====
         const TELEGRAM_BOT_TOKEN = '8787381211:AAELtNBhvaCCRiMXQAdbirB-XQUM01A9-cY';
-        const TELEGRAM_CHAT_ID = '8787381211';
+        const TELEGRAM_CHAT_ID = '805970318';
         
         const correctDate = '2026-03-27';
         
@@ -468,7 +468,6 @@
             { title: "День 10: ФИНАЛ!", desc: "Собирай вещи! Я уже бегу!", secret: "Я тебя ОЧЕНЬ ЛЮБЛЮ!" }
         ];
 
-        // ✅ ВСЕ ЗАДАНИЯ РАЗБЛОКИРОВАНЫ СРАЗУ
         function initCalendar() {
             const grid = document.getElementById('calendarGrid');
             grid.innerHTML = '';
@@ -553,11 +552,6 @@
         }
 
         async function sendToTelegram() {
-            if (TELEGRAM_BOT_TOKEN === 'ВСТАВЬ_СЮДА_НОВЫЙ_ТОКЕН') {
-                showStatus('❌ Токен бота не настроен! Напиши своему парню', 'error');
-                return;
-            }
-            
             showStatus('⏳ Отправляю рисунок...', 'loading');
             
             try {
@@ -576,7 +570,7 @@
                     const caption = '🎨 Рисунок от любимой!\nУровень: ' + levelEmoji[currentLevel] + ' ' + levelNames[currentLevel] + '\n📅 День 2';
                     formData.append('caption', caption);
                     
-                    const response = await fetch('https://api.telegram.org/bot' + 8787381211 + '/sendPhoto', {
+                    const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendPhoto', {
                         method: 'POST',
                         body: formData
                     });
@@ -586,11 +580,11 @@
                     if (result.ok) {
                         showStatus('✅ Рисунок отправлен в Telegram!', 'success');
                     } else {
-                        showStatus(' Ошибка: ' + result.description, 'error');
+                        showStatus('❌ Ошибка: ' + result.description, 'error');
                     }
                 }, 'image/png');
             } catch (error) {
-                showStatus(' Ошибка: ' + error.message, 'error');
+                showStatus('❌ Ошибка: ' + error.message, 'error');
             }
         }
 
