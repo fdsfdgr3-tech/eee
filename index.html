@@ -170,10 +170,10 @@
         .level-name { font-weight: bold; color: #d63384; font-size: 1.05rem; }
         .level-desc { font-size: 0.85rem; color: #666; margin-top: 3px; }
         
-        .drawing-container { display: none; }
-        .drawing-container.active { display: block; }
+        .drawing-container, .game-container, .quiz-container { display: none; }
+        .drawing-container.active, .game-container.active, .quiz-container.active { display: block; }
         
-        .current-level {
+        .current-level, .quiz-progress {
             background: #fff0f5;
             padding: 10px;
             border-radius: 10px;
@@ -183,7 +183,7 @@
             font-weight: bold;
         }
         
-        #drawingCanvas {
+        #drawingCanvas, #gameCanvas {
             border: 3px solid #d63384;
             border-radius: 10px;
             background: white;
@@ -228,14 +228,87 @@
         
         .brush-size { width: 100%; margin: 8px 0; }
         
+        .game-info {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #d63384;
+        }
+        
+        .timer { font-size: 1.2rem; color: #d63384; font-weight: bold; }
+        
+        /* Стили для загадок */
+        .quiz-question {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe0ec 100%);
+            padding: 20px 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: #333;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quiz-answers {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .answer-btn {
+            background: white;
+            border: 2px solid #ffb6c1;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            min-height: 50px;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        
+        .answer-btn:active { transform: scale(0.98); }
+        
+        .answer-btn.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .answer-btn.wrong {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .answer-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .quiz-feedback {
+            padding: 12px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 0.95rem;
+            display: none;
+        }
+        
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct { background: #d4edda; color: #155724; }
+        .quiz-feedback.wrong { background: #f8d7da; color: #721c24; }
+        
         .comparison { display: none; margin-top: 20px; }
         .comparison.active { display: block; }
         .comparison h3 { color: #d63384; margin-bottom: 15px; }
         
-        .user-drawing-container {
-            margin: 15px 0;
-        }
-        
+        .user-drawing-container { margin: 15px 0; }
         .user-drawing-container canvas {
             width: 100%;
             max-width: 300px;
@@ -243,11 +316,7 @@
             border: 2px solid #ddd;
         }
         
-        .comparison-label { 
-            font-size: 0.85rem; 
-            color: #666; 
-            margin-top: 5px; 
-        }
+        .comparison-label { font-size: 0.85rem; color: #666; margin-top: 5px; }
         
         .secret-msg {
             display: none;
@@ -269,6 +338,29 @@
         .status-msg.success { background: #d4edda; color: #155724; display: block; }
         .status-msg.error { background: #f8d7da; color: #721c24; display: block; }
         .status-msg.loading { background: #fff3cd; color: #856404; display: block; }
+        
+        .game-win, .game-lose {
+            display: none;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .game-win { background: #d4edda; }
+        .game-win h3 { color: #28a745; margin-bottom: 10px; }
+        .game-lose { background: #f8d7da; }
+        .game-lose h3 { color: #dc3545; margin-bottom: 10px; }
+        
+        .quiz-complete {
+            display: none;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        .quiz-complete.active { display: block; }
+        .quiz-complete h3 { color: #28a745; margin-bottom: 10px; }
         
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(214, 51, 132, 0.7); }
@@ -344,6 +436,30 @@
             <h2 class="task-title" id="modalTitle"></h2>
             <p class="task-desc" id="modalDesc"></p>
             
+            <!-- ИГРА С СЕРДЕЧКАМИ -->
+            <div class="game-container" id="gameContainer">
+                <div class="game-info">
+                    <div>Поймано: <span id="score">0</span>/67</div>
+                    <div class="timer">⏱️ <span id="timer">2:00</span></div>
+                </div>
+                <canvas id="gameCanvas" width="350" height="450"></canvas>
+                <p style="text-align: center; color: #666; font-size: 0.9rem;">Двигай пальцем, чтобы ловить сердечки!</p>
+                
+                <div class="game-win" id="gameWin">
+                    <h3>🎉 Поздравляю! 🎉</h3>
+                    <p>Ты поймала 67 сердечек!</p>
+                </div>
+                
+                <div class="game-lose" id="gameLose">
+                    <h3>😔 Время вышло!</h3>
+                    <p>Ты поймала <span id="finalScore">0</span> из 67 сердечек.</p>
+                    <button class="btn" onclick="startGame()" style="margin-top: 15px;">Играть снова 🔄</button>
+                </div>
+                
+                <button class="btn" id="gameCompleteBtn" onclick="showSecret()">Я выполнила! 💖</button>
+            </div>
+            
+            <!-- РИСОВАЛКА -->
             <div class="welcome-screen" id="welcomeScreen">
                 <div class="welcome-emoji">🎨</div>
                 <h2>Сейчас мы будем рисовать!</h2>
@@ -398,6 +514,26 @@
                 <button class="btn" onclick="finishDrawing()">Готово! 💖</button>
             </div>
             
+            <!-- ЗАГАДКИ -->
+            <div class="quiz-container" id="quizContainer">
+                <div class="quiz-progress" id="quizProgress">Загадка 1 из 5</div>
+                
+                <div class="quiz-question" id="quizQuestion"></div>
+                
+                <div class="quiz-answers" id="quizAnswers"></div>
+                
+                <div class="quiz-feedback" id="quizFeedback"></div>
+                
+                <button class="btn" id="nextQuestionBtn" onclick="nextQuestion()" style="display: none;">Следующая загадка →</button>
+                
+                <div class="quiz-complete" id="quizComplete">
+                    <h3>🎉 Все загадки разгаданы! 🎉</h3>
+                    <p>Ты ответила правильно на <span id="quizScore">0</span> из 5 загадок!</p>
+                </div>
+                
+                <button class="btn" id="quizCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
+            </div>
+            
             <div class="comparison" id="comparison">
                 <h3>🎨 Твой рисунок!</h3>
                 <div class="user-drawing-container">
@@ -418,10 +554,8 @@
     </div>
 
     <script>
-        // ===== НАСТРОЙКИ TELEGRAM =====
         const TELEGRAM_BOT_TOKEN = '8787381211:AAELtNBhvaCCRiMXQAdbirB-XQUM01A9-cY';
         const TELEGRAM_CHAT_ID = '805970318';
-        
         const correctDate = '2026-03-27';
         
         if (localStorage.getItem('loggedIn') === 'true') {
@@ -456,7 +590,7 @@
         const tasks = [
             { title: "День 1: МИНИ-ИГРА!", desc: "Поймай 67 сердечек за 2 минуты!", secret: "Ты поймала моё сердце! ❤️", isGame: true },
             { title: "День 2: 🎨 РИСОВАЛКА!", desc: "Сегодня мы будем рисовать!", secret: "Ты рисуешь даже лучше меня! Люблю тебя! ❤️", isDrawing: true },
-            { title: "День 3: Голос", desc: "Запиши голосовое сообщение, как ты скучаешь.", secret: "Твой голос — мой любимый звук." },
+            { title: "День 3:  ЗАГАДКИ!", desc: "Ответь на 5 загадок про любовь!", secret: "Ты знаешь о любви всё! А я знаю всё о тебе ❤️", isQuiz: true },
             { title: "День 4: Исследователь", desc: "Найди в городе что-то странное и сфоткай.", secret: "С тобой даже скучный город интересен." },
             { title: "День 5: Привет!", desc: "Сделай селфи из окна и скинь мне.", secret: "Ты самая красивая!" },
             { title: "День 6: Киновечер", desc: "Посмотри фильм и думай обо мне.", secret: "Моя главная роль — быть рядом с тобой." },
@@ -485,7 +619,7 @@
         const levelNames = {
             'sun': '☀️ Солнышко',
             'heart': '💖 Милое сердечко',
-            'cat': '🐱 Котик'
+            'cat': ' Котик'
         };
 
         function openModal(index) {
@@ -493,15 +627,25 @@
             document.getElementById('levelSelection').classList.remove('active');
             document.getElementById('drawingContainer').classList.remove('active');
             document.getElementById('comparison').classList.remove('active');
+            document.getElementById('gameContainer').classList.remove('active');
+            document.getElementById('quizContainer').classList.remove('active');
             document.getElementById('secretMsg').classList.remove('active');
             document.getElementById('statusMsg').className = 'status-msg';
+            document.getElementById('gameWin').style.display = 'none';
+            document.getElementById('gameLose').style.display = 'none';
             
             document.getElementById('modalTitle').innerText = tasks[index].title;
             document.getElementById('modalDesc').innerText = tasks[index].desc;
             document.getElementById('secretText').innerText = tasks[index].secret;
             
-            if (tasks[index].isDrawing) {
+            if (tasks[index].isGame) {
+                document.getElementById('gameContainer').classList.add('active');
+                startGame();
+            } else if (tasks[index].isDrawing) {
                 document.getElementById('welcomeScreen').classList.add('active');
+            } else if (tasks[index].isQuiz) {
+                document.getElementById('quizContainer').classList.add('active');
+                startQuiz();
             }
             
             document.getElementById('taskModal').classList.add('active');
@@ -510,6 +654,14 @@
 
         function closeModal() {
             document.getElementById('taskModal').classList.remove('active');
+            if (gameInterval) {
+                cancelAnimationFrame(gameInterval);
+                gameInterval = null;
+            }
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
         }
 
         function showSecret() {
@@ -582,6 +734,271 @@
             }
         }
 
+        // ===== ИГРА С СЕРДЕЧКАМИ =====
+        const gameCanvas = document.getElementById('gameCanvas');
+        const gameCtx = gameCanvas.getContext('2d');
+        let hearts = [];
+        let score = 0;
+        let timeLeft = 120;
+        let gameInterval = null;
+        let timerInterval = null;
+        let basketX = gameCanvas.width / 2;
+        const basketWidth = 70;
+        const basketHeight = 20;
+        const maxScore = 67;
+        const gameTime = 120;
+
+        function drawHeart(x, y, size) {
+            gameCtx.fillStyle = '#ff4d6d';
+            gameCtx.beginPath();
+            const topCurveHeight = size * 0.3;
+            gameCtx.moveTo(x, y + topCurveHeight);
+            gameCtx.bezierCurveTo(x, y, x - size / 2, y, x - size / 2, y + topCurveHeight);
+            gameCtx.bezierCurveTo(x - size / 2, y + (size + topCurveHeight) / 2, x, y + (size + topCurveHeight) / 1.5, x, y + size);
+            gameCtx.bezierCurveTo(x, y + (size + topCurveHeight) / 1.5, x + size / 2, y + (size + topCurveHeight) / 2, x + size / 2, y + topCurveHeight);
+            gameCtx.bezierCurveTo(x + size / 2, y, x, y, x, y + topCurveHeight);
+            gameCtx.closePath();
+            gameCtx.fill();
+        }
+
+        function drawBasket() {
+            gameCtx.fillStyle = '#d63384';
+            gameCtx.fillRect(basketX - basketWidth / 2, gameCanvas.height - basketHeight - 10, basketWidth, basketHeight);
+            gameCtx.strokeStyle = '#d63384';
+            gameCtx.lineWidth = 3;
+            gameCtx.beginPath();
+            gameCtx.arc(basketX - basketWidth / 3, gameCanvas.height - basketHeight - 10, 12, Math.PI, 0);
+            gameCtx.stroke();
+            gameCtx.beginPath();
+            gameCtx.arc(basketX + basketWidth / 3, gameCanvas.height - basketHeight - 10, 12, Math.PI, 0);
+            gameCtx.stroke();
+        }
+
+        function createHeart() {
+            hearts.push({
+                x: Math.random() * (gameCanvas.width - 40) + 20,
+                y: -30,
+                size: 30 + Math.random() * 15,
+                speed: 1 + Math.random() * 1.5
+            });
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').innerText = minutes + ':' + seconds.toString().padStart(2, '0');
+            
+            if (timeLeft <= 0) {
+                loseGame();
+            }
+        }
+
+        function gameLoop() {
+            gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+            gameCtx.fillStyle = '#ffeef8';
+            gameCtx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+            
+            drawBasket();
+            
+            for (let i = hearts.length - 1; i >= 0; i--) {
+                const heart = hearts[i];
+                heart.y += heart.speed;
+                
+                drawHeart(heart.x, heart.y, heart.size);
+                
+                if (heart.y + heart.size/2 > gameCanvas.height - basketHeight - 10 &&
+                    heart.y < gameCanvas.height - 10 &&
+                    heart.x > basketX - basketWidth / 2 &&
+                    heart.x < basketX + basketWidth / 2) {
+                    hearts.splice(i, 1);
+                    score++;
+                    document.getElementById('score').innerText = score;
+                    
+                    if (score >= maxScore) {
+                        winGame();
+                        return;
+                    }
+                }
+                else if (heart.y > gameCanvas.height + 50) {
+                    hearts.splice(i, 1);
+                }
+            }
+            
+            if (Math.random() < 0.04) {
+                createHeart();
+            }
+            
+            gameInterval = requestAnimationFrame(gameLoop);
+        }
+
+        gameCanvas.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            const rect = gameCanvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            basketX = touch.clientX - rect.left;
+            basketX = Math.max(basketWidth / 2, Math.min(gameCanvas.width - basketWidth / 2, basketX));
+        }, { passive: false });
+
+        gameCanvas.addEventListener('mousemove', function(e) {
+            const rect = gameCanvas.getBoundingClientRect();
+            basketX = e.clientX - rect.left;
+            basketX = Math.max(basketWidth / 2, Math.min(gameCanvas.width - basketWidth / 2, basketX));
+        });
+
+        function startGame() {
+            hearts = [];
+            score = 0;
+            timeLeft = gameTime;
+            document.getElementById('score').innerText = score;
+            document.getElementById('timer').innerText = '2:00';
+            document.getElementById('gameWin').style.display = 'none';
+            document.getElementById('gameLose').style.display = 'none';
+            document.getElementById('gameCompleteBtn').style.display = 'block';
+            
+            if (gameInterval) {
+                cancelAnimationFrame(gameInterval);
+            }
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            gameLoop();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function winGame() {
+            cancelAnimationFrame(gameInterval);
+            clearInterval(timerInterval);
+            gameInterval = null;
+            timerInterval = null;
+            document.getElementById('gameWin').style.display = 'block';
+            document.getElementById('gameCompleteBtn').style.display = 'none';
+        }
+
+        function loseGame() {
+            cancelAnimationFrame(gameInterval);
+            clearInterval(timerInterval);
+            gameInterval = null;
+            timerInterval = null;
+            document.getElementById('finalScore').innerText = score;
+            document.getElementById('gameLose').style.display = 'block';
+            document.getElementById('gameCompleteBtn').style.display = 'none';
+        }
+
+        // ===== ЗАГАДКИ =====
+        const quizData = [
+            {
+                question: "Что бьётся быстрее, когда ты видишь любимого человека?",
+                answers: ["Голова", "Сердце", "Нога", "Рука"],
+                correct: 1
+            },
+            {
+                question: "Сколько слов нужно, чтобы сказать самое важное?",
+                answers: ["Одно", "Два", "Три", "Десять"],
+                correct: 2
+            },
+            {
+                question: "Что растёт, когда его делишь с любимым?",
+                answers: ["Долги", "Счастье", "Проблемы", "Вес"],
+                correct: 1
+            },
+            {
+                question: "Что нельзя купить, но можно подарить?",
+                answers: ["Дом", "Машину", "Любовь", "Телефон"],
+                correct: 2
+            },
+            {
+                question: "Что сильнее всего на свете?",
+                answers: ["Ветер", "Огонь", "Любовь", "Вода"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let quizScore = 0;
+        let quizAnswered = false;
+
+        function startQuiz() {
+            currentQuestion = 0;
+            quizScore = 0;
+            quizAnswered = false;
+            document.getElementById('quizComplete').classList.remove('active');
+            document.getElementById('quizCompleteBtn').style.display = 'none';
+            document.getElementById('nextQuestionBtn').style.display = 'none';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            quizAnswered = false;
+            const q = quizData[currentQuestion];
+            
+            document.getElementById('quizProgress').innerText = 'Загадка ' + (currentQuestion + 1) + ' из ' + quizData.length;
+            document.getElementById('quizQuestion').innerText = q.question;
+            document.getElementById('quizFeedback').className = 'quiz-feedback';
+            document.getElementById('quizFeedback').style.display = 'none';
+            document.getElementById('nextQuestionBtn').style.display = 'none';
+            
+            const answersContainer = document.getElementById('quizAnswers');
+            answersContainer.innerHTML = '';
+            
+            q.answers.forEach(function(answer, index) {
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.innerText = answer;
+                btn.onclick = function() { checkAnswer(index, btn); };
+                answersContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(index, btn) {
+            if (quizAnswered) return;
+            quizAnswered = true;
+            
+            const q = quizData[currentQuestion];
+            const feedback = document.getElementById('quizFeedback');
+            const allBtns = document.querySelectorAll('.answer-btn');
+            
+            allBtns.forEach(function(b) { b.disabled = true; });
+            
+            if (index === q.correct) {
+                btn.classList.add('correct');
+                quizScore++;
+                feedback.innerText = '✅ Правильно! Молодец!';
+                feedback.className = 'quiz-feedback correct show';
+            } else {
+                btn.classList.add('wrong');
+                allBtns[q.correct].classList.add('correct');
+                feedback.innerText = '❌ Неправильно! Правильный ответ: ' + q.answers[q.correct];
+                feedback.className = 'quiz-feedback wrong show';
+            }
+            
+            if (currentQuestion < quizData.length - 1) {
+                document.getElementById('nextQuestionBtn').style.display = 'block';
+                document.getElementById('nextQuestionBtn').innerText = 'Следующая загадка →';
+            } else {
+                setTimeout(finishQuiz, 1500);
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            showQuestion();
+        }
+
+        function finishQuiz() {
+            document.getElementById('quizAnswers').innerHTML = '';
+            document.getElementById('quizQuestion').style.display = 'none';
+            document.getElementById('quizProgress').style.display = 'none';
+            document.getElementById('quizFeedback').style.display = 'none';
+            document.getElementById('nextQuestionBtn').style.display = 'none';
+            
+            document.getElementById('quizScore').innerText = quizScore;
+            document.getElementById('quizComplete').classList.add('active');
+            document.getElementById('quizCompleteBtn').style.display = 'block';
+        }
+
+        // ===== РИСОВАЛКА =====
         const canvas = document.getElementById('drawingCanvas');
         const ctx = canvas.getContext('2d');
         let isDrawing = false;
