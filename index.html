@@ -232,18 +232,22 @@
         .comparison.active { display: block; }
         .comparison h3 { color: #d63384; margin-bottom: 15px; }
         
-        .comparison-images {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+        .user-drawing-container {
             margin: 15px 0;
         }
-        .comparison-images img, .comparison-images canvas {
+        
+        .user-drawing-container canvas {
             width: 100%;
+            max-width: 300px;
             border-radius: 10px;
             border: 2px solid #ddd;
         }
-        .comparison-label { font-size: 0.85rem; color: #666; margin-top: 5px; }
+        
+        .comparison-label { 
+            font-size: 0.85rem; 
+            color: #666; 
+            margin-top: 5px; 
+        }
         
         .secret-msg {
             display: none;
@@ -343,7 +347,7 @@
             <div class="welcome-screen" id="welcomeScreen">
                 <div class="welcome-emoji">🎨</div>
                 <h2>Сейчас мы будем рисовать!</h2>
-                <p>Выбери уровень сложности и покажи свои художественные таланты! Я тоже нарисовал свой вариант — потом сравним 😉</p>
+                <p>Выбери уровень сложности и покажи свои художественные таланты! 🎨</p>
                 <button class="btn" onclick="showLevels()">Выбрать уровень 🖌️</button>
             </div>
             
@@ -391,20 +395,14 @@
                 <input type="range" class="brush-size" id="brushSize" min="2" max="20" value="5">
                 <p style="font-size: 0.85rem; color: #666;">Размер кисти: <span id="brushSizeValue">5</span>px</p>
                 
-                <button class="btn" onclick="finishDrawing()">Готово! Показать результат 💖</button>
+                <button class="btn" onclick="finishDrawing()">Готово! 💖</button>
             </div>
             
             <div class="comparison" id="comparison">
-                <h3>🎨 Сравним рисунки!</h3>
-                <div class="comparison-images">
-                    <div>
-                        <canvas id="userDrawing" width="175" height="175"></canvas>
-                        <p class="comparison-label">Твой рисунок</p>
-                    </div>
-                    <div>
-                        <img id="myDrawing" src="" alt="Мой рисунок">
-                        <p class="comparison-label">Мой рисунок</p>
-                    </div>
+                <h3>🎨 Твой рисунок!</h3>
+                <div class="user-drawing-container">
+                    <canvas id="userDrawing" width="300" height="300"></canvas>
+                    <p class="comparison-label">Молодец! Теперь отправь мне свой рисунок 💕</p>
                 </div>
                 
                 <div id="statusMsg" class="status-msg"></div>
@@ -538,10 +536,6 @@
             document.getElementById('levelSelection').classList.remove('active');
             document.getElementById('drawingContainer').classList.add('active');
             document.getElementById('currentLevel').innerText = 'Рисуем: ' + levelNames[level];
-            
-            const myDrawing = document.getElementById('myDrawing');
-            myDrawing.src = 'my-drawing-' + level + '.png';
-            
             initDrawing();
         }
 
@@ -676,8 +670,8 @@
             const userCanvas = document.getElementById('userDrawing');
             const userCtx = userCanvas.getContext('2d');
             userCtx.fillStyle = 'white';
-            userCtx.fillRect(0, 0, 175, 175);
-            userCtx.drawImage(canvas, 0, 0, 175, 175);
+            userCtx.fillRect(0, 0, 300, 300);
+            userCtx.drawImage(canvas, 0, 0, 300, 300);
             
             document.getElementById('drawingContainer').classList.remove('active');
             document.getElementById('comparison').classList.add('active');
