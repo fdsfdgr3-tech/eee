@@ -12,7 +12,7 @@
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
             color: #333;
             text-align: center;
-            padding: 15px;
+            padding: 10px;
             margin: 0;
             min-height: 100vh;
             overflow-x: hidden;
@@ -117,11 +117,11 @@
         
         .modal-content {
             background: white;
-            padding: 25px 20px;
+            padding: 20px 15px;
             border-radius: 20px;
             width: 100%;
-            max-width: 400px;
-            max-height: 90vh;
+            max-width: 95vw;
+            max-height: 95vh;
             overflow-y: auto;
             position: relative;
         }
@@ -139,8 +139,8 @@
             min-height: 40px;
         }
         
-        .task-title { color: #d63384; font-size: 1.3rem; margin-bottom: 15px; }
-        .task-desc { font-size: 1rem; line-height: 1.6; margin-bottom: 20px; }
+        .task-title { color: #d63384; font-size: 1.3rem; margin-bottom: 10px; }
+        .task-desc { font-size: 1rem; line-height: 1.5; margin-bottom: 15px; }
         
         .welcome-screen { display: none; text-align: center; }
         .welcome-screen.active { display: block; }
@@ -170,10 +170,10 @@
         .level-name { font-weight: bold; color: #d63384; font-size: 1.05rem; }
         .level-desc { font-size: 0.85rem; color: #666; margin-top: 3px; }
         
-        .drawing-container, .game-container, .quiz-container, .sticker-container { display: none; }
-        .drawing-container.active, .game-container.active, .quiz-container.active, .sticker-container.active { display: block; }
+        .drawing-container, .game-container, .quiz-container, .puzzle-container { display: none; }
+        .drawing-container.active, .game-container.active, .quiz-container.active, .puzzle-container.active { display: block; }
         
-        .current-level, .quiz-progress, .sticker-info {
+        .current-level, .quiz-progress, .puzzle-info {
             background: #fff0f5;
             padding: 10px;
             border-radius: 10px;
@@ -303,90 +303,55 @@
         .quiz-feedback.correct { background: #d4edda; color: #155724; }
         .quiz-feedback.wrong { background: #f8d7da; color: #721c24; }
         
-        .sticker-photo-wrapper {
-            position: relative;
+        /* ПАЗЛ */
+        .puzzle-preview {
             width: 100%;
-            max-width: 350px;
+            max-width: 300px;
             margin: 10px auto;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 3px solid #d63384;
-            cursor: crosshair;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-        
-        .sticker-photo-wrapper img.bg-photo {
-            width: 100%;
-            display: block;
-            pointer-events: none;
-        }
-        
-        .hidden-photo {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            border-radius: 8px;
-            pointer-events: none;
-            z-index: 5;
-            transition: opacity 0.5s;
-        }
-        
-        .sticker-target {
-            position: absolute;
-            cursor: pointer;
-            z-index: 10;
-            transform: translate(-50%, -50%);
-        }
-        
-        .sticker-found {
-            position: absolute;
-            transform: translate(-50%, -50%) scale(1.2);
-            animation: stickerPop 0.5s ease-out;
-            pointer-events: none;
-            z-index: 20;
-            border-radius: 8px;
-            border: 3px solid #28a745;
-            box-shadow: 0 0 20px rgba(40, 167, 69, 0.8);
-        }
-        
-        @keyframes stickerPop {
-            0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); }
-            50% { transform: translate(-50%, -50%) scale(1.5) rotate(180deg); }
-            100% { transform: translate(-50%, -50%) scale(1.2) rotate(360deg); }
-        }
-        
-        .sticker-hint {
-            padding: 12px;
             border-radius: 10px;
+            border: 3px solid #d63384;
+        }
+        
+        .puzzle-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            margin: 15px auto;
+            max-width: 350px;
+            background: #d63384;
+            padding: 3px;
+            border-radius: 10px;
+        }
+        
+        .puzzle-piece {
+            background-size: 300% 300%;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            aspect-ratio: 1;
+        }
+        
+        .puzzle-piece:active {
+            transform: scale(0.95);
+        }
+        
+        .puzzle-piece.selected {
+            box-shadow: 0 0 0 4px #ffd700, 0 0 15px rgba(255, 215, 0, 0.8);
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        
+        .puzzle-piece.correct {
+            box-shadow: inset 0 0 0 2px #28a745;
+        }
+        
+        .puzzle-stats {
+            display: flex;
+            justify-content: space-around;
             margin: 10px 0;
             font-size: 1rem;
             font-weight: bold;
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .sticker-hint.cold { background: #e0e7ff; color: #3730a3; }
-        .sticker-hint.warm { background: #fef3c7; color: #92400e; }
-        .sticker-hint.hot { background: #fee2e2; color: #991b1b; }
-        .sticker-hint.found { background: #d4edda; color: #155724; }
-        
-        .click-ripple {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border: 3px solid #d63384;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            animation: ripple 0.6s ease-out;
-            pointer-events: none;
-            z-index: 15;
-        }
-        
-        @keyframes ripple {
-            0% { width: 0; height: 0; opacity: 1; }
-            100% { width: 60px; height: 60px; opacity: 0; }
+            color: #d63384;
         }
         
         .comparison { display: none; margin-top: 20px; }
@@ -424,19 +389,19 @@
         .status-msg.error { background: #f8d7da; color: #721c24; display: block; }
         .status-msg.loading { background: #fff3cd; color: #856404; display: block; }
         
-        .game-win, .game-lose {
+        .game-win, .game-lose, .puzzle-win {
             display: none;
             padding: 20px;
             border-radius: 15px;
             margin-top: 20px;
             text-align: center;
         }
-        .game-win { background: #d4edda; }
-        .game-win h3 { color: #28a745; margin-bottom: 10px; }
+        .game-win, .puzzle-win { background: #d4edda; }
+        .game-win h3, .puzzle-win h3 { color: #28a745; margin-bottom: 10px; }
         .game-lose { background: #f8d7da; }
         .game-lose h3 { color: #dc3545; margin-bottom: 10px; }
         
-        .quiz-complete, .sticker-complete {
+        .quiz-complete {
             display: none;
             background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
             padding: 20px;
@@ -444,13 +409,23 @@
             margin-top: 15px;
             text-align: center;
         }
-        .quiz-complete.active, .sticker-complete.active { display: block; }
-        .quiz-complete h3, .sticker-complete h3 { color: #28a745; margin-bottom: 10px; }
+        .quiz-complete.active { display: block; }
+        .quiz-complete h3 { color: #28a745; margin-bottom: 10px; }
         
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(214, 51, 132, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(214, 51, 132, 0); }
             100% { box-shadow: 0 0 0 0 rgba(214, 51, 132, 0); }
+        }
+        
+        @keyframes celebrate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .celebrate {
+            animation: celebrate 0.5s ease-in-out 3;
         }
         
         .logout-btn {
@@ -615,62 +590,29 @@
                 <button class="btn" id="quizCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
-            <!-- НАЙДИ ФОТКУ - 3 УРОВНЯ -->
-            <div class="welcome-screen" id="stickerWelcomeScreen">
-                <div class="welcome-emoji">🔍</div>
-                <h2>Найди спрятанную фотку!</h2>
-                <p>На фото спрятана другая маленькая фотка. Используй подсказки "холодно/горячо" 💝</p>
-                <button class="btn" onclick="showStickerLevels()">Выбрать уровень 🎯</button>
-            </div>
-            
-            <div class="level-selection" id="stickerLevelSelection">
-                <h3 style="color: #d63384; margin-bottom: 15px;">Выбери уровень:</h3>
+            <!-- ПАЗЛ - ПРОСТОЙ, БЕЗ УРОВНЕЙ -->
+            <div class="puzzle-container" id="puzzleContainer">
+                <div id="puzzlePreviewContainer">
+                    <p style="color: #d63384; font-weight: bold; margin-bottom: 10px;">👀 Запомни фото! Оно исчезнет через <span id="previewTimer">3</span> сек...</p>
+                    <img id="puzzlePreview" class="puzzle-preview" src="" alt="Оригинал">
+                </div>
                 
-                <div class="level-btn" onclick="selectStickerLevel('easy')">
-                    <div class="level-emoji">🌳</div>
-                    <div class="level-info">
-                        <div class="level-name">Лёгкий — Парк</div>
-                        <div class="level-desc">Фотка большая и хорошо видна</div>
+                <div id="puzzleGameArea" style="display: none;">
+                    <div class="puzzle-stats">
+                        <div>🔄 Ходов: <span id="puzzleMoves">0</span></div>
+                        <div>⏱️ <span id="puzzleTimer">0:00</span></div>
                     </div>
+                    <div class="puzzle-board" id="puzzleBoard"></div>
+                    <button class="btn" onclick="showPuzzleHint()" style="margin-top: 10px; background: #6c757d;">👁️ Подсказка</button>
                 </div>
                 
-                <div class="level-btn" onclick="selectStickerLevel('medium')">
-                    <div class="level-emoji">🏙️</div>
-                    <div class="level-info">
-                        <div class="level-name">Средний — Город</div>
-                        <div class="level-desc">Фотка меньше, нужно поискать</div>
-                    </div>
+                <div class="puzzle-win" id="puzzleWin">
+                    <h3>🎉 Пазл собран! ❤️</h3>
+                    <p>За <span id="puzzleFinalMoves">0</span> ходов и <span id="puzzleFinalTime">0:00</span>!</p>
+                    <img id="puzzleFinalImage" class="puzzle-preview" src="" alt="Собранный пазл" style="margin-top: 15px;">
                 </div>
                 
-                <div class="level-btn" onclick="selectStickerLevel('hard')">
-                    <div class="level-emoji">🌆</div>
-                    <div class="level-info">
-                        <div class="level-name">Сложный — Закат</div>
-                        <div class="level-desc">Фотка очень маленькая, почти невидима</div>
-                    </div>
-                </div>
-                
-                <button class="back-btn" onclick="backToStickerWelcome()">← Назад</button>
-            </div>
-            
-            <div class="sticker-container" id="stickerContainer">
-                <div class="current-level" id="stickerCurrentLevel"></div>
-                <div class="sticker-info" id="stickerInfo">🔍 Попыток: 0</div>
-                
-                <div class="sticker-photo-wrapper" id="stickerPhotoWrapper">
-                    <img id="stickerPhoto" class="bg-photo" src="" alt="Найди фотку">
-                    <div class="sticker-target" id="stickerTarget"></div>
-                </div>
-                
-                <div class="sticker-hint" id="stickerHint">Нажми на фото, чтобы найти спрятанную фотку! 💝</div>
-                
-                <div class="sticker-complete" id="stickerComplete">
-                    <h3>🎉 Ты нашла фотку! 🎉</h3>
-                    <p>За <span id="stickerAttempts">0</span> попыток!</p>
-                </div>
-                
-                <button class="btn" id="stickerResetBtn" onclick="resetStickerGame()" style="display: none; margin-top: 10px;">Играть снова 🔄</button>
-                <button class="btn" id="stickerCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
+                <button class="btn" id="puzzleCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
             <div class="comparison" id="comparison">
@@ -696,6 +638,7 @@
         const TELEGRAM_BOT_TOKEN = '8787381211:AAELtNBhvaCCRiMXQAdbirB-XQUM01A9-cY';
         const TELEGRAM_CHAT_ID = '805970318';
         const correctDate = '2026-03-27';
+        const puzzleImage = 'https://sun9-26.userapi.com/s/v1/ig2/HfPKFAeNxgKflxlck8NmrBaUC96run9_Gp8cwV7AFTriJ0jD6vGap53Z-CMeLC8Q5-oXlR978tj7SdThkp9PorVw.jpg?quality=95&as=32x27,48x40,72x60,108x90,160x134,240x200,360x301,480x401,540x451,576x481&from=bu&u=m8uZYCmeWdc0uw4FuvEKGJnFUwte48VE6EzrIpa5yOs&cs=576x0';
         
         if (localStorage.getItem('loggedIn') === 'true') {
             showMainSite();
@@ -729,8 +672,8 @@
         const tasks = [
             { title: "День 1: МИНИ-ИГРА!", desc: "Поймай 67 сердечек за 2 минуты!", secret: "Ты поймала моё сердце! ❤️", isGame: true },
             { title: "День 2: 🎨 РИСОВАЛКА!", desc: "Сегодня мы будем рисовать!", secret: "Ты рисуешь даже лучше меня! Люблю тебя! ❤️", isDrawing: true },
-            { title: "День 3:  ЗАГАДКИ!", desc: "Ответь на 5 загадок про любовь!", secret: "Ты знаешь о любви всё! А я знаю всё о тебе ❤️", isQuiz: true },
-            { title: "День 4: 🔍 НАЙДИ ФОТКУ!", desc: "На фото спрятана другая фотка. Найди её!", secret: "Ты всегда находишь то, что я прячу — даже моё сердце! ❤️", isSticker: true },
+            { title: "День 3: 🔮 ЗАГАДКИ!", desc: "Ответь на 5 загадок про любовь!", secret: "Ты знаешь о любви всё! А я знаю всё о тебе ❤️", isQuiz: true },
+            { title: "День 4: 🧩 ПАЗЛ!", desc: "Собери разбитое фото!", secret: "Ты собрала мой мир по кусочкам — ты моё всё! ❤️", isPuzzle: true },
             { title: "День 5: Привет!", desc: "Сделай селфи из окна и скинь мне.", secret: "Ты самая красивая!" },
             { title: "День 6: Киновечер", desc: "Посмотри фильм и думай обо мне.", secret: "Моя главная роль — быть рядом с тобой." },
             { title: "День 7: Релакс", desc: "Сегодня день лени. Фоткай атмосферу.", secret: "Ты заслуживаешь отдыха." },
@@ -768,9 +711,7 @@
             document.getElementById('comparison').classList.remove('active');
             document.getElementById('gameContainer').classList.remove('active');
             document.getElementById('quizContainer').classList.remove('active');
-            document.getElementById('stickerWelcomeScreen').classList.remove('active');
-            document.getElementById('stickerLevelSelection').classList.remove('active');
-            document.getElementById('stickerContainer').classList.remove('active');
+            document.getElementById('puzzleContainer').classList.remove('active');
             document.getElementById('secretMsg').classList.remove('active');
             document.getElementById('statusMsg').className = 'status-msg';
             document.getElementById('gameWin').style.display = 'none';
@@ -788,8 +729,9 @@
             } else if (tasks[index].isQuiz) {
                 document.getElementById('quizContainer').classList.add('active');
                 startQuiz();
-            } else if (tasks[index].isSticker) {
-                document.getElementById('stickerWelcomeScreen').classList.add('active');
+            } else if (tasks[index].isPuzzle) {
+                document.getElementById('puzzleContainer').classList.add('active');
+                startPuzzleGame();
             }
             
             document.getElementById('taskModal').classList.add('active');
@@ -805,6 +747,10 @@
             if (timerInterval) {
                 clearInterval(timerInterval);
                 timerInterval = null;
+            }
+            if (puzzleTimerInterval) {
+                clearInterval(puzzleTimerInterval);
+                puzzleTimerInterval = null;
             }
         }
 
@@ -833,209 +779,6 @@
             document.getElementById('drawingContainer').classList.add('active');
             document.getElementById('currentLevel').innerText = 'Рисуем: ' + levelNames[level];
             initDrawing();
-        }
-
-        // ===== ФУНКЦИИ ДЛЯ ИГРЫ С ФОТКОЙ =====
-        function showStickerLevels() {
-            document.getElementById('stickerWelcomeScreen').classList.remove('active');
-            document.getElementById('stickerLevelSelection').classList.add('active');
-        }
-
-        function backToStickerWelcome() {
-            document.getElementById('stickerLevelSelection').classList.remove('active');
-            document.getElementById('stickerWelcomeScreen').classList.add('active');
-        }
-
-        // ============================================
-        // 📸 НАСТРОЙКИ ФОТО ДЛЯ ИГРЫ "НАЙДИ ФОТКУ"
-        // ============================================
-        
-        const stickerLevels = {
-            easy: {
-                // ФОН (большое фото парка)
-                background: 'https://www.desktopbackground.org/download/2048x1152/2015/04/01/926432_scenic-path-in-the-woods-wallpapers-3840x2160-wallpapers_2688x1512_h.jpg',
-                
-                // СПРЯТАННАЯ ФОТКА (которую надо найти)
-                hiddenPhoto: 'https://playerok.fra1.digitaloceanspaces.com/images/1f0dc661-0d7f-6a10-cdf8-77c078c42870.jpeg?timestamp=1766099137',
-                
-                // ГДЕ СПРЯТАНА ФОТКА (в процентах 0-100)
-                stickerLeft: 65,   // По горизонтали (65% = правее центра)
-                stickerTop: 40,    // По вертикали (40% = чуть выше центра)
-                
-                // РАЗМЕР СПРЯТАННОЙ ФОТКИ (в пикселях)
-                hiddenWidth: 100,  // Большая = легче найти
-                hiddenHeight: 100,
-                
-                // ПРОЗРАЧНОСТЬ (0.1 = почти невидима, 0.5 = хорошо видна)
-                opacity: 0.35,
-                
-                name: '🌳 Лёгкий — Парк'
-            },
-            
-            medium: {
-                background: 'https://www.desktopbackground.org/download/2048x1152/2015/04/01/926432_scenic-path-in-the-woods-wallpapers-3840x2160-wallpapers_2688x1512_h.jpg',
-                hiddenPhoto: 'https://playerok.fra1.digitaloceanspaces.com/images/1f0dc661-0d7f-6a10-cdf8-77c078c42870.jpeg?timestamp=1766099137',
-                
-                stickerLeft: 30,   // Слева
-                stickerTop: 60,    // Ниже центра
-                
-                hiddenWidth: 70,   // Меньше
-                hiddenHeight: 70,
-                
-                opacity: 0.25,     // Более прозрачная
-                
-                name: '🏙️ Средний — Город'
-            },
-            
-            hard: {
-                background: 'https://www.desktopbackground.org/download/2048x1152/2015/04/01/926432_scenic-path-in-the-woods-wallpapers-3840x2160-wallpapers_2688x1512_h.jpg',
-                hiddenPhoto: 'https://playerok.fra1.digitaloceanspaces.com/images/1f0dc661-0d7f-6a10-cdf8-77c078c42870.jpeg?timestamp=1766099137',
-                
-                stickerLeft: 75,   // Справа
-                stickerTop: 25,    // Вверху
-                
-                hiddenWidth: 50,   // Очень маленькая
-                hiddenHeight: 50,
-                
-                opacity: 0.18,     // Почти невидима
-                
-                name: '🌆 Сложный — Закат'
-            }
-        };
-
-        let currentStickerLevel = '';
-        let stickerAttempts = 0;
-        let stickerFound = false;
-
-        function selectStickerLevel(level) {
-            currentStickerLevel = level;
-            document.getElementById('stickerLevelSelection').classList.remove('active');
-            document.getElementById('stickerContainer').classList.add('active');
-            document.getElementById('stickerCurrentLevel').innerText = 'Уровень: ' + stickerLevels[level].name;
-            initStickerGame();
-        }
-
-        function initStickerGame() {
-            stickerAttempts = 0;
-            stickerFound = false;
-            
-            const level = stickerLevels[currentStickerLevel];
-            
-            // Устанавливаем фон
-            document.getElementById('stickerPhoto').src = level.background;
-            
-            const wrapper = document.getElementById('stickerPhotoWrapper');
-            
-            // Удаляем старую спрятанную фотку если есть
-            const oldHidden = wrapper.querySelector('.hidden-photo');
-            if (oldHidden) oldHidden.remove();
-            
-            // Создаём новую спрятанную фотку
-            const hiddenPhoto = document.createElement('img');
-            hiddenPhoto.className = 'hidden-photo';
-            hiddenPhoto.src = level.hiddenPhoto;
-            hiddenPhoto.style.left = level.stickerLeft + '%';
-            hiddenPhoto.style.top = level.stickerTop + '%';
-            hiddenPhoto.style.width = level.hiddenWidth + 'px';
-            hiddenPhoto.style.height = level.hiddenHeight + 'px';
-            hiddenPhoto.style.opacity = level.opacity;
-            
-            wrapper.appendChild(hiddenPhoto);
-            
-            // Устанавливаем зону-цель
-            const target = document.getElementById('stickerTarget');
-            target.style.left = level.stickerLeft + '%';
-            target.style.top = level.stickerTop + '%';
-            target.style.width = level.hiddenWidth + 'px';
-            target.style.height = level.hiddenHeight + 'px';
-            
-            // Очищаем старые элементы
-            const oldStickers = wrapper.querySelectorAll('.sticker-found');
-            oldStickers.forEach(s => s.remove());
-            const oldRipples = wrapper.querySelectorAll('.click-ripple');
-            oldRipples.forEach(r => r.remove());
-            
-            document.getElementById('stickerInfo').innerText = '🔍 Попыток: 0';
-            document.getElementById('stickerHint').innerText = 'Найди спрятанную фотографию! 💝';
-            document.getElementById('stickerHint').className = 'sticker-hint';
-            document.getElementById('stickerComplete').classList.remove('active');
-            document.getElementById('stickerResetBtn').style.display = 'none';
-            document.getElementById('stickerCompleteBtn').style.display = 'none';
-            
-            wrapper.onclick = handleStickerClick;
-        }
-
-        function handleStickerClick(e) {
-            if (stickerFound) return;
-            
-            const wrapper = document.getElementById('stickerPhotoWrapper');
-            const rect = wrapper.getBoundingClientRect();
-            
-            const clickX = e.clientX - rect.left;
-            const clickY = e.clientY - rect.top;
-            
-            const level = stickerLevels[currentStickerLevel];
-            const targetX = (level.stickerLeft / 100) * rect.width;
-            const targetY = (level.stickerTop / 100) * rect.height;
-            
-            const distance = Math.sqrt(Math.pow(clickX - targetX, 2) + Math.pow(clickY - targetY, 2));
-            
-            stickerAttempts++;
-            document.getElementById('stickerInfo').innerText = '🔍 Попыток: ' + stickerAttempts;
-            
-            // Показываем кружок на месте клика
-            const ripple = document.createElement('div');
-            ripple.className = 'click-ripple';
-            ripple.style.left = clickX + 'px';
-            ripple.style.top = clickY + 'px';
-            wrapper.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 600);
-            
-            const hint = document.getElementById('stickerHint');
-            
-            // Если попал в зону
-            if (distance < 50) {
-                stickerFound = true;
-                
-                // Показываем найденную фотку ярко
-                const foundPhoto = document.createElement('img');
-                foundPhoto.className = 'sticker-found';
-                foundPhoto.src = level.hiddenPhoto;
-                foundPhoto.style.left = targetX + 'px';
-                foundPhoto.style.top = targetY + 'px';
-                foundPhoto.style.width = level.hiddenWidth + 'px';
-                foundPhoto.style.height = level.hiddenHeight + 'px';
-                wrapper.appendChild(foundPhoto);
-                
-                // Убираем полупрозрачную версию
-                const hiddenPhoto = wrapper.querySelector('.hidden-photo');
-                if (hiddenPhoto) hiddenPhoto.style.opacity = '0';
-                
-                hint.innerText = '🎉 НАШЛА! Фотка найдена за ' + stickerAttempts + ' попыток!';
-                hint.className = 'sticker-hint found';
-                
-                document.getElementById('stickerAttempts').innerText = stickerAttempts;
-                document.getElementById('stickerComplete').classList.add('active');
-                document.getElementById('stickerCompleteBtn').style.display = 'block';
-                document.getElementById('stickerResetBtn').style.display = 'block';
-                
-            } else {
-                // Подсказки по расстоянию
-                if (distance < 100) {
-                    hint.innerText = '🔥 Очень близко! Горячо!';
-                    hint.className = 'sticker-hint hot';
-                } else if (distance < 180) {
-                    hint.innerText = '🌡️ Тепло! Ты рядом!';
-                    hint.className = 'sticker-hint warm';
-                } else {
-                    hint.innerText = '❄️ Холодно... Попробуй в другом месте';
-                    hint.className = 'sticker-hint cold';
-                }
-            }
-        }
-
-        function resetStickerGame() {
-            initStickerGame();
         }
 
         function showStatus(message, type) {
@@ -1343,6 +1086,214 @@
             document.getElementById('quizScore').innerText = quizScore;
             document.getElementById('quizComplete').classList.add('active');
             document.getElementById('quizCompleteBtn').style.display = 'block';
+        }
+
+        // ===== ПАЗЛ - ПРОСТОЙ =====
+        let puzzlePieces = [];
+        let puzzleMoves = 0;
+        let puzzleSeconds = 0;
+        let puzzleTimerInterval = null;
+        let selectedPiece = null;
+        let puzzleSolved = false;
+        const puzzleSize = 3;
+
+        function startPuzzleGame() {
+            puzzleSolved = false;
+            puzzleMoves = 0;
+            puzzleSeconds = 0;
+            selectedPiece = null;
+            
+            if (puzzleTimerInterval) {
+                clearInterval(puzzleTimerInterval);
+            }
+            
+            document.getElementById('puzzleMoves').innerText = '0';
+            document.getElementById('puzzleTimer').innerText = '0:00';
+            document.getElementById('puzzleWin').style.display = 'none';
+            document.getElementById('puzzleCompleteBtn').style.display = 'none';
+            document.getElementById('puzzleGameArea').style.display = 'none';
+            
+            const previewContainer = document.getElementById('puzzlePreviewContainer');
+            const preview = document.getElementById('puzzlePreview');
+            preview.src = puzzleImage;
+            previewContainer.style.display = 'block';
+            
+            let previewTime = 3;
+            document.getElementById('previewTimer').innerText = previewTime;
+            
+            const previewInterval = setInterval(() => {
+                previewTime--;
+                document.getElementById('previewTimer').innerText = previewTime;
+                
+                if (previewTime <= 0) {
+                    clearInterval(previewInterval);
+                    previewContainer.style.display = 'none';
+                    showPuzzleBoard();
+                }
+            }, 1000);
+        }
+
+        function showPuzzleBoard() {
+            document.getElementById('puzzleGameArea').style.display = 'block';
+            
+            const board = document.getElementById('puzzleBoard');
+            board.innerHTML = '';
+            
+            const totalPieces = puzzleSize * puzzleSize;
+            puzzlePieces = [];
+            for (let i = 0; i < totalPieces; i++) {
+                puzzlePieces.push(i);
+            }
+            
+            for (let shuffle = 0; shuffle < 50; shuffle++) {
+                const i = Math.floor(Math.random() * totalPieces);
+                const j = Math.floor(Math.random() * totalPieces);
+                const temp = puzzlePieces[i];
+                puzzlePieces[i] = puzzlePieces[j];
+                puzzlePieces[j] = temp;
+            }
+            
+            let isSolved = true;
+            for (let i = 0; i < totalPieces; i++) {
+                if (puzzlePieces[i] !== i) {
+                    isSolved = false;
+                    break;
+                }
+            }
+            if (isSolved) {
+                const temp = puzzlePieces[totalPieces - 1];
+                puzzlePieces[totalPieces - 1] = puzzlePieces[totalPieces - 2];
+                puzzlePieces[totalPieces - 2] = temp;
+            }
+            
+            for (let i = 0; i < totalPieces; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'puzzle-piece';
+                piece.dataset.index = i;
+                
+                const originalPiece = puzzlePieces[i];
+                const row = Math.floor(originalPiece / puzzleSize);
+                const col = originalPiece % puzzleSize;
+                
+                piece.style.backgroundImage = 'url(' + puzzleImage + ')';
+                piece.style.backgroundPosition = (col * 50) + '% ' + (row * 50) + '%';
+                
+                piece.onclick = function() { handlePieceClick(i); };
+                
+                board.appendChild(piece);
+            }
+            
+            puzzleTimerInterval = setInterval(() => {
+                puzzleSeconds++;
+                const mins = Math.floor(puzzleSeconds / 60);
+                const secs = puzzleSeconds % 60;
+                document.getElementById('puzzleTimer').innerText = mins + ':' + secs.toString().padStart(2, '0');
+            }, 1000);
+        }
+
+        function handlePieceClick(index) {
+            if (puzzleSolved) return;
+            
+            const pieces = document.querySelectorAll('.puzzle-piece');
+            
+            if (selectedPiece === null) {
+                selectedPiece = index;
+                pieces[index].classList.add('selected');
+            } else if (selectedPiece === index) {
+                pieces[index].classList.remove('selected');
+                selectedPiece = null;
+            } else {
+                const temp = puzzlePieces[selectedPiece];
+                puzzlePieces[selectedPiece] = puzzlePieces[index];
+                puzzlePieces[index] = temp;
+                
+                pieces[selectedPiece].classList.remove('selected');
+                
+                updatePuzzleDisplay();
+                
+                puzzleMoves++;
+                document.getElementById('puzzleMoves').innerText = puzzleMoves;
+                
+                selectedPiece = null;
+                
+                checkPuzzleWin();
+            }
+        }
+
+        function updatePuzzleDisplay() {
+            const pieces = document.querySelectorAll('.puzzle-piece');
+            
+            for (let i = 0; i < pieces.length; i++) {
+                const originalPiece = puzzlePieces[i];
+                const row = Math.floor(originalPiece / puzzleSize);
+                const col = originalPiece % puzzleSize;
+                
+                pieces[i].style.backgroundPosition = (col * 50) + '% ' + (row * 50) + '%';
+                
+                if (puzzlePieces[i] === i) {
+                    pieces[i].classList.add('correct');
+                } else {
+                    pieces[i].classList.remove('correct');
+                }
+            }
+        }
+
+        function checkPuzzleWin() {
+            const totalPieces = puzzleSize * puzzleSize;
+            let solved = true;
+            
+            for (let i = 0; i < totalPieces; i++) {
+                if (puzzlePieces[i] !== i) {
+                    solved = false;
+                    break;
+                }
+            }
+            
+            if (solved) {
+                puzzleSolved = true;
+                clearInterval(puzzleTimerInterval);
+                
+                const mins = Math.floor(puzzleSeconds / 60);
+                const secs = puzzleSeconds % 60;
+                const timeStr = mins + ':' + secs.toString().padStart(2, '0');
+                
+                document.getElementById('puzzleFinalMoves').innerText = puzzleMoves;
+                document.getElementById('puzzleFinalTime').innerText = timeStr;
+                document.getElementById('puzzleFinalImage').src = puzzleImage;
+                document.getElementById('puzzleWin').style.display = 'block';
+                document.getElementById('puzzleWin').classList.add('celebrate');
+                document.getElementById('puzzleCompleteBtn').style.display = 'block';
+                
+                document.querySelectorAll('.puzzle-piece').forEach(p => {
+                    p.classList.remove('selected');
+                    p.classList.add('correct');
+                });
+            }
+        }
+
+        function showPuzzleHint() {
+            const container = document.createElement('div');
+            container.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 200; display: flex; justify-content: center; align-items: center; padding: 20px;';
+            
+            const img = document.createElement('img');
+            img.src = puzzleImage;
+            img.style.cssText = 'max-width: 100%; max-height: 80vh; border-radius: 15px; border: 3px solid #d63384;';
+            
+            const text = document.createElement('p');
+            text.innerText = 'Запоминай! Закроется через 3 сек...';
+            text.style.cssText = 'position: absolute; bottom: 30px; color: white; font-size: 1.2rem; font-weight: bold;';
+            
+            container.appendChild(img);
+            container.appendChild(text);
+            container.onclick = () => document.body.removeChild(container);
+            
+            document.body.appendChild(container);
+            
+            setTimeout(() => {
+                if (document.body.contains(container)) {
+                    document.body.removeChild(container);
+                }
+            }, 3000);
         }
 
         // ===== РИСОВАЛКА =====
