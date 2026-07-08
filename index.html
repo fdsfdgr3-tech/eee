@@ -170,10 +170,10 @@
         .level-name { font-weight: bold; color: #d63384; font-size: 1.05rem; }
         .level-desc { font-size: 0.85rem; color: #666; margin-top: 3px; }
         
-        .drawing-container, .game-container, .quiz-container, .puzzle-container { display: none; }
-        .drawing-container.active, .game-container.active, .quiz-container.active, .puzzle-container.active { display: block; }
+        .drawing-container, .game-container, .quiz-container, .puzzle-container, .questions-container, .wishlist-container { display: none; }
+        .drawing-container.active, .game-container.active, .quiz-container.active, .puzzle-container.active, .questions-container.active, .wishlist-container.active { display: block; }
         
-        .current-level, .quiz-progress, .puzzle-info {
+        .current-level, .quiz-progress, .puzzle-info, .questions-progress {
             background: #fff0f5;
             padding: 10px;
             border-radius: 10px;
@@ -303,7 +303,6 @@
         .quiz-feedback.correct { background: #d4edda; color: #155724; }
         .quiz-feedback.wrong { background: #f8d7da; color: #721c24; }
         
-        /* ПАЗЛ */
         .puzzle-preview {
             width: 100%;
             max-width: 300px;
@@ -331,19 +330,13 @@
             aspect-ratio: 1;
         }
         
-        .puzzle-piece:active {
-            transform: scale(0.95);
-        }
-        
+        .puzzle-piece:active { transform: scale(0.95); }
         .puzzle-piece.selected {
             box-shadow: 0 0 0 4px #ffd700, 0 0 15px rgba(255, 215, 0, 0.8);
             transform: scale(1.05);
             z-index: 10;
         }
-        
-        .puzzle-piece.correct {
-            box-shadow: inset 0 0 0 2px #28a745;
-        }
+        .puzzle-piece.correct { box-shadow: inset 0 0 0 2px #28a745; }
         
         .puzzle-stats {
             display: flex;
@@ -352,6 +345,174 @@
             font-size: 1rem;
             font-weight: bold;
             color: #d63384;
+        }
+        
+        .question-item {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe0ec 100%);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        .question-text {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #d63384;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .question-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            font-size: 0.95rem;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+        
+        .question-textarea:focus {
+            outline: none;
+            border-color: #d63384;
+        }
+        
+        /* ХОТЕЛКИ */
+        .wishlist-input-container {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe0ec 100%);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .wishlist-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-family: inherit;
+        }
+        
+        .wishlist-input:focus {
+            outline: none;
+            border-color: #d63384;
+        }
+        
+        .wishlist-price {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-family: inherit;
+        }
+        
+        .wishlist-list {
+            text-align: left;
+            margin: 15px 0;
+        }
+        
+        .wishlist-item {
+            background: white;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .wishlist-item-text {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+        
+        .wishlist-item-price {
+            color: #d63384;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+        
+        .wishlist-item-delete {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .joke-video-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .joke-video-btn::before {
+            content: "🎁";
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+        
+        .joke-video-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .joke-video-container.active {
+            display: flex;
+        }
+        
+        .joke-video-wrapper {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .joke-video-wrapper iframe {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            border: 3px solid #d63384;
+        }
+        
+        .joke-video-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: white;
+            color: #d63384;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
         
         .comparison { display: none; margin-top: 20px; }
@@ -401,7 +562,7 @@
         .game-lose { background: #f8d7da; }
         .game-lose h3 { color: #dc3545; margin-bottom: 10px; }
         
-        .quiz-complete {
+        .quiz-complete, .questions-complete {
             display: none;
             background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
             padding: 20px;
@@ -409,8 +570,8 @@
             margin-top: 15px;
             text-align: center;
         }
-        .quiz-complete.active { display: block; }
-        .quiz-complete h3 { color: #28a745; margin-bottom: 10px; }
+        .quiz-complete.active, .questions-complete.active { display: block; }
+        .quiz-complete h3, .questions-complete h3 { color: #28a745; margin-bottom: 10px; }
         
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(214, 51, 132, 0.7); }
@@ -424,9 +585,7 @@
             100% { transform: scale(1); }
         }
         
-        .celebrate {
-            animation: celebrate 0.5s ease-in-out 3;
-        }
+        .celebrate { animation: celebrate 0.5s ease-in-out 3; }
         
         .logout-btn {
             position: fixed;
@@ -475,7 +634,7 @@
             <h2>❤️ Добро пожаловать ❤️</h2>
             <p>Введи дату начала наших отношений</p>
             <input type="date" id="dateInput">
-            <button class="btn" onclick="checkDate()">Войти 💕</button>
+            <button class="btn" onclick="checkDate()">Войти </button>
             <p class="error-msg" id="errorMsg">Неверная дата! Попробуй ещё раз 😔</p>
         </div>
     </div>
@@ -504,18 +663,15 @@
                 </div>
                 <canvas id="gameCanvas" width="350" height="450"></canvas>
                 <p style="text-align: center; color: #666; font-size: 0.9rem;">Двигай пальцем, чтобы ловить сердечки!</p>
-                
                 <div class="game-win" id="gameWin">
-                    <h3>🎉 Поздравляю! 🎉</h3>
+                    <h3>🎉 Поздравляю! </h3>
                     <p>Ты поймала 67 сердечек!</p>
                 </div>
-                
                 <div class="game-lose" id="gameLose">
                     <h3>😔 Время вышло!</h3>
                     <p>Ты поймала <span id="finalScore">0</span> из 67 сердечек.</p>
                     <button class="btn" onclick="startGame()" style="margin-top: 15px;">Играть снова 🔄</button>
                 </div>
-                
                 <button class="btn" id="gameCompleteBtn" onclick="showSecret()">Я выполнила! 💖</button>
             </div>
             
@@ -523,13 +679,11 @@
             <div class="welcome-screen" id="welcomeScreen">
                 <div class="welcome-emoji">🎨</div>
                 <h2>Сейчас мы будем рисовать!</h2>
-                <p>Выбери уровень сложности и покажи свои художественные таланты! 🎨</p>
+                <p>Выбери уровень сложности и покажи свои художественные таланты! </p>
                 <button class="btn" onclick="showLevels()">Выбрать уровень 🖌️</button>
             </div>
-            
             <div class="level-selection" id="levelSelection">
                 <h3 style="color: #d63384; margin-bottom: 15px;">Выбери что рисуем:</h3>
-                
                 <div class="level-btn" onclick="selectLevel('sun')">
                     <div class="level-emoji">☀️</div>
                     <div class="level-info">
@@ -537,7 +691,6 @@
                         <div class="level-desc">Простой уровень — нарисуй солнышко!</div>
                     </div>
                 </div>
-                
                 <div class="level-btn" onclick="selectLevel('heart')">
                     <div class="level-emoji">💖</div>
                     <div class="level-info">
@@ -545,7 +698,6 @@
                         <div class="level-desc">Средний уровень — нарисуй сердечко!</div>
                     </div>
                 </div>
-                
                 <div class="level-btn" onclick="selectLevel('cat')">
                     <div class="level-emoji">🐱</div>
                     <div class="level-info">
@@ -553,24 +705,19 @@
                         <div class="level-desc">Сложный уровень — нарисуй котика!</div>
                     </div>
                 </div>
-                
                 <button class="back-btn" onclick="backToWelcome()">← Назад</button>
             </div>
-            
             <div class="drawing-container" id="drawingContainer">
                 <div class="current-level" id="currentLevel"></div>
                 <canvas id="drawingCanvas" width="350" height="350"></canvas>
-                
                 <div class="drawing-tools">
                     <input type="color" class="color-picker" id="colorPicker" value="#d63384">
                     <button class="tool-btn" onclick="setTool('brush', this)">🖌️ Кисть</button>
-                    <button class="tool-btn" onclick="setTool('eraser', this)">🧹 Ластик</button>
+                    <button class="tool-btn" onclick="setTool('eraser', this)"> Ластик</button>
                     <button class="tool-btn" onclick="clearCanvas()">🗑️ Очистить</button>
                 </div>
-                
                 <input type="range" class="brush-size" id="brushSize" min="2" max="20" value="5">
                 <p style="font-size: 0.85rem; color: #666;">Размер кисти: <span id="brushSizeValue">5</span>px</p>
-                
                 <button class="btn" onclick="finishDrawing()">Готово! 💖</button>
             </div>
             
@@ -581,38 +728,68 @@
                 <div class="quiz-answers" id="quizAnswers"></div>
                 <div class="quiz-feedback" id="quizFeedback"></div>
                 <button class="btn" id="nextQuestionBtn" onclick="nextQuestion()" style="display: none;">Следующая загадка →</button>
-                
                 <div class="quiz-complete" id="quizComplete">
                     <h3>🎉 Все загадки разгаданы! 🎉</h3>
                     <p>Ты ответила правильно на <span id="quizScore">0</span> из 5 загадок!</p>
                 </div>
-                
                 <button class="btn" id="quizCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
-            <!-- ПАЗЛ - ПРОСТОЙ, БЕЗ УРОВНЕЙ -->
+            <!-- ПАЗЛ -->
             <div class="puzzle-container" id="puzzleContainer">
                 <div id="puzzlePreviewContainer">
                     <p style="color: #d63384; font-weight: bold; margin-bottom: 10px;">👀 Запомни фото! Оно исчезнет через <span id="previewTimer">3</span> сек...</p>
                     <img id="puzzlePreview" class="puzzle-preview" src="" alt="Оригинал">
                 </div>
-                
                 <div id="puzzleGameArea" style="display: none;">
                     <div class="puzzle-stats">
                         <div>🔄 Ходов: <span id="puzzleMoves">0</span></div>
                         <div>⏱️ <span id="puzzleTimer">0:00</span></div>
                     </div>
                     <div class="puzzle-board" id="puzzleBoard"></div>
-                    <button class="btn" onclick="showPuzzleHint()" style="margin-top: 10px; background: #6c757d;">👁️ Подсказка</button>
+                    <button class="btn" onclick="showPuzzleHint()" style="margin-top: 10px; background: #6c757d;">️ Подсказка</button>
                 </div>
-                
                 <div class="puzzle-win" id="puzzleWin">
                     <h3>🎉 Пазл собран! ❤️</h3>
                     <p>За <span id="puzzleFinalMoves">0</span> ходов и <span id="puzzleFinalTime">0:00</span>!</p>
                     <img id="puzzleFinalImage" class="puzzle-preview" src="" alt="Собранный пазл" style="margin-top: 15px;">
                 </div>
-                
                 <button class="btn" id="puzzleCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
+            </div>
+            
+            <!-- ВОПРОСЫ -->
+            <div class="questions-container" id="questionsContainer">
+                <div class="questions-progress" id="questionsProgress">Ответь на все вопросы </div>
+                <div id="questionsList"></div>
+                <div id="statusMsgQuestions" class="status-msg"></div>
+                <button class="btn" id="submitQuestionsBtn" onclick="submitQuestions()">Отправить ответы 💌</button>
+                <div class="questions-complete" id="questionsComplete">
+                    <h3>🎉 Спасибо за ответы! ❤️</h3>
+                    <p>Твои ответы отправлены мне! Я очень ценю твою искренность 💕</p>
+                </div>
+                <button class="btn" id="questionsCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
+            </div>
+            
+            <!-- ХОТЕЛКИ -->
+            <div class="wishlist-container" id="wishlistContainer">
+                <div class="current-level">🎁 Список хотелок</div>
+                <p style="color: #666; margin-bottom: 15px;">Напиши что хочешь, а я подумаю что подарить! 💝</p>
+                
+                <div class="wishlist-input-container">
+                    <input type="text" class="wishlist-input" id="wishlistInput" placeholder="Что ты хочешь?">
+                    <input type="text" class="wishlist-price" id="wishlistPrice" placeholder="Примерная цена (необязательно)">
+                    <button class="btn" onclick="addWishlistItem()">Добавить в список ➕</button>
+                </div>
+                
+                <div class="wishlist-list" id="wishlistList"></div>
+                
+                <button class="btn" onclick="sendWishlist()" style="background: #28a745;">📤 Отправить список мне</button>
+                
+                <button class="btn joke-video-btn" onclick="showJokeVideo()">🎁 Сюрприз! Нажми чтобы получить подарок!</button>
+                
+                <div id="wishlistStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
+                
+                <button class="btn" id="wishlistCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
             <div class="comparison" id="comparison">
@@ -621,9 +798,7 @@
                     <canvas id="userDrawing" width="300" height="300"></canvas>
                     <p class="comparison-label">Молодец! Теперь отправь мне свой рисунок 💕</p>
                 </div>
-                
                 <div id="statusMsg" class="status-msg"></div>
-                
                 <button class="btn" onclick="sendToTelegram()">📤 Отправить мне в Telegram</button>
                 <button class="btn" onclick="showSecret()" style="margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
             </div>
@@ -634,11 +809,22 @@
         </div>
     </div>
 
+    <!-- ШУТОЧНОЕ ВИДЕО -->
+    <div class="joke-video-container" id="jokeVideoContainer">
+        <div class="joke-video-wrapper">
+            <button class="joke-video-close" onclick="closeJokeVideo()">×</button>
+            <iframe id="jokeVideoFrame" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
     <script>
         const TELEGRAM_BOT_TOKEN = '8787381211:AAELtNBhvaCCRiMXQAdbirB-XQUM01A9-cY';
         const TELEGRAM_CHAT_ID = '805970318';
         const correctDate = '2026-03-27';
         const puzzleImage = 'https://sun9-26.userapi.com/s/v1/ig2/HfPKFAeNxgKflxlck8NmrBaUC96run9_Gp8cwV7AFTriJ0jD6vGap53Z-CMeLC8Q5-oXlR978tj7SdThkp9PorVw.jpg?quality=95&as=32x27,48x40,72x60,108x90,160x134,240x200,360x301,480x401,540x451,576x481&from=bu&u=m8uZYCmeWdc0uw4FuvEKGJnFUwte48VE6EzrIpa5yOs&cs=576x0';
+        const JOKE_VIDEO_URL = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1'; // Rick Astley - Never Gonna Give You Up
+        
+        let wishlistItems = [];
         
         if (localStorage.getItem('loggedIn') === 'true') {
             showMainSite();
@@ -674,8 +860,8 @@
             { title: "День 2: 🎨 РИСОВАЛКА!", desc: "Сегодня мы будем рисовать!", secret: "Ты рисуешь даже лучше меня! Люблю тебя! ❤️", isDrawing: true },
             { title: "День 3: 🔮 ЗАГАДКИ!", desc: "Ответь на 5 загадок про любовь!", secret: "Ты знаешь о любви всё! А я знаю всё о тебе ❤️", isQuiz: true },
             { title: "День 4: 🧩 ПАЗЛ!", desc: "Собери разбитое фото!", secret: "Ты собрала мой мир по кусочкам — ты моё всё! ❤️", isPuzzle: true },
-            { title: "День 5: Привет!", desc: "Сделай селфи из окна и скинь мне.", secret: "Ты самая красивая!" },
-            { title: "День 6: Киновечер", desc: "Посмотри фильм и думай обо мне.", secret: "Моя главная роль — быть рядом с тобой." },
+            { title: "День 5: 💬 ВОПРОСЫ!", desc: "Ответь на 5 важных вопросов", secret: "Твои ответы — это самое ценное, что у меня есть! ❤️", isQuestions: true },
+            { title: "День 6: 🎁 ХОТЕЛКИ!", desc: "Напиши что хочешь получить в подарок", secret: "Для тебя я готов на всё! Люблю! ❤️", isWishlist: true },
             { title: "День 7: Релакс", desc: "Сегодня день лени. Фоткай атмосферу.", secret: "Ты заслуживаешь отдыха." },
             { title: "День 8: Мечты", desc: "Скинь скриншот вещи, которую хочешь.", secret: "Для тебя мне ничего не жалко." },
             { title: "День 9: Музыка", desc: "Скинь 3 песни про нас.", secret: "Наш плейлист — саундтрек моей жизни." },
@@ -685,7 +871,6 @@
         function initCalendar() {
             const grid = document.getElementById('calendarGrid');
             grid.innerHTML = '';
-
             tasks.forEach((task, index) => {
                 const card = document.createElement('div');
                 card.className = 'card active';
@@ -712,6 +897,8 @@
             document.getElementById('gameContainer').classList.remove('active');
             document.getElementById('quizContainer').classList.remove('active');
             document.getElementById('puzzleContainer').classList.remove('active');
+            document.getElementById('questionsContainer').classList.remove('active');
+            document.getElementById('wishlistContainer').classList.remove('active');
             document.getElementById('secretMsg').classList.remove('active');
             document.getElementById('statusMsg').className = 'status-msg';
             document.getElementById('gameWin').style.display = 'none';
@@ -732,6 +919,12 @@
             } else if (tasks[index].isPuzzle) {
                 document.getElementById('puzzleContainer').classList.add('active');
                 startPuzzleGame();
+            } else if (tasks[index].isQuestions) {
+                document.getElementById('questionsContainer').classList.add('active');
+                initQuestions();
+            } else if (tasks[index].isWishlist) {
+                document.getElementById('wishlistContainer').classList.add('active');
+                initWishlist();
             }
             
             document.getElementById('taskModal').classList.add('active');
@@ -740,18 +933,9 @@
 
         function closeModal() {
             document.getElementById('taskModal').classList.remove('active');
-            if (gameInterval) {
-                cancelAnimationFrame(gameInterval);
-                gameInterval = null;
-            }
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-            if (puzzleTimerInterval) {
-                clearInterval(puzzleTimerInterval);
-                puzzleTimerInterval = null;
-            }
+            if (gameInterval) { cancelAnimationFrame(gameInterval); gameInterval = null; }
+            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+            if (puzzleTimerInterval) { clearInterval(puzzleTimerInterval); puzzleTimerInterval = null; }
         }
 
         function showSecret() {
@@ -789,39 +973,21 @@
 
         async function sendToTelegram() {
             showStatus('⏳ Отправляю рисунок...', 'loading');
-            
             try {
                 const canvas = document.getElementById('drawingCanvas');
                 canvas.toBlob(async function(blob) {
                     const formData = new FormData();
                     formData.append('chat_id', TELEGRAM_CHAT_ID);
                     formData.append('photo', blob, 'drawing.png');
-                    
-                    const levelEmoji = {
-                        'sun': '☀️',
-                        'heart': '💖',
-                        'cat': '🐱'
-                    };
-                    
+                    const levelEmoji = { 'sun': '☀️', 'heart': '💖', 'cat': '' };
                     const caption = '🎨 Рисунок от любимой!\nУровень: ' + levelEmoji[currentLevel] + ' ' + levelNames[currentLevel] + '\n📅 День 2';
                     formData.append('caption', caption);
-                    
-                    const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendPhoto', {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
+                    const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendPhoto', { method: 'POST', body: formData });
                     const result = await response.json();
-                    
-                    if (result.ok) {
-                        showStatus('✅ Рисунок отправлен в Telegram!', 'success');
-                    } else {
-                        showStatus('❌ Ошибка: ' + result.description, 'error');
-                    }
+                    if (result.ok) { showStatus('✅ Рисунок отправлен в Telegram!', 'success'); }
+                    else { showStatus('❌ Ошибка: ' + result.description, 'error'); }
                 }, 'image/png');
-            } catch (error) {
-                showStatus('❌ Ошибка: ' + error.message, 'error');
-            }
+            } catch (error) { showStatus('❌ Ошибка: ' + error.message, 'error'); }
         }
 
         // ===== ИГРА С СЕРДЕЧКАМИ =====
@@ -865,12 +1031,7 @@
         }
 
         function createHeart() {
-            hearts.push({
-                x: Math.random() * (gameCanvas.width - 40) + 20,
-                y: -30,
-                size: 30 + Math.random() * 15,
-                speed: 1 + Math.random() * 1.5
-            });
+            hearts.push({ x: Math.random() * (gameCanvas.width - 40) + 20, y: -30, size: 30 + Math.random() * 15, speed: 1 + Math.random() * 1.5 });
         }
 
         function updateTimer() {
@@ -878,47 +1039,26 @@
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
             document.getElementById('timer').innerText = minutes + ':' + seconds.toString().padStart(2, '0');
-            
-            if (timeLeft <= 0) {
-                loseGame();
-            }
+            if (timeLeft <= 0) { loseGame(); }
         }
 
         function gameLoop() {
             gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
             gameCtx.fillStyle = '#ffeef8';
             gameCtx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
-            
             drawBasket();
-            
             for (let i = hearts.length - 1; i >= 0; i--) {
                 const heart = hearts[i];
                 heart.y += heart.speed;
-                
                 drawHeart(heart.x, heart.y, heart.size);
-                
-                if (heart.y + heart.size/2 > gameCanvas.height - basketHeight - 10 &&
-                    heart.y < gameCanvas.height - 10 &&
-                    heart.x > basketX - basketWidth / 2 &&
-                    heart.x < basketX + basketWidth / 2) {
+                if (heart.y + heart.size/2 > gameCanvas.height - basketHeight - 10 && heart.y < gameCanvas.height - 10 && heart.x > basketX - basketWidth / 2 && heart.x < basketX + basketWidth / 2) {
                     hearts.splice(i, 1);
                     score++;
                     document.getElementById('score').innerText = score;
-                    
-                    if (score >= maxScore) {
-                        winGame();
-                        return;
-                    }
-                }
-                else if (heart.y > gameCanvas.height + 50) {
-                    hearts.splice(i, 1);
-                }
+                    if (score >= maxScore) { winGame(); return; }
+                } else if (heart.y > gameCanvas.height + 50) { hearts.splice(i, 1); }
             }
-            
-            if (Math.random() < 0.04) {
-                createHeart();
-            }
-            
+            if (Math.random() < 0.04) { createHeart(); }
             gameInterval = requestAnimationFrame(gameLoop);
         }
 
@@ -937,40 +1077,28 @@
         });
 
         function startGame() {
-            hearts = [];
-            score = 0;
-            timeLeft = gameTime;
+            hearts = []; score = 0; timeLeft = gameTime;
             document.getElementById('score').innerText = score;
             document.getElementById('timer').innerText = '2:00';
             document.getElementById('gameWin').style.display = 'none';
             document.getElementById('gameLose').style.display = 'none';
             document.getElementById('gameCompleteBtn').style.display = 'block';
-            
-            if (gameInterval) {
-                cancelAnimationFrame(gameInterval);
-            }
-            if (timerInterval) {
-                clearInterval(timerInterval);
-            }
-            
+            if (gameInterval) { cancelAnimationFrame(gameInterval); }
+            if (timerInterval) { clearInterval(timerInterval); }
             gameLoop();
             timerInterval = setInterval(updateTimer, 1000);
         }
 
         function winGame() {
-            cancelAnimationFrame(gameInterval);
-            clearInterval(timerInterval);
-            gameInterval = null;
-            timerInterval = null;
+            cancelAnimationFrame(gameInterval); clearInterval(timerInterval);
+            gameInterval = null; timerInterval = null;
             document.getElementById('gameWin').style.display = 'block';
             document.getElementById('gameCompleteBtn').style.display = 'none';
         }
 
         function loseGame() {
-            cancelAnimationFrame(gameInterval);
-            clearInterval(timerInterval);
-            gameInterval = null;
-            timerInterval = null;
+            cancelAnimationFrame(gameInterval); clearInterval(timerInterval);
+            gameInterval = null; timerInterval = null;
             document.getElementById('finalScore').innerText = score;
             document.getElementById('gameLose').style.display = 'block';
             document.getElementById('gameCompleteBtn').style.display = 'none';
@@ -978,31 +1106,11 @@
 
         // ===== ЗАГАДКИ =====
         const quizData = [
-            {
-                question: "Что бьётся быстрее, когда ты видишь любимого человека?",
-                answers: ["Голова", "Сердце", "Нога", "Рука"],
-                correct: 1
-            },
-            {
-                question: "Сколько слов нужно, чтобы сказать самое важное?",
-                answers: ["Одно", "Два", "Три", "Десять"],
-                correct: 2
-            },
-            {
-                question: "Что растёт, когда его делишь с любимым?",
-                answers: ["Долги", "Счастье", "Проблемы", "Вес"],
-                correct: 1
-            },
-            {
-                question: "Что нельзя купить, но можно подарить?",
-                answers: ["Дом", "Машину", "Любовь", "Телефон"],
-                correct: 2
-            },
-            {
-                question: "Что сильнее всего на свете?",
-                answers: ["Ветер", "Огонь", "Любовь", "Вода"],
-                correct: 2
-            }
+            { question: "Что бьётся быстрее, когда ты видишь любимого человека?", answers: ["Голова", "Сердце", "Нога", "Рука"], correct: 1 },
+            { question: "Сколько слов нужно, чтобы сказать самое важное?", answers: ["Одно", "Два", "Три", "Десять"], correct: 2 },
+            { question: "Что растёт, когда его делишь с любимым?", answers: ["Долги", "Счастье", "Проблемы", "Вес"], correct: 1 },
+            { question: "Что нельзя купить, но можно подарить?", answers: ["Дом", "Машину", "Любовь", "Телефон"], correct: 2 },
+            { question: "Что сильнее всего на свете?", answers: ["Ветер", "Огонь", "Любовь", "Вода"], correct: 2 }
         ];
 
         let currentQuestion = 0;
@@ -1010,9 +1118,7 @@
         let quizAnswered = false;
 
         function startQuiz() {
-            currentQuestion = 0;
-            quizScore = 0;
-            quizAnswered = false;
+            currentQuestion = 0; quizScore = 0; quizAnswered = false;
             document.getElementById('quizComplete').classList.remove('active');
             document.getElementById('quizCompleteBtn').style.display = 'none';
             document.getElementById('nextQuestionBtn').style.display = 'none';
@@ -1022,16 +1128,13 @@
         function showQuestion() {
             quizAnswered = false;
             const q = quizData[currentQuestion];
-            
             document.getElementById('quizProgress').innerText = 'Загадка ' + (currentQuestion + 1) + ' из ' + quizData.length;
             document.getElementById('quizQuestion').innerText = q.question;
             document.getElementById('quizFeedback').className = 'quiz-feedback';
             document.getElementById('quizFeedback').style.display = 'none';
             document.getElementById('nextQuestionBtn').style.display = 'none';
-            
             const answersContainer = document.getElementById('quizAnswers');
             answersContainer.innerHTML = '';
-            
             q.answers.forEach(function(answer, index) {
                 const btn = document.createElement('button');
                 btn.className = 'answer-btn';
@@ -1044,13 +1147,10 @@
         function checkAnswer(index, btn) {
             if (quizAnswered) return;
             quizAnswered = true;
-            
             const q = quizData[currentQuestion];
             const feedback = document.getElementById('quizFeedback');
             const allBtns = document.querySelectorAll('.answer-btn');
-            
             allBtns.forEach(function(b) { b.disabled = true; });
-            
             if (index === q.correct) {
                 btn.classList.add('correct');
                 quizScore++;
@@ -1062,19 +1162,13 @@
                 feedback.innerText = '❌ Неправильно! Правильный ответ: ' + q.answers[q.correct];
                 feedback.className = 'quiz-feedback wrong show';
             }
-            
             if (currentQuestion < quizData.length - 1) {
                 document.getElementById('nextQuestionBtn').style.display = 'block';
                 document.getElementById('nextQuestionBtn').innerText = 'Следующая загадка →';
-            } else {
-                setTimeout(finishQuiz, 1500);
-            }
+            } else { setTimeout(finishQuiz, 1500); }
         }
 
-        function nextQuestion() {
-            currentQuestion++;
-            showQuestion();
-        }
+        function nextQuestion() { currentQuestion++; showQuestion(); }
 
         function finishQuiz() {
             document.getElementById('quizAnswers').innerHTML = '';
@@ -1082,13 +1176,12 @@
             document.getElementById('quizProgress').style.display = 'none';
             document.getElementById('quizFeedback').style.display = 'none';
             document.getElementById('nextQuestionBtn').style.display = 'none';
-            
             document.getElementById('quizScore').innerText = quizScore;
             document.getElementById('quizComplete').classList.add('active');
             document.getElementById('quizCompleteBtn').style.display = 'block';
         }
 
-        // ===== ПАЗЛ - ПРОСТОЙ =====
+        // ===== ПАЗЛ =====
         let puzzlePieces = [];
         let puzzleMoves = 0;
         let puzzleSeconds = 0;
@@ -1098,53 +1191,33 @@
         const puzzleSize = 3;
 
         function startPuzzleGame() {
-            puzzleSolved = false;
-            puzzleMoves = 0;
-            puzzleSeconds = 0;
-            selectedPiece = null;
-            
-            if (puzzleTimerInterval) {
-                clearInterval(puzzleTimerInterval);
-            }
-            
+            puzzleSolved = false; puzzleMoves = 0; puzzleSeconds = 0; selectedPiece = null;
+            if (puzzleTimerInterval) { clearInterval(puzzleTimerInterval); }
             document.getElementById('puzzleMoves').innerText = '0';
             document.getElementById('puzzleTimer').innerText = '0:00';
             document.getElementById('puzzleWin').style.display = 'none';
             document.getElementById('puzzleCompleteBtn').style.display = 'none';
             document.getElementById('puzzleGameArea').style.display = 'none';
-            
             const previewContainer = document.getElementById('puzzlePreviewContainer');
             const preview = document.getElementById('puzzlePreview');
             preview.src = puzzleImage;
             previewContainer.style.display = 'block';
-            
             let previewTime = 3;
             document.getElementById('previewTimer').innerText = previewTime;
-            
             const previewInterval = setInterval(() => {
                 previewTime--;
                 document.getElementById('previewTimer').innerText = previewTime;
-                
-                if (previewTime <= 0) {
-                    clearInterval(previewInterval);
-                    previewContainer.style.display = 'none';
-                    showPuzzleBoard();
-                }
+                if (previewTime <= 0) { clearInterval(previewInterval); previewContainer.style.display = 'none'; showPuzzleBoard(); }
             }, 1000);
         }
 
         function showPuzzleBoard() {
             document.getElementById('puzzleGameArea').style.display = 'block';
-            
             const board = document.getElementById('puzzleBoard');
             board.innerHTML = '';
-            
             const totalPieces = puzzleSize * puzzleSize;
             puzzlePieces = [];
-            for (let i = 0; i < totalPieces; i++) {
-                puzzlePieces.push(i);
-            }
-            
+            for (let i = 0; i < totalPieces; i++) { puzzlePieces.push(i); }
             for (let shuffle = 0; shuffle < 50; shuffle++) {
                 const i = Math.floor(Math.random() * totalPieces);
                 const j = Math.floor(Math.random() * totalPieces);
@@ -1152,37 +1225,21 @@
                 puzzlePieces[i] = puzzlePieces[j];
                 puzzlePieces[j] = temp;
             }
-            
             let isSolved = true;
-            for (let i = 0; i < totalPieces; i++) {
-                if (puzzlePieces[i] !== i) {
-                    isSolved = false;
-                    break;
-                }
-            }
-            if (isSolved) {
-                const temp = puzzlePieces[totalPieces - 1];
-                puzzlePieces[totalPieces - 1] = puzzlePieces[totalPieces - 2];
-                puzzlePieces[totalPieces - 2] = temp;
-            }
-            
+            for (let i = 0; i < totalPieces; i++) { if (puzzlePieces[i] !== i) { isSolved = false; break; } }
+            if (isSolved) { const temp = puzzlePieces[totalPieces - 1]; puzzlePieces[totalPieces - 1] = puzzlePieces[totalPieces - 2]; puzzlePieces[totalPieces - 2] = temp; }
             for (let i = 0; i < totalPieces; i++) {
                 const piece = document.createElement('div');
                 piece.className = 'puzzle-piece';
                 piece.dataset.index = i;
-                
                 const originalPiece = puzzlePieces[i];
                 const row = Math.floor(originalPiece / puzzleSize);
                 const col = originalPiece % puzzleSize;
-                
                 piece.style.backgroundImage = 'url(' + puzzleImage + ')';
                 piece.style.backgroundPosition = (col * 50) + '% ' + (row * 50) + '%';
-                
                 piece.onclick = function() { handlePieceClick(i); };
-                
                 board.appendChild(piece);
             }
-            
             puzzleTimerInterval = setInterval(() => {
                 puzzleSeconds++;
                 const mins = Math.floor(puzzleSeconds / 60);
@@ -1193,107 +1250,246 @@
 
         function handlePieceClick(index) {
             if (puzzleSolved) return;
-            
             const pieces = document.querySelectorAll('.puzzle-piece');
-            
-            if (selectedPiece === null) {
-                selectedPiece = index;
-                pieces[index].classList.add('selected');
-            } else if (selectedPiece === index) {
-                pieces[index].classList.remove('selected');
-                selectedPiece = null;
-            } else {
+            if (selectedPiece === null) { selectedPiece = index; pieces[index].classList.add('selected'); }
+            else if (selectedPiece === index) { pieces[index].classList.remove('selected'); selectedPiece = null; }
+            else {
                 const temp = puzzlePieces[selectedPiece];
                 puzzlePieces[selectedPiece] = puzzlePieces[index];
                 puzzlePieces[index] = temp;
-                
                 pieces[selectedPiece].classList.remove('selected');
-                
                 updatePuzzleDisplay();
-                
                 puzzleMoves++;
                 document.getElementById('puzzleMoves').innerText = puzzleMoves;
-                
                 selectedPiece = null;
-                
                 checkPuzzleWin();
             }
         }
 
         function updatePuzzleDisplay() {
             const pieces = document.querySelectorAll('.puzzle-piece');
-            
             for (let i = 0; i < pieces.length; i++) {
                 const originalPiece = puzzlePieces[i];
                 const row = Math.floor(originalPiece / puzzleSize);
                 const col = originalPiece % puzzleSize;
-                
                 pieces[i].style.backgroundPosition = (col * 50) + '% ' + (row * 50) + '%';
-                
-                if (puzzlePieces[i] === i) {
-                    pieces[i].classList.add('correct');
-                } else {
-                    pieces[i].classList.remove('correct');
-                }
+                if (puzzlePieces[i] === i) { pieces[i].classList.add('correct'); }
+                else { pieces[i].classList.remove('correct'); }
             }
         }
 
         function checkPuzzleWin() {
             const totalPieces = puzzleSize * puzzleSize;
             let solved = true;
-            
-            for (let i = 0; i < totalPieces; i++) {
-                if (puzzlePieces[i] !== i) {
-                    solved = false;
-                    break;
-                }
-            }
-            
+            for (let i = 0; i < totalPieces; i++) { if (puzzlePieces[i] !== i) { solved = false; break; } }
             if (solved) {
                 puzzleSolved = true;
                 clearInterval(puzzleTimerInterval);
-                
                 const mins = Math.floor(puzzleSeconds / 60);
                 const secs = puzzleSeconds % 60;
                 const timeStr = mins + ':' + secs.toString().padStart(2, '0');
-                
                 document.getElementById('puzzleFinalMoves').innerText = puzzleMoves;
                 document.getElementById('puzzleFinalTime').innerText = timeStr;
                 document.getElementById('puzzleFinalImage').src = puzzleImage;
                 document.getElementById('puzzleWin').style.display = 'block';
                 document.getElementById('puzzleWin').classList.add('celebrate');
                 document.getElementById('puzzleCompleteBtn').style.display = 'block';
-                
-                document.querySelectorAll('.puzzle-piece').forEach(p => {
-                    p.classList.remove('selected');
-                    p.classList.add('correct');
-                });
+                document.querySelectorAll('.puzzle-piece').forEach(p => { p.classList.remove('selected'); p.classList.add('correct'); });
             }
         }
 
         function showPuzzleHint() {
             const container = document.createElement('div');
             container.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 200; display: flex; justify-content: center; align-items: center; padding: 20px;';
-            
             const img = document.createElement('img');
             img.src = puzzleImage;
             img.style.cssText = 'max-width: 100%; max-height: 80vh; border-radius: 15px; border: 3px solid #d63384;';
-            
             const text = document.createElement('p');
             text.innerText = 'Запоминай! Закроется через 3 сек...';
             text.style.cssText = 'position: absolute; bottom: 30px; color: white; font-size: 1.2rem; font-weight: bold;';
-            
             container.appendChild(img);
             container.appendChild(text);
             container.onclick = () => document.body.removeChild(container);
-            
             document.body.appendChild(container);
+            setTimeout(() => { if (document.body.contains(container)) { document.body.removeChild(container); } }, 3000);
+        }
+
+        // ===== ВОПРОСЫ =====
+        const questionsData = [
+            "Что бы ты хотел слышать от меня чаще?",
+            "Какой наш обычный вечер ты вспоминаешь с особенной теплотой?",
+            "Если бы я потеряла память, что ты первым делом рассказал мне о нас?",
+            "Что для тебя значит жить хорошей жизнью?",
+            "Чего ты больше всего боишься в нашем будущем?"
+        ];
+
+        function initQuestions() {
+            document.getElementById('questionsComplete').classList.remove('active');
+            document.getElementById('questionsCompleteBtn').style.display = 'none';
+            document.getElementById('submitQuestionsBtn').style.display = 'block';
+            document.getElementById('statusMsgQuestions').className = 'status-msg';
+            const questionsList = document.getElementById('questionsList');
+            questionsList.innerHTML = '';
+            questionsData.forEach(function(question, index) {
+                const questionItem = document.createElement('div');
+                questionItem.className = 'question-item';
+                const questionText = document.createElement('div');
+                questionText.className = 'question-text';
+                questionText.innerText = (index + 1) + '. ' + question;
+                const textarea = document.createElement('textarea');
+                textarea.className = 'question-textarea';
+                textarea.placeholder = 'Твой ответ...';
+                textarea.dataset.index = index;
+                questionItem.appendChild(questionText);
+                questionItem.appendChild(textarea);
+                questionsList.appendChild(questionItem);
+            });
+        }
+
+        async function submitQuestions() {
+            const textareas = document.querySelectorAll('.question-textarea');
+            let answers = [];
+            let allFilled = true;
+            textareas.forEach(function(textarea, index) {
+                const answer = textarea.value.trim();
+                if (answer === '') { allFilled = false; }
+                answers.push(answer);
+            });
+            if (!allFilled) { showStatusQuestions('❌ Пожалуйста, ответь на все вопросы!', 'error'); return; }
+            showStatusQuestions('⏳ Отправляю ответы...', 'loading');
+            try {
+                let message = '💌 Ответы от любимой (День 5):\n\n';
+                answers.forEach(function(answer, index) {
+                    message += (index + 1) + '. ' + questionsData[index] + '\n';
+                    message += 'Ответ: ' + answer + '\n\n';
+                });
+                const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message })
+                });
+                const result = await response.json();
+                if (result.ok) {
+                    showStatusQuestions('✅ Ответы отправлены!', 'success');
+                    document.getElementById('questionsComplete').classList.add('active');
+                    document.getElementById('questionsCompleteBtn').style.display = 'block';
+                    document.getElementById('submitQuestionsBtn').style.display = 'none';
+                    textareas.forEach(function(textarea) { textarea.disabled = true; });
+                } else { showStatusQuestions('❌ Ошибка: ' + result.description, 'error'); }
+            } catch (error) { showStatusQuestions('❌ Ошибка: ' + error.message, 'error'); }
+        }
+
+        function showStatusQuestions(message, type) {
+            const statusEl = document.getElementById('statusMsgQuestions');
+            statusEl.innerText = message;
+            statusEl.className = 'status-msg ' + type;
+        }
+
+        // ===== ХОТЕЛКИ =====
+        function initWishlist() {
+            wishlistItems = [];
+            document.getElementById('wishlistInput').value = '';
+            document.getElementById('wishlistPrice').value = '';
+            document.getElementById('wishlistList').innerHTML = '';
+            document.getElementById('wishlistStatusMsg').className = 'status-msg';
+            document.getElementById('wishlistCompleteBtn').style.display = 'none';
+        }
+
+        function addWishlistItem() {
+            const input = document.getElementById('wishlistInput');
+            const price = document.getElementById('wishlistPrice');
+            const item = input.value.trim();
+            const itemPrice = price.value.trim();
             
-            setTimeout(() => {
-                if (document.body.contains(container)) {
-                    document.body.removeChild(container);
+            if (item === '') {
+                showWishlistStatus('❌ Напиши что хочешь!', 'error');
+                return;
+            }
+            
+            wishlistItems.push({ text: item, price: itemPrice });
+            input.value = '';
+            price.value = '';
+            renderWishlist();
+            showWishlistStatus('✅ Добавлено в список!', 'success');
+        }
+
+        function removeWishlistItem(index) {
+            wishlistItems.splice(index, 1);
+            renderWishlist();
+        }
+
+        function renderWishlist() {
+            const list = document.getElementById('wishlistList');
+            list.innerHTML = '';
+            wishlistItems.forEach(function(item, index) {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'wishlist-item';
+                const textDiv = document.createElement('div');
+                textDiv.className = 'wishlist-item-text';
+                textDiv.innerText = item.text;
+                const priceDiv = document.createElement('div');
+                priceDiv.className = 'wishlist-item-price';
+                priceDiv.innerText = item.price ? item.price + '₽' : '';
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'wishlist-item-delete';
+                deleteBtn.innerText = '×';
+                deleteBtn.onclick = function() { removeWishlistItem(index); };
+                itemDiv.appendChild(textDiv);
+                itemDiv.appendChild(priceDiv);
+                itemDiv.appendChild(deleteBtn);
+                list.appendChild(itemDiv);
+            });
+        }
+
+        async function sendWishlist() {
+            if (wishlistItems.length === 0) {
+                showWishlistStatus('❌ Добавь хотя бы одну хотелку!', 'error');
+                return;
+            }
+            
+            showWishlistStatus(' Отправляю список...', 'loading');
+            
+            try {
+                let message = '🎁 Список хотелок от любимой (День 6):\n\n';
+                wishlistItems.forEach(function(item, index) {
+                    message += (index + 1) + '. ' + item.text;
+                    if (item.price) { message += ' — ' + item.price + '₽'; }
+                    message += '\n';
+                });
+                
+                const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message })
+                });
+                
+                const result = await response.json();
+                
+                if (result.ok) {
+                    showWishlistStatus('✅ Список отправлен! Я всё увидел! 💕', 'success');
+                    document.getElementById('wishlistCompleteBtn').style.display = 'block';
+                } else {
+                    showWishlistStatus('❌ Ошибка: ' + result.description, 'error');
                 }
-            }, 3000);
+            } catch (error) {
+                showWishlistStatus('❌ Ошибка: ' + error.message, 'error');
+            }
+        }
+
+        function showWishlistStatus(message, type) {
+            const statusEl = document.getElementById('wishlistStatusMsg');
+            statusEl.innerText = message;
+            statusEl.className = 'status-msg ' + type;
+        }
+
+        function showJokeVideo() {
+            document.getElementById('jokeVideoFrame').src = JOKE_VIDEO_URL;
+            document.getElementById('jokeVideoContainer').classList.add('active');
+        }
+
+        function closeJokeVideo() {
+            document.getElementById('jokeVideoContainer').classList.remove('active');
+            document.getElementById('jokeVideoFrame').src = '';
         }
 
         // ===== РИСОВАЛКА =====
@@ -1315,10 +1511,7 @@
             const rect = canvas.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            return {
-                x: (clientX - rect.left) * (canvas.width / rect.width),
-                y: (clientY - rect.top) * (canvas.height / rect.height)
-            };
+            return { x: (clientX - rect.left) * (canvas.width / rect.width), y: (clientY - rect.top) * (canvas.height / rect.height) };
         }
 
         function startDraw(e) {
@@ -1332,22 +1525,13 @@
         function draw(e) {
             if (!isDrawing) return;
             e.preventDefault();
-            
             const pos = getPos(e);
             const brushSize = document.getElementById('brushSize').value;
-            
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(pos.x, pos.y);
-            
-            if (currentTool === 'eraser') {
-                ctx.strokeStyle = 'white';
-                ctx.lineWidth = brushSize * 2;
-            } else {
-                ctx.strokeStyle = document.getElementById('colorPicker').value;
-                ctx.lineWidth = brushSize;
-            }
-            
+            if (currentTool === 'eraser') { ctx.strokeStyle = 'white'; ctx.lineWidth = brushSize * 2; }
+            else { ctx.strokeStyle = document.getElementById('colorPicker').value; ctx.lineWidth = brushSize; }
             ctx.stroke();
             lastX = pos.x;
             lastY = pos.y;
@@ -1359,7 +1543,6 @@
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDraw);
         canvas.addEventListener('mouseout', stopDraw);
-        
         canvas.addEventListener('touchstart', startDraw, { passive: false });
         canvas.addEventListener('touchmove', draw, { passive: false });
         canvas.addEventListener('touchend', stopDraw);
@@ -1371,15 +1554,10 @@
         }
 
         function clearCanvas() {
-            if (confirm('Очистить рисунок?')) {
-                ctx.fillStyle = 'white';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-            }
+            if (confirm('Очистить рисунок?')) { ctx.fillStyle = 'white'; ctx.fillRect(0, 0, canvas.width, canvas.height); }
         }
 
-        document.getElementById('brushSize').addEventListener('input', function(e) {
-            document.getElementById('brushSizeValue').innerText = e.target.value;
-        });
+        document.getElementById('brushSize').addEventListener('input', function(e) { document.getElementById('brushSizeValue').innerText = e.target.value; });
 
         function finishDrawing() {
             const userCanvas = document.getElementById('userDrawing');
@@ -1387,7 +1565,6 @@
             userCtx.fillStyle = 'white';
             userCtx.fillRect(0, 0, 300, 300);
             userCtx.drawImage(canvas, 0, 0, 300, 300);
-            
             document.getElementById('drawingContainer').classList.remove('active');
             document.getElementById('comparison').classList.add('active');
         }
