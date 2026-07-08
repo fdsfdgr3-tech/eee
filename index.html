@@ -170,10 +170,10 @@
         .level-name { font-weight: bold; color: #d63384; font-size: 1.05rem; }
         .level-desc { font-size: 0.85rem; color: #666; margin-top: 3px; }
         
-        .drawing-container, .game-container, .quiz-container { display: none; }
-        .drawing-container.active, .game-container.active, .quiz-container.active { display: block; }
+        .drawing-container, .game-container, .quiz-container, .sticker-container { display: none; }
+        .drawing-container.active, .game-container.active, .quiz-container.active, .sticker-container.active { display: block; }
         
-        .current-level, .quiz-progress {
+        .current-level, .quiz-progress, .sticker-info {
             background: #fff0f5;
             padding: 10px;
             border-radius: 10px;
@@ -239,7 +239,6 @@
         
         .timer { font-size: 1.2rem; color: #d63384; font-weight: bold; }
         
-        /* Стили для загадок */
         .quiz-question {
             background: linear-gradient(135deg, #fff0f5 0%, #ffe0ec 100%);
             padding: 20px 15px;
@@ -304,6 +303,83 @@
         .quiz-feedback.correct { background: #d4edda; color: #155724; }
         .quiz-feedback.wrong { background: #f8d7da; color: #721c24; }
         
+        .sticker-photo-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            margin: 10px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 3px solid #d63384;
+            cursor: crosshair;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        .sticker-photo-wrapper img {
+            width: 100%;
+            display: block;
+            pointer-events: none;
+        }
+        
+        .sticker-target {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .sticker-found {
+            position: absolute;
+            font-size: 50px;
+            transform: translate(-50%, -50%);
+            animation: stickerPop 0.5s ease-out;
+            pointer-events: none;
+            z-index: 20;
+            filter: drop-shadow(0 0 10px rgba(255, 100, 150, 0.8));
+        }
+        
+        @keyframes stickerPop {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) scale(1.5) rotate(180deg); }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
+        }
+        
+        .sticker-hint {
+            padding: 12px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 1rem;
+            font-weight: bold;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sticker-hint.cold { background: #e0e7ff; color: #3730a3; }
+        .sticker-hint.warm { background: #fef3c7; color: #92400e; }
+        .sticker-hint.hot { background: #fee2e2; color: #991b1b; }
+        .sticker-hint.found { background: #d4edda; color: #155724; }
+        
+        .click-ripple {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #d63384;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: ripple 0.6s ease-out;
+            pointer-events: none;
+            z-index: 5;
+        }
+        
+        @keyframes ripple {
+            0% { width: 0; height: 0; opacity: 1; }
+            100% { width: 60px; height: 60px; opacity: 0; }
+        }
+        
         .comparison { display: none; margin-top: 20px; }
         .comparison.active { display: block; }
         .comparison h3 { color: #d63384; margin-bottom: 15px; }
@@ -351,7 +427,7 @@
         .game-lose { background: #f8d7da; }
         .game-lose h3 { color: #dc3545; margin-bottom: 10px; }
         
-        .quiz-complete {
+        .quiz-complete, .sticker-complete {
             display: none;
             background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
             padding: 20px;
@@ -359,8 +435,8 @@
             margin-top: 15px;
             text-align: center;
         }
-        .quiz-complete.active { display: block; }
-        .quiz-complete h3 { color: #28a745; margin-bottom: 10px; }
+        .quiz-complete.active, .sticker-complete.active { display: block; }
+        .quiz-complete h3, .sticker-complete h3 { color: #28a745; margin-bottom: 10px; }
         
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(214, 51, 132, 0.7); }
@@ -517,13 +593,9 @@
             <!-- ЗАГАДКИ -->
             <div class="quiz-container" id="quizContainer">
                 <div class="quiz-progress" id="quizProgress">Загадка 1 из 5</div>
-                
                 <div class="quiz-question" id="quizQuestion"></div>
-                
                 <div class="quiz-answers" id="quizAnswers"></div>
-                
                 <div class="quiz-feedback" id="quizFeedback"></div>
-                
                 <button class="btn" id="nextQuestionBtn" onclick="nextQuestion()" style="display: none;">Следующая загадка →</button>
                 
                 <div class="quiz-complete" id="quizComplete">
@@ -532,6 +604,64 @@
                 </div>
                 
                 <button class="btn" id="quizCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
+            </div>
+            
+            <!-- НАЙДИ СТИКЕР - 3 УРОВНЯ -->
+            <div class="welcome-screen" id="stickerWelcomeScreen">
+                <div class="welcome-emoji">🔍</div>
+                <h2>Найди спрятанный стикер!</h2>
+                <p>Выбери уровень сложности и найди сердечко на фото! Используй подсказки "холодно/горячо" 💝</p>
+                <button class="btn" onclick="showStickerLevels()">Выбрать уровень 🎯</button>
+            </div>
+            
+            <div class="level-selection" id="stickerLevelSelection">
+                <h3 style="color: #d63384; margin-bottom: 15px;">Выбери уровень:</h3>
+                
+                <div class="level-btn" onclick="selectStickerLevel('easy')">
+                    <div class="level-emoji">🌳</div>
+                    <div class="level-info">
+                        <div class="level-name">Лёгкий — Парк</div>
+                        <div class="level-desc">Простое фото, стикер хорошо виден</div>
+                    </div>
+                </div>
+                
+                <div class="level-btn" onclick="selectStickerLevel('medium')">
+                    <div class="level-emoji">🏙️</div>
+                    <div class="level-info">
+                        <div class="level-name">Средний — Город</div>
+                        <div class="level-desc">Городской пейзаж, нужно поискать</div>
+                    </div>
+                </div>
+                
+                <div class="level-btn" onclick="selectStickerLevel('hard')">
+                    <div class="level-emoji">🌆</div>
+                    <div class="level-info">
+                        <div class="level-name">Сложный — Закат</div>
+                        <div class="level-desc">Сложное фото, стикер спрятан хорошо</div>
+                    </div>
+                </div>
+                
+                <button class="back-btn" onclick="backToStickerWelcome()">← Назад</button>
+            </div>
+            
+            <div class="sticker-container" id="stickerContainer">
+                <div class="current-level" id="stickerCurrentLevel"></div>
+                <div class="sticker-info" id="stickerInfo">🔍 Попыток: 0</div>
+                
+                <div class="sticker-photo-wrapper" id="stickerPhotoWrapper">
+                    <img id="stickerPhoto" src="" alt="Найди стикер">
+                    <div class="sticker-target" id="stickerTarget"></div>
+                </div>
+                
+                <div class="sticker-hint" id="stickerHint">Нажми на фото, чтобы найти спрятанный стикер! 💝</div>
+                
+                <div class="sticker-complete" id="stickerComplete">
+                    <h3>🎉 Ты нашла стикер! 🎉</h3>
+                    <p>За <span id="stickerAttempts">0</span> попыток!</p>
+                </div>
+                
+                <button class="btn" id="stickerResetBtn" onclick="resetStickerGame()" style="display: none; margin-top: 10px;">Играть снова 🔄</button>
+                <button class="btn" id="stickerCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
             <div class="comparison" id="comparison">
@@ -591,7 +721,7 @@
             { title: "День 1: МИНИ-ИГРА!", desc: "Поймай 67 сердечек за 2 минуты!", secret: "Ты поймала моё сердце! ❤️", isGame: true },
             { title: "День 2: 🎨 РИСОВАЛКА!", desc: "Сегодня мы будем рисовать!", secret: "Ты рисуешь даже лучше меня! Люблю тебя! ❤️", isDrawing: true },
             { title: "День 3:  ЗАГАДКИ!", desc: "Ответь на 5 загадок про любовь!", secret: "Ты знаешь о любви всё! А я знаю всё о тебе ❤️", isQuiz: true },
-            { title: "День 4: Исследователь", desc: "Найди в городе что-то странное и сфоткай.", secret: "С тобой даже скучный город интересен." },
+            { title: "День 4: 🔍 НАЙДИ СТИКЕР!", desc: "Найди спрятанный стикер на фото!", secret: "Ты всегда находишь то, что я прячу — даже моё сердце! ❤️", isSticker: true },
             { title: "День 5: Привет!", desc: "Сделай селфи из окна и скинь мне.", secret: "Ты самая красивая!" },
             { title: "День 6: Киновечер", desc: "Посмотри фильм и думай обо мне.", secret: "Моя главная роль — быть рядом с тобой." },
             { title: "День 7: Релакс", desc: "Сегодня день лени. Фоткай атмосферу.", secret: "Ты заслуживаешь отдыха." },
@@ -619,7 +749,7 @@
         const levelNames = {
             'sun': '☀️ Солнышко',
             'heart': '💖 Милое сердечко',
-            'cat': ' Котик'
+            'cat': '🐱 Котик'
         };
 
         function openModal(index) {
@@ -629,6 +759,9 @@
             document.getElementById('comparison').classList.remove('active');
             document.getElementById('gameContainer').classList.remove('active');
             document.getElementById('quizContainer').classList.remove('active');
+            document.getElementById('stickerWelcomeScreen').classList.remove('active');
+            document.getElementById('stickerLevelSelection').classList.remove('active');
+            document.getElementById('stickerContainer').classList.remove('active');
             document.getElementById('secretMsg').classList.remove('active');
             document.getElementById('statusMsg').className = 'status-msg';
             document.getElementById('gameWin').style.display = 'none';
@@ -646,6 +779,8 @@
             } else if (tasks[index].isQuiz) {
                 document.getElementById('quizContainer').classList.add('active');
                 startQuiz();
+            } else if (tasks[index].isSticker) {
+                document.getElementById('stickerWelcomeScreen').classList.add('active');
             }
             
             document.getElementById('taskModal').classList.add('active');
@@ -691,6 +826,182 @@
             initDrawing();
         }
 
+        // ===== ФУНКЦИИ ДЛЯ ИГРЫ СО СТИКЕРОМ =====
+        function showStickerLevels() {
+            document.getElementById('stickerWelcomeScreen').classList.remove('active');
+            document.getElementById('stickerLevelSelection').classList.add('active');
+        }
+
+        function backToStickerWelcome() {
+            document.getElementById('stickerLevelSelection').classList.remove('active');
+            document.getElementById('stickerWelcomeScreen').classList.add('active');
+        }
+
+        // ============================================
+        // 📸 СЮДА ВСТАВЛЯЙ ССЫЛКИ НА ФОТО!
+        // ============================================
+        
+        // Уровни для игры "Найди стикер"
+        const stickerLevels = {
+            easy: {
+                // === ЛЁГКИЙ УРОВЕНЬ ===
+                // Вставь ссылку на фото для лёгкого уровня вместо 'photo-easy.jpg'
+                // Пример: 'park.jpg' или 'https://example.com/photo.jpg'
+                photo: 'photo-easy.jpg',  // ← ВСТАВЬ ССЫЛКУ СЮДА
+                
+                // Где спрятан стикер (в процентах от 0 до 100)
+                // left: 50 = по центру горизонтально
+                // top: 50 = по центру вертикально
+                stickerLeft: 50,   // ← МЕНЯЙ ЭТО ЧИСЛО (0-100)
+                stickerTop: 50,    // ← МЕНЯЙ ЭТО ЧИСЛО (0-100)
+                
+                name: '🌳 Лёгкий — Парк'
+            },
+            
+            medium: {
+                // === СРЕДНИЙ УРОВЕНЬ ===
+                // Вставь ссылку на фото для среднего уровня
+                photo: 'photo-medium.jpg',  // ← ВСТАВЬ ССЫЛКУ СЮДА
+                
+                // Где спрятан стикер
+                stickerLeft: 65,   // ← МЕНЯЙ ЭТО ЧИСЛО (0-100)
+                stickerTop: 40,    // ← МЕНЯЙ ЭТО ЧИСЛО (0-100)
+                
+                name: '🏙️ Средний — Город'
+            },
+            
+            hard: {
+                // === СЛОЖНЫЙ УРОВЕНЬ ===
+                // Вставь ссылку на фото для сложного уровня
+                photo: 'photo-hard.jpg',  // ← ВСТАВЬ ССЫЛКУ СЮДА
+                
+                // Где спрятан стикер
+                stickerLeft: 30,   // ← МЕНЯЙ ЭТО ЧИСЛО (0-100)
+                stickerTop: 70,    // ← МЕНЯЙ ЭТО ЧИСЛО (0-100)
+                
+                name: '🌆 Сложный — Закат'
+            }
+        };
+        
+        // ============================================
+        // ⬆️ КОНЕЦ НАСТРОЕК ФОТО
+        // ============================================
+
+        let currentStickerLevel = '';
+        let stickerAttempts = 0;
+        let stickerFound = false;
+
+        function selectStickerLevel(level) {
+            currentStickerLevel = level;
+            document.getElementById('stickerLevelSelection').classList.remove('active');
+            document.getElementById('stickerContainer').classList.add('active');
+            document.getElementById('stickerCurrentLevel').innerText = 'Уровень: ' + stickerLevels[level].name;
+            initStickerGame();
+        }
+
+        function initStickerGame() {
+            stickerAttempts = 0;
+            stickerFound = false;
+            
+            const level = stickerLevels[currentStickerLevel];
+            
+            // Устанавливаем фото
+            document.getElementById('stickerPhoto').src = level.photo;
+            
+            // Устанавливаем позицию зоны-цели
+            const target = document.getElementById('stickerTarget');
+            target.style.left = level.stickerLeft + '%';
+            target.style.top = level.stickerTop + '%';
+            target.style.transform = 'translate(-50%, -50%)';
+            
+            // Убираем старые стикеры и подсказки
+            const wrapper = document.getElementById('stickerPhotoWrapper');
+            const oldStickers = wrapper.querySelectorAll('.sticker-found');
+            oldStickers.forEach(s => s.remove());
+            const oldRipples = wrapper.querySelectorAll('.click-ripple');
+            oldRipples.forEach(r => r.remove());
+            
+            document.getElementById('stickerInfo').innerText = '🔍 Попыток: 0';
+            document.getElementById('stickerHint').innerText = 'Нажми на фото, чтобы найти спрятанный стикер! 💝';
+            document.getElementById('stickerHint').className = 'sticker-hint';
+            document.getElementById('stickerComplete').classList.remove('active');
+            document.getElementById('stickerResetBtn').style.display = 'none';
+            document.getElementById('stickerCompleteBtn').style.display = 'none';
+            
+            // Обработчик клика по фото
+            wrapper.onclick = handleStickerClick;
+        }
+
+        function handleStickerClick(e) {
+            if (stickerFound) return;
+            
+            const wrapper = document.getElementById('stickerPhotoWrapper');
+            const rect = wrapper.getBoundingClientRect();
+            
+            // Координаты клика относительно фото
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+            
+            // Координаты центра зоны-цели в пикселях
+            const level = stickerLevels[currentStickerLevel];
+            const targetX = (level.stickerLeft / 100) * rect.width;
+            const targetY = (level.stickerTop / 100) * rect.height;
+            
+            // Расстояние от клика до центра зоны
+            const distance = Math.sqrt(Math.pow(clickX - targetX, 2) + Math.pow(clickY - targetY, 2));
+            
+            stickerAttempts++;
+            document.getElementById('stickerInfo').innerText = '🔍 Попыток: ' + stickerAttempts;
+            
+            // Показываем кружок на месте клика
+            const ripple = document.createElement('div');
+            ripple.className = 'click-ripple';
+            ripple.style.left = clickX + 'px';
+            ripple.style.top = clickY + 'px';
+            wrapper.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+            
+            const hint = document.getElementById('stickerHint');
+            
+            // Если попал в зону (радиус 40px)
+            if (distance < 40) {
+                stickerFound = true;
+                
+                // Показываем стикер
+                const sticker = document.createElement('div');
+                sticker.className = 'sticker-found';
+                sticker.innerText = '❤️';
+                sticker.style.left = targetX + 'px';
+                sticker.style.top = targetY + 'px';
+                wrapper.appendChild(sticker);
+                
+                hint.innerText = '🎉 НАШЛА! Стикер найден за ' + stickerAttempts + ' попыток!';
+                hint.className = 'sticker-hint found';
+                
+                document.getElementById('stickerAttempts').innerText = stickerAttempts;
+                document.getElementById('stickerComplete').classList.add('active');
+                document.getElementById('stickerCompleteBtn').style.display = 'block';
+                document.getElementById('stickerResetBtn').style.display = 'block';
+                
+            } else {
+                // Подсказки по расстоянию
+                if (distance < 80) {
+                    hint.innerText = '🔥 Очень близко! Горячо!';
+                    hint.className = 'sticker-hint hot';
+                } else if (distance < 150) {
+                    hint.innerText = '🌡️ Тепло! Ты рядом!';
+                    hint.className = 'sticker-hint warm';
+                } else {
+                    hint.innerText = '❄️ Холодно... Попробуй в другом месте';
+                    hint.className = 'sticker-hint cold';
+                }
+            }
+        }
+
+        function resetStickerGame() {
+            initStickerGame();
+        }
+
         function showStatus(message, type) {
             const statusEl = document.getElementById('statusMsg');
             statusEl.innerText = message;
@@ -710,7 +1021,7 @@
                     const levelEmoji = {
                         'sun': '☀️',
                         'heart': '💖',
-                        'cat': '🐱'
+                        'cat': ''
                     };
                     
                     const caption = '🎨 Рисунок от любимой!\nУровень: ' + levelEmoji[currentLevel] + ' ' + levelNames[currentLevel] + '\n📅 День 2';
