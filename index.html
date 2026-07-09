@@ -170,10 +170,10 @@
         .level-name { font-weight: bold; color: #d63384; font-size: 1.05rem; }
         .level-desc { font-size: 0.85rem; color: #666; margin-top: 3px; }
         
-        .drawing-container, .game-container, .quiz-container, .puzzle-container, .questions-container, .wishlist-container { display: none; }
-        .drawing-container.active, .game-container.active, .quiz-container.active, .puzzle-container.active, .questions-container.active, .wishlist-container.active { display: block; }
+        .drawing-container, .game-container, .quiz-container, .puzzle-container, .capsule-container, .wishlist-container { display: none; }
+        .drawing-container.active, .game-container.active, .quiz-container.active, .puzzle-container.active, .capsule-container.active, .wishlist-container.active { display: block; }
         
-        .current-level, .quiz-progress, .puzzle-info, .questions-progress {
+        .current-level, .quiz-progress, .puzzle-info {
             background: #fff0f5;
             padding: 10px;
             border-radius: 10px;
@@ -347,172 +347,86 @@
             color: #d63384;
         }
         
-        .question-item {
-            background: linear-gradient(135deg, #fff0f5 0%, #ffe0ec 100%);
-            padding: 15px;
+        /* КАПСУЛА ВРЕМЕНИ */
+        .capsule-container {
+            text-align: center;
+        }
+        
+        .capsule-intro {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
             border-radius: 15px;
-            margin-bottom: 15px;
-            text-align: left;
+            margin-bottom: 20px;
         }
         
-        .question-text {
-            font-size: 1rem;
-            font-weight: bold;
-            color: #d63384;
+        .capsule-intro h3 {
+            font-size: 1.3rem;
             margin-bottom: 10px;
-            line-height: 1.4;
         }
         
-        .question-textarea {
-            width: 100%;
-            min-height: 80px;
-            padding: 12px;
+        .capsule-intro p {
             font-size: 0.95rem;
-            border: 2px solid #ffb6c1;
-            border-radius: 10px;
-            resize: vertical;
-            font-family: inherit;
             line-height: 1.5;
         }
         
-        .question-textarea:focus {
-            outline: none;
-            border-color: #d63384;
-        }
-        
-        /* ХОТЕЛКИ */
-        .wishlist-input-container {
-            background: linear-gradient(135deg, #fff0f5 0%, #ffe0ec 100%);
-            padding: 15px;
-            border-radius: 15px;
+        .capsule-icon {
+            font-size: 4rem;
             margin-bottom: 15px;
         }
         
-        .wishlist-input {
+        .capsule-textarea {
             width: 100%;
-            padding: 12px;
+            min-height: 200px;
+            padding: 15px;
             font-size: 1rem;
             border: 2px solid #ffb6c1;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            border-radius: 15px;
+            resize: vertical;
             font-family: inherit;
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
         
-        .wishlist-input:focus {
+        .capsule-textarea:focus {
             outline: none;
             border-color: #d63384;
         }
         
-        .wishlist-price {
-            width: 100%;
-            padding: 12px;
-            font-size: 1rem;
-            border: 2px solid #ffb6c1;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            font-family: inherit;
-        }
-        
-        .wishlist-list {
-            text-align: left;
-            margin: 15px 0;
-        }
-        
-        .wishlist-item {
-            background: white;
-            border: 2px solid #ffb6c1;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .wishlist-item-text {
-            flex: 1;
-            font-size: 0.95rem;
-        }
-        
-        .wishlist-item-price {
-            color: #d63384;
-            font-weight: bold;
-            margin: 0 10px;
-        }
-        
-        .wishlist-item-delete {
-            background: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .joke-video-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            margin-top: 15px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .joke-video-btn::before {
-            content: "🎁";
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.5rem;
-        }
-        
-        .-video-container {
+        .capsule-seal {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 300;
-            justify-content: center;
-            align-items: center;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
             padding: 20px;
-        }
-        
-        .-video-container.active {
-            display: flex;
-        }
-        
-        .joke-video-wrapper {
-            width: 100%;
-            max-width: 500px;
-            position: relative;
-        }
-        
-        .joke-video-wrapper iframe {
-            width: 100%;
-            height: 300px;
             border-radius: 15px;
-            border: 3px solid #d63384;
+            margin: 20px 0;
+            animation: sealPulse 2s ease-in-out infinite;
         }
         
-        .joke-video-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            background: white;
-            color: #d63384;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.5rem;
-            cursor: pointer;
+        .capsule-seal.active {
+            display: block;
+        }
+        
+        @keyframes sealPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .capsule-complete {
+            display: none;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+        
+        .capsule-complete.active {
+            display: block;
+        }
+        
+        .capsule-complete h3 {
+            color: #28a745;
+            margin-bottom: 10px;
         }
         
         .comparison { display: none; margin-top: 20px; }
@@ -562,7 +476,7 @@
         .game-lose { background: #f8d7da; }
         .game-lose h3 { color: #dc3545; margin-bottom: 10px; }
         
-        .quiz-complete, .questions-complete {
+        .quiz-complete {
             display: none;
             background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
             padding: 20px;
@@ -570,8 +484,75 @@
             margin-top: 15px;
             text-align: center;
         }
-        .quiz-complete.active, .questions-complete.active { display: block; }
-        .quiz-complete h3, .questions-complete h3 { color: #28a745; margin-bottom: 10px; }
+        .quiz-complete.active { display: block; }
+        .quiz-complete h3 { color: #28a745; margin-bottom: 10px; }
+        
+        .wishlist-input-container {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe0ec 100%);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .wishlist-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-family: inherit;
+        }
+        
+        .wishlist-input:focus {
+            outline: none;
+            border-color: #d63384;
+        }
+        
+        .wishlist-photo-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 0.9rem;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: white;
+        }
+        
+        .wishlist-list {
+            text-align: left;
+            margin: 15px 0;
+        }
+        
+        .wishlist-item {
+            background: white;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .wishlist-item-text {
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+        
+        .wishlist-item-photo {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 8px;
+        }
+        
+        .wishlist-item-delete {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
         
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(214, 51, 132, 0.7); }
@@ -634,7 +615,7 @@
             <h2>❤️ Добро пожаловать ❤️</h2>
             <p>Введи дату начала наших отношений</p>
             <input type="date" id="dateInput">
-            <button class="btn" onclick="checkDate()">Войти </button>
+            <button class="btn" onclick="checkDate()">Войти 💕</button>
             <p class="error-msg" id="errorMsg">Неверная дата! Попробуй ещё раз 😔</p>
         </div>
     </div>
@@ -664,13 +645,13 @@
                 <canvas id="gameCanvas" width="350" height="450"></canvas>
                 <p style="text-align: center; color: #666; font-size: 0.9rem;">Двигай пальцем, чтобы ловить сердечки!</p>
                 <div class="game-win" id="gameWin">
-                    <h3>🎉 Поздравляю! </h3>
+                    <h3>🎉 Поздравляю! 🎉</h3>
                     <p>Ты поймала 67 сердечек!</p>
                 </div>
                 <div class="game-lose" id="gameLose">
                     <h3>😔 Время вышло!</h3>
                     <p>Ты поймала <span id="finalScore">0</span> из 67 сердечек.</p>
-                    <button class="btn" onclick="startGame()" style="margin-top: 15px;">Играть снова 🔄</button>
+                    <button class="btn" onclick="startGame()" style="margin-top: 15px;">Играть снова </button>
                 </div>
                 <button class="btn" id="gameCompleteBtn" onclick="showSecret()">Я выполнила! 💖</button>
             </div>
@@ -680,7 +661,7 @@
                 <div class="welcome-emoji">🎨</div>
                 <h2>Сейчас мы будем рисовать!</h2>
                 <p>Выбери уровень сложности и покажи свои художественные таланты! </p>
-                <button class="btn" onclick="showLevels()">Выбрать уровень 🖌️</button>
+                <button class="btn" onclick="showLevels()">Выбрать уровень ️</button>
             </div>
             <div class="level-selection" id="levelSelection">
                 <h3 style="color: #d63384; margin-bottom: 15px;">Выбери что рисуем:</h3>
@@ -692,7 +673,7 @@
                     </div>
                 </div>
                 <div class="level-btn" onclick="selectLevel('heart')">
-                    <div class="level-emoji">💖</div>
+                    <div class="level-emoji"></div>
                     <div class="level-info">
                         <div class="level-name">Милое сердечко</div>
                         <div class="level-desc">Средний уровень — нарисуй сердечко!</div>
@@ -713,12 +694,12 @@
                 <div class="drawing-tools">
                     <input type="color" class="color-picker" id="colorPicker" value="#d63384">
                     <button class="tool-btn" onclick="setTool('brush', this)">🖌️ Кисть</button>
-                    <button class="tool-btn" onclick="setTool('eraser', this)"> Ластик</button>
+                    <button class="tool-btn" onclick="setTool('eraser', this)">🧹 Ластик</button>
                     <button class="tool-btn" onclick="clearCanvas()">🗑️ Очистить</button>
                 </div>
                 <input type="range" class="brush-size" id="brushSize" min="2" max="20" value="5">
                 <p style="font-size: 0.85rem; color: #666;">Размер кисти: <span id="brushSizeValue">5</span>px</p>
-                <button class="btn" onclick="finishDrawing()">Готово! 💖</button>
+                <button class="btn" onclick="finishDrawing()">Готово! </button>
             </div>
             
             <!-- ЗАГАДКИ -->
@@ -729,7 +710,7 @@
                 <div class="quiz-feedback" id="quizFeedback"></div>
                 <button class="btn" id="nextQuestionBtn" onclick="nextQuestion()" style="display: none;">Следующая загадка →</button>
                 <div class="quiz-complete" id="quizComplete">
-                    <h3>🎉 Все загадки разгаданы! 🎉</h3>
+                    <h3>🎉 Все загадки разгаданы! </h3>
                     <p>Ты ответила правильно на <span id="quizScore">0</span> из 5 загадок!</p>
                 </div>
                 <button class="btn" id="quizCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
@@ -743,11 +724,11 @@
                 </div>
                 <div id="puzzleGameArea" style="display: none;">
                     <div class="puzzle-stats">
-                        <div>🔄 Ходов: <span id="puzzleMoves">0</span></div>
+                        <div> Ходов: <span id="puzzleMoves">0</span></div>
                         <div>⏱️ <span id="puzzleTimer">0:00</span></div>
                     </div>
                     <div class="puzzle-board" id="puzzleBoard"></div>
-                    <button class="btn" onclick="showPuzzleHint()" style="margin-top: 10px; background: #6c757d;">️ Подсказка</button>
+                    <button class="btn" onclick="showPuzzleHint()" style="margin-top: 10px; background: #6c757d;">👁️ Подсказка</button>
                 </div>
                 <div class="puzzle-win" id="puzzleWin">
                     <h3>🎉 Пазл собран! ❤️</h3>
@@ -757,35 +738,49 @@
                 <button class="btn" id="puzzleCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
-            <!-- ВОПРОСЫ -->
-            <div class="questions-container" id="questionsContainer">
-                <div class="questions-progress" id="questionsProgress">Ответь на все вопросы </div>
-                <div id="questionsList"></div>
-                <div id="statusMsgQuestions" class="status-msg"></div>
-                <button class="btn" id="submitQuestionsBtn" onclick="submitQuestions()">Отправить ответы 💌</button>
-                <div class="questions-complete" id="questionsComplete">
-                    <h3>🎉 Спасибо за ответы! ❤️</h3>
-                    <p>Твои ответы отправлены мне! Я очень ценю твою искренность 💕</p>
+            <!-- КАПСУЛА ВРЕМЕНИ -->
+            <div class="capsule-container" id="capsuleContainer">
+                <div class="capsule-intro">
+                    <div class="capsule-icon">💌</div>
+                    <h3>Капсула времени</h3>
+                    <p>Напиши послание, которое я прочитаю только при нашей встрече. Запечатай его и отправь мне. Я обещаю не открывать до встречи! </p>
                 </div>
-                <button class="btn" id="questionsCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
+                
+                <textarea class="capsule-textarea" id="capsuleText" placeholder="Напиши здесь своё послание...&#10;&#10;Можешь написать о своих чувствах, о том, что хочешь сказать при встрече, или просто оставить милое сообщение..."></textarea>
+                
+                <div class="capsule-seal" id="capsuleSeal">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">🔒</div>
+                    <div style="font-weight: bold;">Капсула запечатана!</div>
+                    <div style="font-size: 0.9rem; margin-top: 5px;">Открою только при встрече</div>
+                </div>
+                
+                <button class="btn" id="sealCapsuleBtn" onclick="sealCapsule()" style="background: #667eea;">🔒 Запечатать капсулу</button>
+                <button class="btn" id="sendCapsuleBtn" onclick="sendCapsule()" style="display: none; background: #28a745; margin-top: 10px;">📤 Отправить мне</button>
+                
+                <div id="capsuleStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
+                
+                <div class="capsule-complete" id="capsuleComplete">
+                    <h3>🎉 Капсула отправлена! ❤️</h3>
+                    <p>Я получил твоё послание! Жду не дождусь нашей встречи, чтобы прочитать его! 💕</p>
+                </div>
+                
+                <button class="btn" id="capsuleCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
             <!-- ХОТЕЛКИ -->
             <div class="wishlist-container" id="wishlistContainer">
                 <div class="current-level">🎁 Список хотелок</div>
-                <p style="color: #666; margin-bottom: 15px;">Напиши что хочешь, а я подумаю что подарить! 💝</p>
+                <p style="color: #666; margin-bottom: 15px;">Напиши что хочешь и прикрепи фото! 💝</p>
                 
                 <div class="wishlist-input-container">
                     <input type="text" class="wishlist-input" id="wishlistInput" placeholder="Что ты хочешь?">
-                    <input type="text" class="wishlist-price" id="wishlistPrice" placeholder="Примерная цена (необязательно)">
+                    <input type="file" class="wishlist-photo-input" id="wishlistPhotoInput" accept="image/*">
                     <button class="btn" onclick="addWishlistItem()">Добавить в список ➕</button>
                 </div>
                 
                 <div class="wishlist-list" id="wishlistList"></div>
                 
                 <button class="btn" onclick="sendWishlist()" style="background: #28a745;">📤 Отправить список мне</button>
-                
-                <button class="btn joke-video-btn" onclick="showJokeVideo()">🎁 Сюрприз! Нажми чтобы получить подарок!</button>
                 
                 <div id="wishlistStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
                 
@@ -799,7 +794,7 @@
                     <p class="comparison-label">Молодец! Теперь отправь мне свой рисунок 💕</p>
                 </div>
                 <div id="statusMsg" class="status-msg"></div>
-                <button class="btn" onclick="sendToTelegram()">📤 Отправить мне в Telegram</button>
+                <button class="btn" onclick="sendToTelegram()"> Отправить мне в Telegram</button>
                 <button class="btn" onclick="showSecret()" style="margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
@@ -809,20 +804,11 @@
         </div>
     </div>
 
-    <!-- ШУТОЧНОЕ ВИДЕО -->
-    <div class="joke-video-container" id="jokeVideoContainer">
-        <div class="joke-video-wrapper">
-            <button class="joke-video-close" onclick="closeJokeVideo()">×</button>
-            <iframe id="jokeVideoFrame" src="" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </div>
-
     <script>
         const TELEGRAM_BOT_TOKEN = '8787381211:AAELtNBhvaCCRiMXQAdbirB-XQUM01A9-cY';
         const TELEGRAM_CHAT_ID = '805970318';
         const correctDate = '2026-03-27';
         const puzzleImage = 'https://sun9-26.userapi.com/s/v1/ig2/HfPKFAeNxgKflxlck8NmrBaUC96run9_Gp8cwV7AFTriJ0jD6vGap53Z-CMeLC8Q5-oXlR978tj7SdThkp9PorVw.jpg?quality=95&as=32x27,48x40,72x60,108x90,160x134,240x200,360x301,480x401,540x451,576x481&from=bu&u=m8uZYCmeWdc0uw4FuvEKGJnFUwte48VE6EzrIpa5yOs&cs=576x0';
-        const JOKE_VIDEO_URL = 'https://www.youtube.com/watch?v=fiqG8RcZGlU'; // Rick Astley - Never Gonna Give You Up
         
         let wishlistItems = [];
         
@@ -860,7 +846,7 @@
             { title: "День 2: 🎨 РИСОВАЛКА!", desc: "Сегодня мы будем рисовать!", secret: "Ты рисуешь даже лучше меня! Люблю тебя! ❤️", isDrawing: true },
             { title: "День 3: 🔮 ЗАГАДКИ!", desc: "Ответь на 5 загадок про любовь!", secret: "Ты знаешь о любви всё! А я знаю всё о тебе ❤️", isQuiz: true },
             { title: "День 4: 🧩 ПАЗЛ!", desc: "Собери разбитое фото!", secret: "Ты собрала мой мир по кусочкам — ты моё всё! ❤️", isPuzzle: true },
-            { title: "День 5: 💬 ВОПРОСЫ!", desc: "Ответь на 5 важных вопросов", secret: "Твои ответы — это самое ценное, что у меня есть! ❤️", isQuestions: true },
+            { title: "День 5: 💌 КАПСУЛА ВРЕМЕНИ!", desc: "Напиши послание для встречи", secret: "Твои слова — самое дорогое, что у меня есть! ❤️", isCapsule: true },
             { title: "День 6: 🎁 ХОТЕЛКИ!", desc: "Напиши что хочешь получить в подарок", secret: "Для тебя я готов на всё! Люблю! ❤️", isWishlist: true },
             { title: "День 7: Релакс", desc: "Сегодня день лени. Фоткай атмосферу.", secret: "Ты заслуживаешь отдыха." },
             { title: "День 8: Мечты", desc: "Скинь скриншот вещи, которую хочешь.", secret: "Для тебя мне ничего не жалко." },
@@ -897,7 +883,7 @@
             document.getElementById('gameContainer').classList.remove('active');
             document.getElementById('quizContainer').classList.remove('active');
             document.getElementById('puzzleContainer').classList.remove('active');
-            document.getElementById('questionsContainer').classList.remove('active');
+            document.getElementById('capsuleContainer').classList.remove('active');
             document.getElementById('wishlistContainer').classList.remove('active');
             document.getElementById('secretMsg').classList.remove('active');
             document.getElementById('statusMsg').className = 'status-msg';
@@ -919,9 +905,9 @@
             } else if (tasks[index].isPuzzle) {
                 document.getElementById('puzzleContainer').classList.add('active');
                 startPuzzleGame();
-            } else if (tasks[index].isQuestions) {
-                document.getElementById('questionsContainer').classList.add('active');
-                initQuestions();
+            } else if (tasks[index].isCapsule) {
+                document.getElementById('capsuleContainer').classList.add('active');
+                initCapsule();
             } else if (tasks[index].isWishlist) {
                 document.getElementById('wishlistContainer').classList.add('active');
                 initWishlist();
@@ -979,7 +965,7 @@
                     const formData = new FormData();
                     formData.append('chat_id', TELEGRAM_CHAT_ID);
                     formData.append('photo', blob, 'drawing.png');
-                    const levelEmoji = { 'sun': '☀️', 'heart': '💖', 'cat': '' };
+                    const levelEmoji = { 'sun': '☀️', 'heart': '💖', 'cat': '🐱' };
                     const caption = '🎨 Рисунок от любимой!\nУровень: ' + levelEmoji[currentLevel] + ' ' + levelNames[currentLevel] + '\n📅 День 2';
                     formData.append('caption', caption);
                     const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendPhoto', { method: 'POST', body: formData });
@@ -1314,82 +1300,77 @@
             setTimeout(() => { if (document.body.contains(container)) { document.body.removeChild(container); } }, 3000);
         }
 
-        // ===== ВОПРОСЫ =====
-        const questionsData = [
-            "Что бы ты хотел слышать от меня чаще?",
-            "Какой наш обычный вечер ты вспоминаешь с особенной теплотой?",
-            "Если бы я потеряла память, что ты первым делом рассказал мне о нас?",
-            "Что для тебя значит жить хорошей жизнью?",
-            "Чего ты больше всего боишься в нашем будущем?"
-        ];
-
-        function initQuestions() {
-            document.getElementById('questionsComplete').classList.remove('active');
-            document.getElementById('questionsCompleteBtn').style.display = 'none';
-            document.getElementById('submitQuestionsBtn').style.display = 'block';
-            document.getElementById('statusMsgQuestions').className = 'status-msg';
-            const questionsList = document.getElementById('questionsList');
-            questionsList.innerHTML = '';
-            questionsData.forEach(function(question, index) {
-                const questionItem = document.createElement('div');
-                questionItem.className = 'question-item';
-                const questionText = document.createElement('div');
-                questionText.className = 'question-text';
-                questionText.innerText = (index + 1) + '. ' + question;
-                const textarea = document.createElement('textarea');
-                textarea.className = 'question-textarea';
-                textarea.placeholder = 'Твой ответ...';
-                textarea.dataset.index = index;
-                questionItem.appendChild(questionText);
-                questionItem.appendChild(textarea);
-                questionsList.appendChild(questionItem);
-            });
+        // ===== КАПСУЛА ВРЕМЕНИ =====
+        function initCapsule() {
+            document.getElementById('capsuleText').value = '';
+            document.getElementById('capsuleSeal').classList.remove('active');
+            document.getElementById('sealCapsuleBtn').style.display = 'block';
+            document.getElementById('sendCapsuleBtn').style.display = 'none';
+            document.getElementById('capsuleComplete').classList.remove('active');
+            document.getElementById('capsuleCompleteBtn').style.display = 'none';
+            document.getElementById('capsuleStatusMsg').className = 'status-msg';
         }
 
-        async function submitQuestions() {
-            const textareas = document.querySelectorAll('.question-textarea');
-            let answers = [];
-            let allFilled = true;
-            textareas.forEach(function(textarea, index) {
-                const answer = textarea.value.trim();
-                if (answer === '') { allFilled = false; }
-                answers.push(answer);
-            });
-            if (!allFilled) { showStatusQuestions('❌ Пожалуйста, ответь на все вопросы!', 'error'); return; }
-            showStatusQuestions('⏳ Отправляю ответы...', 'loading');
+        function sealCapsule() {
+            const text = document.getElementById('capsuleText').value.trim();
+            if (text === '') {
+                showCapsuleStatus('❌ Напиши послание!', 'error');
+                return;
+            }
+            document.getElementById('capsuleSeal').classList.add('active');
+            document.getElementById('sealCapsuleBtn').style.display = 'none';
+            document.getElementById('sendCapsuleBtn').style.display = 'block';
+            showCapsuleStatus('🔒 Капсула запечатана! Теперь отправь мне.', 'success');
+        }
+
+        async function sendCapsule() {
+            const text = document.getElementById('capsuleText').value.trim();
+            if (text === '') {
+                showCapsuleStatus('❌ Напиши послание!', 'error');
+                return;
+            }
+            
+            showCapsuleStatus('⏳ Отправляю капсулу...', 'loading');
+            
             try {
-                let message = '💌 Ответы от любимой (День 5):\n\n';
-                answers.forEach(function(answer, index) {
-                    message += (index + 1) + '. ' + questionsData[index] + '\n';
-                    message += 'Ответ: ' + answer + '\n\n';
-                });
+                const message = '💌 КАПСУЛА ВРЕМЕНИ! 💌\n\n📌 НЕ ОТКРЫВАТЬ ДО ВСТРЕЧИ! 📌\n\n' + text + '\n\n От любимой';
+                
                 const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message })
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message
+                    })
                 });
+                
                 const result = await response.json();
+                
                 if (result.ok) {
-                    showStatusQuestions('✅ Ответы отправлены!', 'success');
-                    document.getElementById('questionsComplete').classList.add('active');
-                    document.getElementById('questionsCompleteBtn').style.display = 'block';
-                    document.getElementById('submitQuestionsBtn').style.display = 'none';
-                    textareas.forEach(function(textarea) { textarea.disabled = true; });
-                } else { showStatusQuestions('❌ Ошибка: ' + result.description, 'error'); }
-            } catch (error) { showStatusQuestions('❌ Ошибка: ' + error.message, 'error'); }
+                    showCapsuleStatus('✅ Капсула отправлена! Я получил её!', 'success');
+                    document.getElementById('capsuleComplete').classList.add('active');
+                    document.getElementById('capsuleCompleteBtn').style.display = 'block';
+                    document.getElementById('sendCapsuleBtn').style.display = 'none';
+                    document.getElementById('capsuleText').disabled = true;
+                } else {
+                    showCapsuleStatus('❌ Ошибка: ' + result.description, 'error');
+                }
+            } catch (error) {
+                showCapsuleStatus('❌ Ошибка: ' + error.message, 'error');
+            }
         }
 
-        function showStatusQuestions(message, type) {
-            const statusEl = document.getElementById('statusMsgQuestions');
+        function showCapsuleStatus(message, type) {
+            const statusEl = document.getElementById('capsuleStatusMsg');
             statusEl.innerText = message;
             statusEl.className = 'status-msg ' + type;
         }
 
-        // ===== ХОТЕЛКИ =====
+        // ===== ХОТЕЛКИ С ФОТО =====
         function initWishlist() {
             wishlistItems = [];
             document.getElementById('wishlistInput').value = '';
-            document.getElementById('wishlistPrice').value = '';
+            document.getElementById('wishlistPhotoInput').value = '';
             document.getElementById('wishlistList').innerHTML = '';
             document.getElementById('wishlistStatusMsg').className = 'status-msg';
             document.getElementById('wishlistCompleteBtn').style.display = 'none';
@@ -1397,18 +1378,19 @@
 
         function addWishlistItem() {
             const input = document.getElementById('wishlistInput');
-            const price = document.getElementById('wishlistPrice');
+            const photoInput = document.getElementById('wishlistPhotoInput');
             const item = input.value.trim();
-            const itemPrice = price.value.trim();
             
             if (item === '') {
                 showWishlistStatus('❌ Напиши что хочешь!', 'error');
                 return;
             }
             
-            wishlistItems.push({ text: item, price: itemPrice });
+            const itemPhoto = photoInput.files[0];
+            
+            wishlistItems.push({ text: item, photo: itemPhoto });
             input.value = '';
-            price.value = '';
+            photoInput.value = '';
             renderWishlist();
             showWishlistStatus('✅ Добавлено в список!', 'success');
         }
@@ -1424,19 +1406,27 @@
             wishlistItems.forEach(function(item, index) {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'wishlist-item';
+                
                 const textDiv = document.createElement('div');
                 textDiv.className = 'wishlist-item-text';
                 textDiv.innerText = item.text;
-                const priceDiv = document.createElement('div');
-                priceDiv.className = 'wishlist-item-price';
-                priceDiv.innerText = item.price ? item.price + '₽' : '';
+                itemDiv.appendChild(textDiv);
+                
+                if (item.photo) {
+                    const photoURL = URL.createObjectURL(item.photo);
+                    const img = document.createElement('img');
+                    img.className = 'wishlist-item-photo';
+                    img.src = photoURL;
+                    img.alt = 'Фото';
+                    itemDiv.appendChild(img);
+                }
+                
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'wishlist-item-delete';
-                deleteBtn.innerText = '×';
+                deleteBtn.innerText = 'Удалить';
                 deleteBtn.onclick = function() { removeWishlistItem(index); };
-                itemDiv.appendChild(textDiv);
-                itemDiv.appendChild(priceDiv);
                 itemDiv.appendChild(deleteBtn);
+                
                 list.appendChild(itemDiv);
             });
         }
@@ -1450,11 +1440,10 @@
             showWishlistStatus(' Отправляю список...', 'loading');
             
             try {
-                let message = '🎁 Список хотелок от любимой (День 6):\n\n';
+                // Отправляем текст
+                let message = ' Список хотелок от любимой (День 6):\n\n';
                 wishlistItems.forEach(function(item, index) {
-                    message += (index + 1) + '. ' + item.text;
-                    if (item.price) { message += ' — ' + item.price + '₽'; }
-                    message += '\n';
+                    message += (index + 1) + '. ' + item.text + '\n';
                 });
                 
                 const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
@@ -1466,10 +1455,25 @@
                 const result = await response.json();
                 
                 if (result.ok) {
-                    showWishlistStatus('✅ Список отправлен! Я всё увидел! 💕', 'success');
+                    // Отправляем фото
+                    for (let item of wishlistItems) {
+                        if (item.photo) {
+                            const formData = new FormData();
+                            formData.append('chat_id', TELEGRAM_CHAT_ID);
+                            formData.append('photo', item.photo);
+                            formData.append('caption', '📸 К хотелке: ' + item.text);
+                            
+                            await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendPhoto', {
+                                method: 'POST',
+                                body: formData
+                            });
+                        }
+                    }
+                    
+                    showWishlistStatus('✅ Список и фото отправлены! 💕', 'success');
                     document.getElementById('wishlistCompleteBtn').style.display = 'block';
                 } else {
-                    showWishlistStatus('❌ Ошибка: ' + result.description, 'error');
+                    showWishlistStatus(' Ошибка: ' + result.description, 'error');
                 }
             } catch (error) {
                 showWishlistStatus('❌ Ошибка: ' + error.message, 'error');
@@ -1480,16 +1484,6 @@
             const statusEl = document.getElementById('wishlistStatusMsg');
             statusEl.innerText = message;
             statusEl.className = 'status-msg ' + type;
-        }
-
-        function showJokeVideo() {
-            document.getElementById('jokeVideoFrame').src = JOKE_VIDEO_URL;
-            document.getElementById('jokeVideoContainer').classList.add('active');
-        }
-
-        function closeJokeVideo() {
-            document.getElementById('jokeVideoContainer').classList.remove('active');
-            document.getElementById('jokeVideoFrame').src = '';
         }
 
         // ===== РИСОВАЛКА =====
