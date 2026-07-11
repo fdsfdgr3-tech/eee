@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>10 Дней с Зайкой ❤️</title>
+    <title>10 Дней с Любимой ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap');
         
@@ -488,7 +488,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            padding: 40px 30px;
+            padding: 40px 25px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -497,27 +497,27 @@
         
         .invitation-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: #6a1b9a;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
             font-weight: 700;
         }
         
         .invitation-field {
             width: 100%;
-            margin: 15px 0;
+            margin: 10px 0;
             background: rgba(255, 255, 255, 0.95);
-            padding: 15px;
-            border-radius: 15px;
+            padding: 12px;
+            border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
         .field-label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #8e24aa;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 600;
             text-align: left;
         }
@@ -544,39 +544,6 @@
             min-height: 80px;
             resize: vertical;
             line-height: 1.5;
-        }
-        
-        .field-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-top: 8px;
-        }
-        
-        .field-option {
-            background: white;
-            border: 2px solid #ce93d8;
-            padding: 10px 8px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-        }
-        
-        .field-option:active { transform: scale(0.95); }
-        
-        .field-option.selected {
-            background: linear-gradient(135deg, #d63384 0%, #8e24aa 100%);
-            color: white;
-            border-color: #d63384;
-            box-shadow: 0 4px 12px rgba(214, 51, 132, 0.4);
-        }
-        
-        .field-option .opt-emoji {
-            font-size: 1.3rem;
-            display: block;
-            margin-bottom: 3px;
         }
         
         .date-complete {
@@ -829,7 +796,7 @@
                     <p>За <span id="puzzleFinalMoves">0</span> ходов и <span id="puzzleFinalTime">0:00</span>!</p>
                     <img id="puzzleFinalImage" class="puzzle-preview" src="" alt="Собранный пазл" style="margin-top: 15px;">
                 </div>
-                <button class="btn" id="puzzleCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
+                <button class="btn" id="puzzleCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! </button>
             </div>
             
             <!-- КАПСУЛА ВРЕМЕНИ -->
@@ -845,7 +812,7 @@
                     <div style="font-weight: bold;">Капсула запечатана!</div>
                     <div style="font-size: 0.9rem; margin-top: 5px;">Открою только при встрече</div>
                 </div>
-                <button class="btn" id="sealCapsuleBtn" onclick="sealCapsule()" style="background: #667eea;">🔒 Запечатать капсулу</button>
+                <button class="btn" id="sealCapsuleBtn" onclick="sealCapsule()" style="background: #667eea;"> Запечатать капсулу</button>
                 <button class="btn" id="sendCapsuleBtn" onclick="sendCapsule()" style="display: none; background: #28a745; margin-top: 10px;">📤 Отправить мне</button>
                 <div id="capsuleStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
                 <div class="capsule-complete" id="capsuleComplete">
@@ -876,56 +843,42 @@
                     <img src="https://img.magnific.com/premium-vector/pink-purple-violet-modern-wreath-background-invitation-frame-with-flora-flower_181182-44033.jpg?semt=ais_hybrid&w=740" alt="Приглашение" class="invitation-bg">
                     <div class="invitation-fields">
                         <h2 class="invitation-title">💝 Приглашение 💝</h2>
+                        
+                        <!-- Дата -->
                         <div class="invitation-field">
                             <label class="field-label"><span class="emoji">📅</span> Дата свидания</label>
                             <input type="date" class="field-input" id="dateDate">
                         </div>
+                        
+                        <!-- Время -->
                         <div class="invitation-field">
-                            <label class="field-label"><span class="emoji">⏰</span> Время</label>
-                            <div class="field-options" id="timeOptions">
-                                <div class="field-option" data-value="Утро (10:00-12:00)" onclick="selectOption('time', this)">
-                                    <span class="opt-emoji">🌅</span>Утро
-                                </div>
-                                <div class="field-option" data-value="День (12:00-17:00)" onclick="selectOption('time', this)">
-                                    <span class="opt-emoji">☀️</span>День
-                                </div>
-                                <div class="field-option" data-value="Вечер (17:00-21:00)" onclick="selectOption('time', this)">
-                                    <span class="opt-emoji">🌆</span>Вечер
-                                </div>
-                                <div class="field-option" data-value="Ночь (21:00+)" onclick="selectOption('time', this)">
-                                    <span class="opt-emoji">🌙</span>Ночь
-                                </div>
-                            </div>
+                            <label class="field-label"><span class="emoji">⏰</span> Во сколько встретимся?</label>
+                            <input type="time" class="field-input" id="dateTime">
                         </div>
+                        
+                        <!-- Еда -->
                         <div class="invitation-field">
-                            <label class="field-label"><span class="emoji">🍕</span> Еда</label>
-                            <div class="field-options" id="foodOptions">
-                                <div class="field-option" data-value="Пицца" onclick="selectOption('food', this)">
-                                    <span class="opt-emoji">🍕</span>Пицца
-                                </div>
-                                <div class="field-option" data-value="Суши" onclick="selectOption('food', this)">
-                                    <span class="opt-emoji">🍣</span>Суши
-                                </div>
-                                <div class="field-option" data-value="Бургеры" onclick="selectOption('food', this)">
-                                    <span class="opt-emoji">🍔</span>Бургеры
-                                </div>
-                                <div class="field-option" data-value="Кафе/Ресторан" onclick="selectOption('food', this)">
-                                    <span class="opt-emoji">🍽️</span>Кафе
-                                </div>
-                            </div>
+                            <label class="field-label"><span class="emoji">🍕</span> Что хочешь поесть?</label>
+                            <input type="text" class="field-input" id="dateFood" placeholder="Напиши что любишь (пицца, суши, бургеры...)">
                         </div>
-                        <div class="invitation-field">
+                        
+                        <!-- Пожелания -->
+                        <div class="invitation-field" style="background: rgba(255, 240, 255, 0.98); border: 2px solid #d63384;">
                             <label class="field-label"><span class="emoji">💬</span> Пожелания</label>
                             <textarea class="field-textarea" id="dateWishes" placeholder="Напиши свои пожелания или просто что-то милое..."></textarea>
                         </div>
                     </div>
                 </div>
+                
                 <button class="btn" onclick="sendDateInvitation()" style="background: #28a745; margin-top: 10px;">💌 Отправить приглашение</button>
+                
                 <div id="dateStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
+                
                 <div class="date-complete" id="dateComplete">
                     <h3>🎉 Приглашение отправлено! ❤️</h3>
-                    <p>Я всё увидел! Буду готов к нашему свиданию! Жду не дождусь! 💕</p>
+                    <p>У тебя хороший вкус! Я найду нам ресторанчик с твоими любимыми вкусняшками! 💕</p>
                 </div>
+                
                 <button class="btn" id="dateCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
@@ -953,7 +906,6 @@
         const puzzleImage = 'https://sun9-26.userapi.com/s/v1/ig2/HfPKFAeNxgKflxlck8NmrBaUC96run9_Gp8cwV7AFTriJ0jD6vGap53Z-CMeLC8Q5-oXlR978tj7SdThkp9PorVw.jpg?quality=95&as=32x27,48x40,72x60,108x90,160x134,240x200,360x301,480x401,540x451,576x481&from=bu&u=m8uZYCmeWdc0uw4FuvEKGJnFUwte48VE6EzrIpa5yOs&cs=576x0';
         
         let wishlistItems = [];
-        let dateSelections = { time: '', food: '' };
         
         if (localStorage.getItem('loggedIn') === 'true') {
             showMainSite();
@@ -1450,7 +1402,7 @@
             if (text === '') { showCapsuleStatus('❌ Напиши послание!', 'error'); return; }
             showCapsuleStatus('⏳ Отправляю капсулу...', 'loading');
             try {
-                const message = '💌 КАПСУЛА ВРЕМЕНИ! 💌\n\n📌 НЕ ОТКРЫВАТЬ ДО ВСТРЕЧИ! 📌\n\n' + text + '\n\n💕 От любимой';
+                const message = ' КАПСУЛА ВРЕМЕНИ! 💌\n\n📌 НЕ ОТКРЫВАТЬ ДО ВСТРЕЧИ! 📌\n\n' + text + '\n\n💕 От любимой';
                 const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1566,30 +1518,24 @@
 
         // ===== ПРИГЛАШЕНИЕ НА СВИДАНИЕ =====
         function initDateInvitation() {
-            dateSelections = { time: '', food: '' };
             document.getElementById('dateDate').value = '';
+            document.getElementById('dateTime').value = '';
+            document.getElementById('dateFood').value = '';
             document.getElementById('dateWishes').value = '';
             document.getElementById('dateComplete').classList.remove('active');
             document.getElementById('dateCompleteBtn').style.display = 'none';
             document.getElementById('dateStatusMsg').className = 'status-msg';
-            document.querySelectorAll('.field-option').forEach(opt => opt.classList.remove('selected'));
-        }
-
-        function selectOption(category, element) {
-            const options = document.querySelectorAll('#' + category + 'Options .field-option');
-            options.forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-            dateSelections[category] = element.dataset.value;
         }
 
         async function sendDateInvitation() {
             const date = document.getElementById('dateDate').value;
+            const time = document.getElementById('dateTime').value;
+            const food = document.getElementById('dateFood').value.trim();
             const wishes = document.getElementById('dateWishes').value.trim();
             
-            if (!date) {
-                showDateStatus('❌ Выбери дату свидания!', 'error');
-                return;
-            }
+            if (!date) { showDateStatus('❌ Выбери дату свидания!', 'error'); return; }
+            if (!time) { showDateStatus('❌ Укажи время!', 'error'); return; }
+            if (!food) { showDateStatus('❌ Напиши что хочешь поесть!', 'error'); return; }
             
             const dateObj = new Date(date);
             const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
@@ -1600,8 +1546,8 @@
             try {
                 let message = '💝 ПРИГЛАШЕНИЕ НА СВИДАНИЕ! 💝\n\n';
                 message += '📅 Дата: ' + formattedDate + '\n';
-                message += '⏰ Время: ' + (dateSelections.time || 'Не выбрано') + '\n';
-                message += '🍕 Еда: ' + (dateSelections.food || 'Не выбрано') + '\n';
+                message += '⏰ Время: ' + time + '\n';
+                message += '🍕 Еда: ' + food + '\n';
                 
                 if (wishes) {
                     message += '\n💬 Пожелания:\n' + wishes + '\n';
@@ -1618,7 +1564,7 @@
                 const result = await response.json();
                 
                 if (result.ok) {
-                    showDateStatus('✅ Приглашение отправлено! Я всё увидел! 💕', 'success');
+                    showDateStatus('✅ Приглашение отправлено!', 'success');
                     document.getElementById('dateComplete').classList.add('active');
                     document.getElementById('dateCompleteBtn').style.display = 'block';
                 } else {
