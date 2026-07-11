@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>10 Дней с Любимой ❤️</title>
+    <title>10 Дней с Зайкой ❤️</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap');
+        
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
             color: #333;
             text-align: center;
@@ -170,8 +172,8 @@
         .level-name { font-weight: bold; color: #d63384; font-size: 1.05rem; }
         .level-desc { font-size: 0.85rem; color: #666; margin-top: 3px; }
         
-        .drawing-container, .game-container, .quiz-container, .puzzle-container, .capsule-container, .wishlist-container { display: none; }
-        .drawing-container.active, .game-container.active, .quiz-container.active, .puzzle-container.active, .capsule-container.active, .wishlist-container.active { display: block; }
+        .drawing-container, .game-container, .quiz-container, .puzzle-container, .capsule-container, .wishlist-container, .date-container { display: none; }
+        .drawing-container.active, .game-container.active, .quiz-container.active, .puzzle-container.active, .capsule-container.active, .wishlist-container.active, .date-container.active { display: block; }
         
         .current-level, .quiz-progress, .puzzle-info {
             background: #fff0f5;
@@ -348,9 +350,7 @@
         }
         
         /* КАПСУЛА ВРЕМЕНИ */
-        .capsule-container {
-            text-align: center;
-        }
+        .capsule-container { text-align: center; }
         
         .capsule-intro {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -360,20 +360,9 @@
             margin-bottom: 20px;
         }
         
-        .capsule-intro h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-        
-        .capsule-intro p {
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-        
-        .capsule-icon {
-            font-size: 4rem;
-            margin-bottom: 15px;
-        }
+        .capsule-intro h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .capsule-intro p { font-size: 0.95rem; line-height: 1.5; }
+        .capsule-icon { font-size: 4rem; margin-bottom: 15px; }
         
         .capsule-textarea {
             width: 100%;
@@ -388,10 +377,7 @@
             margin-bottom: 15px;
         }
         
-        .capsule-textarea:focus {
-            outline: none;
-            border-color: #d63384;
-        }
+        .capsule-textarea:focus { outline: none; border-color: #d63384; }
         
         .capsule-seal {
             display: none;
@@ -403,9 +389,7 @@
             animation: sealPulse 2s ease-in-out infinite;
         }
         
-        .capsule-seal.active {
-            display: block;
-        }
+        .capsule-seal.active { display: block; }
         
         @keyframes sealPulse {
             0%, 100% { transform: scale(1); }
@@ -420,14 +404,191 @@
             margin-top: 15px;
         }
         
-        .capsule-complete.active {
+        .capsule-complete.active { display: block; }
+        .capsule-complete h3 { color: #28a745; margin-bottom: 10px; }
+        
+        /* ХОТЕЛКИ */
+        .wishlist-input-container {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe0ec 100%);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .wishlist-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-family: inherit;
+        }
+        
+        .wishlist-input:focus { outline: none; border-color: #d63384; }
+        
+        .wishlist-photo-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 0.9rem;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: white;
+        }
+        
+        .wishlist-list { text-align: left; margin: 15px 0; }
+        
+        .wishlist-item {
+            background: white;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .wishlist-item-text { font-size: 0.95rem; margin-bottom: 8px; }
+        
+        .wishlist-item-photo {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 8px;
+        }
+        
+        .wishlist-item-delete {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        
+        /* ПРИГЛАШЕНИЕ НА СВИДАНИЕ */
+        .invitation-card {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 15px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .invitation-bg {
+            width: 100%;
             display: block;
         }
         
-        .capsule-complete h3 {
-            color: #28a745;
-            margin-bottom: 10px;
+        .invitation-fields {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
+        
+        .invitation-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #6a1b9a;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+            font-weight: 700;
+        }
+        
+        .invitation-field {
+            width: 100%;
+            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .field-label {
+            display: block;
+            font-size: 0.9rem;
+            color: #8e24aa;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-align: left;
+        }
+        
+        .field-label .emoji { margin-right: 5px; }
+        
+        .field-input, .field-textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid #ce93d8;
+            border-radius: 10px;
+            background: white;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .field-input:focus, .field-textarea:focus {
+            outline: none;
+            border-color: #d63384;
+            box-shadow: 0 0 10px rgba(214, 51, 132, 0.3);
+        }
+        
+        .field-textarea {
+            min-height: 80px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+        
+        .field-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .field-option {
+            background: white;
+            border: 2px solid #ce93d8;
+            padding: 10px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        
+        .field-option:active { transform: scale(0.95); }
+        
+        .field-option.selected {
+            background: linear-gradient(135deg, #d63384 0%, #8e24aa 100%);
+            color: white;
+            border-color: #d63384;
+            box-shadow: 0 4px 12px rgba(214, 51, 132, 0.4);
+        }
+        
+        .field-option .opt-emoji {
+            font-size: 1.3rem;
+            display: block;
+            margin-bottom: 3px;
+        }
+        
+        .date-complete {
+            display: none;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+        
+        .date-complete.active { display: block; }
+        .date-complete h3 { color: #28a745; margin-bottom: 10px; }
         
         .comparison { display: none; margin-top: 20px; }
         .comparison.active { display: block; }
@@ -486,73 +647,6 @@
         }
         .quiz-complete.active { display: block; }
         .quiz-complete h3 { color: #28a745; margin-bottom: 10px; }
-        
-        .wishlist-input-container {
-            background: linear-gradient(135deg, #fff0f5 0%, #ffe0ec 100%);
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 15px;
-        }
-        
-        .wishlist-input {
-            width: 100%;
-            padding: 12px;
-            font-size: 1rem;
-            border: 2px solid #ffb6c1;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            font-family: inherit;
-        }
-        
-        .wishlist-input:focus {
-            outline: none;
-            border-color: #d63384;
-        }
-        
-        .wishlist-photo-input {
-            width: 100%;
-            padding: 10px;
-            font-size: 0.9rem;
-            border: 2px solid #ffb6c1;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            background: white;
-        }
-        
-        .wishlist-list {
-            text-align: left;
-            margin: 15px 0;
-        }
-        
-        .wishlist-item {
-            background: white;
-            border: 2px solid #ffb6c1;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 10px;
-        }
-        
-        .wishlist-item-text {
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-        }
-        
-        .wishlist-item-photo {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-top: 8px;
-        }
-        
-        .wishlist-item-delete {
-            background: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-top: 8px;
-        }
         
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(214, 51, 132, 0.7); }
@@ -651,7 +745,7 @@
                 <div class="game-lose" id="gameLose">
                     <h3>😔 Время вышло!</h3>
                     <p>Ты поймала <span id="finalScore">0</span> из 67 сердечек.</p>
-                    <button class="btn" onclick="startGame()" style="margin-top: 15px;">Играть снова </button>
+                    <button class="btn" onclick="startGame()" style="margin-top: 15px;">Играть снова 🔄</button>
                 </div>
                 <button class="btn" id="gameCompleteBtn" onclick="showSecret()">Я выполнила! 💖</button>
             </div>
@@ -660,8 +754,8 @@
             <div class="welcome-screen" id="welcomeScreen">
                 <div class="welcome-emoji">🎨</div>
                 <h2>Сейчас мы будем рисовать!</h2>
-                <p>Выбери уровень сложности и покажи свои художественные таланты! </p>
-                <button class="btn" onclick="showLevels()">Выбрать уровень ️</button>
+                <p>Выбери уровень сложности и покажи свои художественные таланты! 🎨</p>
+                <button class="btn" onclick="showLevels()">Выбрать уровень 🖌️</button>
             </div>
             <div class="level-selection" id="levelSelection">
                 <h3 style="color: #d63384; margin-bottom: 15px;">Выбери что рисуем:</h3>
@@ -673,7 +767,7 @@
                     </div>
                 </div>
                 <div class="level-btn" onclick="selectLevel('heart')">
-                    <div class="level-emoji"></div>
+                    <div class="level-emoji">💖</div>
                     <div class="level-info">
                         <div class="level-name">Милое сердечко</div>
                         <div class="level-desc">Средний уровень — нарисуй сердечко!</div>
@@ -699,7 +793,7 @@
                 </div>
                 <input type="range" class="brush-size" id="brushSize" min="2" max="20" value="5">
                 <p style="font-size: 0.85rem; color: #666;">Размер кисти: <span id="brushSizeValue">5</span>px</p>
-                <button class="btn" onclick="finishDrawing()">Готово! </button>
+                <button class="btn" onclick="finishDrawing()">Готово! 💖</button>
             </div>
             
             <!-- ЗАГАДКИ -->
@@ -710,7 +804,7 @@
                 <div class="quiz-feedback" id="quizFeedback"></div>
                 <button class="btn" id="nextQuestionBtn" onclick="nextQuestion()" style="display: none;">Следующая загадка →</button>
                 <div class="quiz-complete" id="quizComplete">
-                    <h3>🎉 Все загадки разгаданы! </h3>
+                    <h3>🎉 Все загадки разгаданы! 🎉</h3>
                     <p>Ты ответила правильно на <span id="quizScore">0</span> из 5 загадок!</p>
                 </div>
                 <button class="btn" id="quizCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
@@ -724,7 +818,7 @@
                 </div>
                 <div id="puzzleGameArea" style="display: none;">
                     <div class="puzzle-stats">
-                        <div> Ходов: <span id="puzzleMoves">0</span></div>
+                        <div>🔄 Ходов: <span id="puzzleMoves">0</span></div>
                         <div>⏱️ <span id="puzzleTimer">0:00</span></div>
                     </div>
                     <div class="puzzle-board" id="puzzleBoard"></div>
@@ -743,27 +837,21 @@
                 <div class="capsule-intro">
                     <div class="capsule-icon">💌</div>
                     <h3>Капсула времени</h3>
-                    <p>Напиши послание, которое я прочитаю только при нашей встрече. Запечатай его и отправь мне. Я обещаю не открывать до встречи! </p>
+                    <p>Напиши послание, которое я прочитаю только при нашей встрече. Запечатай его и отправь мне. Я обещаю не открывать до встречи! 💕</p>
                 </div>
-                
-                <textarea class="capsule-textarea" id="capsuleText" placeholder="Напиши здесь своё послание...&#10;&#10;Можешь написать о своих чувствах, о том, что хочешь сказать при встрече, или просто оставить милое сообщение..."></textarea>
-                
+                <textarea class="capsule-textarea" id="capsuleText" placeholder="Напиши здесь своё послание..."></textarea>
                 <div class="capsule-seal" id="capsuleSeal">
                     <div style="font-size: 3rem; margin-bottom: 10px;">🔒</div>
                     <div style="font-weight: bold;">Капсула запечатана!</div>
                     <div style="font-size: 0.9rem; margin-top: 5px;">Открою только при встрече</div>
                 </div>
-                
                 <button class="btn" id="sealCapsuleBtn" onclick="sealCapsule()" style="background: #667eea;">🔒 Запечатать капсулу</button>
                 <button class="btn" id="sendCapsuleBtn" onclick="sendCapsule()" style="display: none; background: #28a745; margin-top: 10px;">📤 Отправить мне</button>
-                
                 <div id="capsuleStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
-                
                 <div class="capsule-complete" id="capsuleComplete">
                     <h3>🎉 Капсула отправлена! ❤️</h3>
                     <p>Я получил твоё послание! Жду не дождусь нашей встречи, чтобы прочитать его! 💕</p>
                 </div>
-                
                 <button class="btn" id="capsuleCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
@@ -771,20 +859,74 @@
             <div class="wishlist-container" id="wishlistContainer">
                 <div class="current-level">🎁 Список хотелок</div>
                 <p style="color: #666; margin-bottom: 15px;">Напиши что хочешь и прикрепи фото! 💝</p>
-                
                 <div class="wishlist-input-container">
                     <input type="text" class="wishlist-input" id="wishlistInput" placeholder="Что ты хочешь?">
                     <input type="file" class="wishlist-photo-input" id="wishlistPhotoInput" accept="image/*">
                     <button class="btn" onclick="addWishlistItem()">Добавить в список ➕</button>
                 </div>
-                
                 <div class="wishlist-list" id="wishlistList"></div>
-                
                 <button class="btn" onclick="sendWishlist()" style="background: #28a745;">📤 Отправить список мне</button>
-                
                 <div id="wishlistStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
-                
                 <button class="btn" id="wishlistCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
+            </div>
+            
+            <!-- ПРИГЛАШЕНИЕ НА СВИДАНИЕ -->
+            <div class="date-container" id="dateContainer">
+                <div class="invitation-card">
+                    <img src="https://img.magnific.com/premium-vector/pink-purple-violet-modern-wreath-background-invitation-frame-with-flora-flower_181182-44033.jpg?semt=ais_hybrid&w=740" alt="Приглашение" class="invitation-bg">
+                    <div class="invitation-fields">
+                        <h2 class="invitation-title">💝 Приглашение 💝</h2>
+                        <div class="invitation-field">
+                            <label class="field-label"><span class="emoji">📅</span> Дата свидания</label>
+                            <input type="date" class="field-input" id="dateDate">
+                        </div>
+                        <div class="invitation-field">
+                            <label class="field-label"><span class="emoji">⏰</span> Время</label>
+                            <div class="field-options" id="timeOptions">
+                                <div class="field-option" data-value="Утро (10:00-12:00)" onclick="selectOption('time', this)">
+                                    <span class="opt-emoji">🌅</span>Утро
+                                </div>
+                                <div class="field-option" data-value="День (12:00-17:00)" onclick="selectOption('time', this)">
+                                    <span class="opt-emoji">☀️</span>День
+                                </div>
+                                <div class="field-option" data-value="Вечер (17:00-21:00)" onclick="selectOption('time', this)">
+                                    <span class="opt-emoji">🌆</span>Вечер
+                                </div>
+                                <div class="field-option" data-value="Ночь (21:00+)" onclick="selectOption('time', this)">
+                                    <span class="opt-emoji">🌙</span>Ночь
+                                </div>
+                            </div>
+                        </div>
+                        <div class="invitation-field">
+                            <label class="field-label"><span class="emoji">🍕</span> Еда</label>
+                            <div class="field-options" id="foodOptions">
+                                <div class="field-option" data-value="Пицца" onclick="selectOption('food', this)">
+                                    <span class="opt-emoji">🍕</span>Пицца
+                                </div>
+                                <div class="field-option" data-value="Суши" onclick="selectOption('food', this)">
+                                    <span class="opt-emoji">🍣</span>Суши
+                                </div>
+                                <div class="field-option" data-value="Бургеры" onclick="selectOption('food', this)">
+                                    <span class="opt-emoji">🍔</span>Бургеры
+                                </div>
+                                <div class="field-option" data-value="Кафе/Ресторан" onclick="selectOption('food', this)">
+                                    <span class="opt-emoji">🍽️</span>Кафе
+                                </div>
+                            </div>
+                        </div>
+                        <div class="invitation-field">
+                            <label class="field-label"><span class="emoji">💬</span> Пожелания</label>
+                            <textarea class="field-textarea" id="dateWishes" placeholder="Напиши свои пожелания или просто что-то милое..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn" onclick="sendDateInvitation()" style="background: #28a745; margin-top: 10px;">💌 Отправить приглашение</button>
+                <div id="dateStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
+                <div class="date-complete" id="dateComplete">
+                    <h3>🎉 Приглашение отправлено! ❤️</h3>
+                    <p>Я всё увидел! Буду готов к нашему свиданию! Жду не дождусь! 💕</p>
+                </div>
+                <button class="btn" id="dateCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
             <div class="comparison" id="comparison">
@@ -794,7 +936,7 @@
                     <p class="comparison-label">Молодец! Теперь отправь мне свой рисунок 💕</p>
                 </div>
                 <div id="statusMsg" class="status-msg"></div>
-                <button class="btn" onclick="sendToTelegram()"> Отправить мне в Telegram</button>
+                <button class="btn" onclick="sendToTelegram()">📤 Отправить мне в Telegram</button>
                 <button class="btn" onclick="showSecret()" style="margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
@@ -811,6 +953,7 @@
         const puzzleImage = 'https://sun9-26.userapi.com/s/v1/ig2/HfPKFAeNxgKflxlck8NmrBaUC96run9_Gp8cwV7AFTriJ0jD6vGap53Z-CMeLC8Q5-oXlR978tj7SdThkp9PorVw.jpg?quality=95&as=32x27,48x40,72x60,108x90,160x134,240x200,360x301,480x401,540x451,576x481&from=bu&u=m8uZYCmeWdc0uw4FuvEKGJnFUwte48VE6EzrIpa5yOs&cs=576x0';
         
         let wishlistItems = [];
+        let dateSelections = { time: '', food: '' };
         
         if (localStorage.getItem('loggedIn') === 'true') {
             showMainSite();
@@ -824,9 +967,7 @@
             } else {
                 document.getElementById('errorMsg').style.display = 'block';
                 document.getElementById('dateInput').value = '';
-                setTimeout(() => {
-                    document.getElementById('errorMsg').style.display = 'none';
-                }, 3000);
+                setTimeout(() => { document.getElementById('errorMsg').style.display = 'none'; }, 3000);
             }
         }
         
@@ -848,7 +989,7 @@
             { title: "День 4: 🧩 ПАЗЛ!", desc: "Собери разбитое фото!", secret: "Ты собрала мой мир по кусочкам — ты моё всё! ❤️", isPuzzle: true },
             { title: "День 5: 💌 КАПСУЛА ВРЕМЕНИ!", desc: "Напиши послание для встречи", secret: "Твои слова — самое дорогое, что у меня есть! ❤️", isCapsule: true },
             { title: "День 6: 🎁 ХОТЕЛКИ!", desc: "Напиши что хочешь получить в подарок", secret: "Для тебя я готов на всё! Люблю! ❤️", isWishlist: true },
-            { title: "День 7: Релакс", desc: "Сегодня день лени. Фоткай атмосферу.", secret: "Ты заслуживаешь отдыха." },
+            { title: "День 7: 💝 СВИДАНИЕ!", desc: "Приглашение на свидание — выбери всё сама!", secret: "С тобой любое свидание — лучшее! ❤️", isDate: true },
             { title: "День 8: Мечты", desc: "Скинь скриншот вещи, которую хочешь.", secret: "Для тебя мне ничего не жалко." },
             { title: "День 9: Музыка", desc: "Скинь 3 песни про нас.", secret: "Наш плейлист — саундтрек моей жизни." },
             { title: "День 10: ФИНАЛ!", desc: "Собирай вещи! Я уже бегу!", secret: "Я тебя ОЧЕНЬ ЛЮБЛЮ!" }
@@ -861,19 +1002,13 @@
                 const card = document.createElement('div');
                 card.className = 'card active';
                 card.innerHTML = '<div class="day-number">' + (index + 1) + '</div><div>День</div>';
-                card.onclick = (function(idx) { 
-                    return function() { openModal(idx); }; 
-                })(index);
+                card.onclick = (function(idx) { return function() { openModal(idx); }; })(index);
                 grid.appendChild(card);
             });
         }
 
         let currentLevel = '';
-        const levelNames = {
-            'sun': '☀️ Солнышко',
-            'heart': '💖 Милое сердечко',
-            'cat': '🐱 Котик'
-        };
+        const levelNames = { 'sun': '☀️ Солнышко', 'heart': '💖 Милое сердечко', 'cat': '🐱 Котик' };
 
         function openModal(index) {
             document.getElementById('welcomeScreen').classList.remove('active');
@@ -885,6 +1020,7 @@
             document.getElementById('puzzleContainer').classList.remove('active');
             document.getElementById('capsuleContainer').classList.remove('active');
             document.getElementById('wishlistContainer').classList.remove('active');
+            document.getElementById('dateContainer').classList.remove('active');
             document.getElementById('secretMsg').classList.remove('active');
             document.getElementById('statusMsg').className = 'status-msg';
             document.getElementById('gameWin').style.display = 'none';
@@ -894,24 +1030,13 @@
             document.getElementById('modalDesc').innerText = tasks[index].desc;
             document.getElementById('secretText').innerText = tasks[index].secret;
             
-            if (tasks[index].isGame) {
-                document.getElementById('gameContainer').classList.add('active');
-                startGame();
-            } else if (tasks[index].isDrawing) {
-                document.getElementById('welcomeScreen').classList.add('active');
-            } else if (tasks[index].isQuiz) {
-                document.getElementById('quizContainer').classList.add('active');
-                startQuiz();
-            } else if (tasks[index].isPuzzle) {
-                document.getElementById('puzzleContainer').classList.add('active');
-                startPuzzleGame();
-            } else if (tasks[index].isCapsule) {
-                document.getElementById('capsuleContainer').classList.add('active');
-                initCapsule();
-            } else if (tasks[index].isWishlist) {
-                document.getElementById('wishlistContainer').classList.add('active');
-                initWishlist();
-            }
+            if (tasks[index].isGame) { document.getElementById('gameContainer').classList.add('active'); startGame(); }
+            else if (tasks[index].isDrawing) { document.getElementById('welcomeScreen').classList.add('active'); }
+            else if (tasks[index].isQuiz) { document.getElementById('quizContainer').classList.add('active'); startQuiz(); }
+            else if (tasks[index].isPuzzle) { document.getElementById('puzzleContainer').classList.add('active'); startPuzzleGame(); }
+            else if (tasks[index].isCapsule) { document.getElementById('capsuleContainer').classList.add('active'); initCapsule(); }
+            else if (tasks[index].isWishlist) { document.getElementById('wishlistContainer').classList.add('active'); initWishlist(); }
+            else if (tasks[index].isDate) { document.getElementById('dateContainer').classList.add('active'); initDateInvitation(); }
             
             document.getElementById('taskModal').classList.add('active');
             window.currentTaskIndex = index;
@@ -1313,10 +1438,7 @@
 
         function sealCapsule() {
             const text = document.getElementById('capsuleText').value.trim();
-            if (text === '') {
-                showCapsuleStatus('❌ Напиши послание!', 'error');
-                return;
-            }
+            if (text === '') { showCapsuleStatus('❌ Напиши послание!', 'error'); return; }
             document.getElementById('capsuleSeal').classList.add('active');
             document.getElementById('sealCapsuleBtn').style.display = 'none';
             document.getElementById('sendCapsuleBtn').style.display = 'block';
@@ -1325,39 +1447,24 @@
 
         async function sendCapsule() {
             const text = document.getElementById('capsuleText').value.trim();
-            if (text === '') {
-                showCapsuleStatus('❌ Напиши послание!', 'error');
-                return;
-            }
-            
+            if (text === '') { showCapsuleStatus('❌ Напиши послание!', 'error'); return; }
             showCapsuleStatus('⏳ Отправляю капсулу...', 'loading');
-            
             try {
-                const message = '💌 КАПСУЛА ВРЕМЕНИ! 💌\n\n📌 НЕ ОТКРЫВАТЬ ДО ВСТРЕЧИ! 📌\n\n' + text + '\n\n От любимой';
-                
+                const message = '💌 КАПСУЛА ВРЕМЕНИ! 💌\n\n📌 НЕ ОТКРЫВАТЬ ДО ВСТРЕЧИ! 📌\n\n' + text + '\n\n💕 От любимой';
                 const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: TELEGRAM_CHAT_ID,
-                        text: message
-                    })
+                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message })
                 });
-                
                 const result = await response.json();
-                
                 if (result.ok) {
                     showCapsuleStatus('✅ Капсула отправлена! Я получил её!', 'success');
                     document.getElementById('capsuleComplete').classList.add('active');
                     document.getElementById('capsuleCompleteBtn').style.display = 'block';
                     document.getElementById('sendCapsuleBtn').style.display = 'none';
                     document.getElementById('capsuleText').disabled = true;
-                } else {
-                    showCapsuleStatus('❌ Ошибка: ' + result.description, 'error');
-                }
-            } catch (error) {
-                showCapsuleStatus('❌ Ошибка: ' + error.message, 'error');
-            }
+                } else { showCapsuleStatus('❌ Ошибка: ' + result.description, 'error'); }
+            } catch (error) { showCapsuleStatus('❌ Ошибка: ' + error.message, 'error'); }
         }
 
         function showCapsuleStatus(message, type) {
@@ -1366,7 +1473,7 @@
             statusEl.className = 'status-msg ' + type;
         }
 
-        // ===== ХОТЕЛКИ С ФОТО =====
+        // ===== ХОТЕЛКИ =====
         function initWishlist() {
             wishlistItems = [];
             document.getElementById('wishlistInput').value = '';
@@ -1380,14 +1487,8 @@
             const input = document.getElementById('wishlistInput');
             const photoInput = document.getElementById('wishlistPhotoInput');
             const item = input.value.trim();
-            
-            if (item === '') {
-                showWishlistStatus('❌ Напиши что хочешь!', 'error');
-                return;
-            }
-            
+            if (item === '') { showWishlistStatus('❌ Напиши что хочешь!', 'error'); return; }
             const itemPhoto = photoInput.files[0];
-            
             wishlistItems.push({ text: item, photo: itemPhoto });
             input.value = '';
             photoInput.value = '';
@@ -1406,12 +1507,10 @@
             wishlistItems.forEach(function(item, index) {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'wishlist-item';
-                
                 const textDiv = document.createElement('div');
                 textDiv.className = 'wishlist-item-text';
                 textDiv.innerText = item.text;
                 itemDiv.appendChild(textDiv);
-                
                 if (item.photo) {
                     const photoURL = URL.createObjectURL(item.photo);
                     const img = document.createElement('img');
@@ -1420,31 +1519,95 @@
                     img.alt = 'Фото';
                     itemDiv.appendChild(img);
                 }
-                
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'wishlist-item-delete';
                 deleteBtn.innerText = 'Удалить';
                 deleteBtn.onclick = function() { removeWishlistItem(index); };
                 itemDiv.appendChild(deleteBtn);
-                
                 list.appendChild(itemDiv);
             });
         }
 
         async function sendWishlist() {
-            if (wishlistItems.length === 0) {
-                showWishlistStatus('❌ Добавь хотя бы одну хотелку!', 'error');
-                return;
-            }
-            
-            showWishlistStatus(' Отправляю список...', 'loading');
-            
+            if (wishlistItems.length === 0) { showWishlistStatus('❌ Добавь хотя бы одну хотелку!', 'error'); return; }
+            showWishlistStatus('⏳ Отправляю список...', 'loading');
             try {
-                // Отправляем текст
-                let message = ' Список хотелок от любимой (День 6):\n\n';
+                let message = '🎁 Список хотелок от любимой (День 6):\n\n';
                 wishlistItems.forEach(function(item, index) {
                     message += (index + 1) + '. ' + item.text + '\n';
                 });
+                const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message })
+                });
+                const result = await response.json();
+                if (result.ok) {
+                    for (let item of wishlistItems) {
+                        if (item.photo) {
+                            const formData = new FormData();
+                            formData.append('chat_id', TELEGRAM_CHAT_ID);
+                            formData.append('photo', item.photo);
+                            formData.append('caption', '📸 К хотелке: ' + item.text);
+                            await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendPhoto', { method: 'POST', body: formData });
+                        }
+                    }
+                    showWishlistStatus('✅ Список и фото отправлены! 💕', 'success');
+                    document.getElementById('wishlistCompleteBtn').style.display = 'block';
+                } else { showWishlistStatus('❌ Ошибка: ' + result.description, 'error'); }
+            } catch (error) { showWishlistStatus('❌ Ошибка: ' + error.message, 'error'); }
+        }
+
+        function showWishlistStatus(message, type) {
+            const statusEl = document.getElementById('wishlistStatusMsg');
+            statusEl.innerText = message;
+            statusEl.className = 'status-msg ' + type;
+        }
+
+        // ===== ПРИГЛАШЕНИЕ НА СВИДАНИЕ =====
+        function initDateInvitation() {
+            dateSelections = { time: '', food: '' };
+            document.getElementById('dateDate').value = '';
+            document.getElementById('dateWishes').value = '';
+            document.getElementById('dateComplete').classList.remove('active');
+            document.getElementById('dateCompleteBtn').style.display = 'none';
+            document.getElementById('dateStatusMsg').className = 'status-msg';
+            document.querySelectorAll('.field-option').forEach(opt => opt.classList.remove('selected'));
+        }
+
+        function selectOption(category, element) {
+            const options = document.querySelectorAll('#' + category + 'Options .field-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            dateSelections[category] = element.dataset.value;
+        }
+
+        async function sendDateInvitation() {
+            const date = document.getElementById('dateDate').value;
+            const wishes = document.getElementById('dateWishes').value.trim();
+            
+            if (!date) {
+                showDateStatus('❌ Выбери дату свидания!', 'error');
+                return;
+            }
+            
+            const dateObj = new Date(date);
+            const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+            const formattedDate = dateObj.getDate() + ' ' + months[dateObj.getMonth()] + ' ' + dateObj.getFullYear();
+            
+            showDateStatus('⏳ Отправляю приглашение...', 'loading');
+            
+            try {
+                let message = '💝 ПРИГЛАШЕНИЕ НА СВИДАНИЕ! 💝\n\n';
+                message += '📅 Дата: ' + formattedDate + '\n';
+                message += '⏰ Время: ' + (dateSelections.time || 'Не выбрано') + '\n';
+                message += '🍕 Еда: ' + (dateSelections.food || 'Не выбрано') + '\n';
+                
+                if (wishes) {
+                    message += '\n💬 Пожелания:\n' + wishes + '\n';
+                }
+                
+                message += '\n💕 От любимой';
                 
                 const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
                     method: 'POST',
@@ -1455,33 +1618,19 @@
                 const result = await response.json();
                 
                 if (result.ok) {
-                    // Отправляем фото
-                    for (let item of wishlistItems) {
-                        if (item.photo) {
-                            const formData = new FormData();
-                            formData.append('chat_id', TELEGRAM_CHAT_ID);
-                            formData.append('photo', item.photo);
-                            formData.append('caption', '📸 К хотелке: ' + item.text);
-                            
-                            await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendPhoto', {
-                                method: 'POST',
-                                body: formData
-                            });
-                        }
-                    }
-                    
-                    showWishlistStatus('✅ Список и фото отправлены! 💕', 'success');
-                    document.getElementById('wishlistCompleteBtn').style.display = 'block';
+                    showDateStatus('✅ Приглашение отправлено! Я всё увидел! 💕', 'success');
+                    document.getElementById('dateComplete').classList.add('active');
+                    document.getElementById('dateCompleteBtn').style.display = 'block';
                 } else {
-                    showWishlistStatus(' Ошибка: ' + result.description, 'error');
+                    showDateStatus('❌ Ошибка: ' + result.description, 'error');
                 }
             } catch (error) {
-                showWishlistStatus('❌ Ошибка: ' + error.message, 'error');
+                showDateStatus('❌ Ошибка: ' + error.message, 'error');
             }
         }
 
-        function showWishlistStatus(message, type) {
-            const statusEl = document.getElementById('wishlistStatusMsg');
+        function showDateStatus(message, type) {
+            const statusEl = document.getElementById('dateStatusMsg');
             statusEl.innerText = message;
             statusEl.className = 'status-msg ' + type;
         }
