@@ -738,6 +738,19 @@
             font-size: 1.5rem;
         }
         
+        .casino-status {
+            padding: 12px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 0.95rem;
+            display: none;
+        }
+        
+        .casino-status.show { display: block; }
+        .casino-status.success { background: #d4edda; color: #155724; }
+        .casino-status.error { background: #f8d7da; color: #721c24; }
+        .casino-status.loading { background: #fff3cd; color: #856404; }
+        
         @keyframes prizeAppear {
             0% { transform: scale(0.5); opacity: 0; }
             50% { transform: scale(1.1); }
@@ -898,7 +911,7 @@
                 <canvas id="gameCanvas" width="350" height="450"></canvas>
                 <p style="text-align: center; color: #666; font-size: 0.9rem;">Двигай пальцем, чтобы ловить сердечки!</p>
                 <div class="game-win" id="gameWin">
-                    <h3>🎉 Поздравляю! 🎉</h3>
+                    <h3> Поздравляю! 🎉</h3>
                     <p>Ты поймала 67 сердечек!</p>
                 </div>
                 <div class="game-lose" id="gameLose">
@@ -963,7 +976,7 @@
                 <div class="quiz-feedback" id="quizFeedback"></div>
                 <button class="btn" id="nextQuestionBtn" onclick="nextQuestion()" style="display: none;">Следующая загадка →</button>
                 <div class="quiz-complete" id="quizComplete">
-                    <h3>🎉 Все загадки разгаданы! 🎉</h3>
+                    <h3>🎉 Все загадки разгаданы! </h3>
                     <p>Ты ответила правильно на <span id="quizScore">0</span> из 5 загадок!</p>
                 </div>
                 <button class="btn" id="quizCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 10px; background: #28a745;">Я выполнила! 💖</button>
@@ -978,7 +991,7 @@
                 <div id="puzzleGameArea" style="display: none;">
                     <div class="puzzle-stats">
                         <div>🔄 Ходов: <span id="puzzleMoves">0</span></div>
-                        <div>⏱️ <span id="puzzleTimer">0:00</span></div>
+                        <div>️ <span id="puzzleTimer">0:00</span></div>
                     </div>
                     <div class="puzzle-board" id="puzzleBoard"></div>
                     <button class="btn" onclick="showPuzzleHint()" style="margin-top: 10px; background: #6c757d;">👁️ Подсказка</button>
@@ -988,15 +1001,15 @@
                     <p>За <span id="puzzleFinalMoves">0</span> ходов и <span id="puzzleFinalTime">0:00</span>!</p>
                     <img id="puzzleFinalImage" class="puzzle-preview" src="" alt="Собранный пазл" style="margin-top: 15px;">
                 </div>
-                <button class="btn" id="puzzleCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
+                <button class="btn" id="puzzleCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! </button>
             </div>
             
             <!-- КАПСУЛА ВРЕМЕНИ -->
             <div class="capsule-container" id="capsuleContainer">
                 <div class="capsule-intro">
-                    <div class="capsule-icon">💌</div>
+                    <div class="capsule-icon"></div>
                     <h3>Капсула времени</h3>
-                    <p>Напиши послание, которое я прочитаю только при нашей встрече. Запечатай его и отправь мне. Я обещаю не открывать до встречи! 💕</p>
+                    <p>Напиши послание, которое я прочитаю только при нашей встрече. Запечатай его и отправь мне. Я обещаю не открывать до встречи! </p>
                 </div>
                 <textarea class="capsule-textarea" id="capsuleText" placeholder="Напиши здесь своё послание..."></textarea>
                 <div class="capsule-seal" id="capsuleSeal">
@@ -1008,7 +1021,7 @@
                 <button class="btn" id="sendCapsuleBtn" onclick="sendCapsule()" style="display: none; background: #28a745; margin-top: 10px;">📤 Отправить мне</button>
                 <div id="capsuleStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
                 <div class="capsule-complete" id="capsuleComplete">
-                    <h3> Капсула отправлена! ❤️</h3>
+                    <h3>🎉 Капсула отправлена! ❤️</h3>
                     <p>Я получил твоё послание! Жду не дождусь нашей встречи, чтобы прочитать его! 💕</p>
                 </div>
                 <button class="btn" id="capsuleCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
@@ -1024,9 +1037,9 @@
                     <button class="btn" onclick="addWishlistItem()">Добавить в список ➕</button>
                 </div>
                 <div class="wishlist-list" id="wishlistList"></div>
-                <button class="btn" onclick="sendWishlist()" style="background: #28a745;"> Отправить список мне</button>
+                <button class="btn" onclick="sendWishlist()" style="background: #28a745;">📤 Отправить список мне</button>
                 <div id="wishlistStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
-                <button class="btn" id="wishlistCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! </button>
+                <button class="btn" id="wishlistCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
             <!-- ПРИГЛАШЕНИЕ НА СВИДАНИЕ -->
@@ -1037,12 +1050,12 @@
                         <h2 class="invitation-title">💝 Приглашение 💝</h2>
                         
                         <div class="invitation-field">
-                            <label class="field-label"><span class="emoji">📅</span> Дата свидания</label>
+                            <label class="field-label"><span class="emoji"></span> Дата свидания</label>
                             <input type="date" class="field-input" id="dateDate">
                         </div>
                         
                         <div class="invitation-field">
-                            <label class="field-label"><span class="emoji">⏰</span> Во сколько встретимся?</label>
+                            <label class="field-label"><span class="emoji"></span> Во сколько встретимся?</label>
                             <input type="time" class="field-input" id="dateTime">
                         </div>
                         
@@ -1064,7 +1077,7 @@
                 
                 <div class="date-complete" id="dateComplete">
                     <h3>🎉 Приглашение отправлено! ❤️</h3>
-                    <p>У тебя хороший вкус! Я найду нам ресторанчик с твоими любимыми вкусняшками! 💕</p>
+                    <p>У тебя хороший вкус! Я найду нам ресторанчик с твоими любимыми вкусняшками! </p>
                 </div>
                 
                 <button class="btn" id="dateCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
@@ -1073,18 +1086,21 @@
             <!-- КАЗИНО - КОЛЕСО ФОРТУНЫ -->
             <div class="casino-container" id="casinoContainer">
                 <div class="casino-header">
-                    <h2> Колесо Фортуны 🎰</h2>
-                    <p>Крути колесо и выигрывай призы! 💝</p>
+                    <h2>🎰 Колесо Фортуны 🎰</h2>
+                    <p>Крути колесо и выигрывай призы! Каждый приз уникален! 💝</p>
                 </div>
                 
                 <div class="attempts-counter">
-                    <span class="attempts-label">Попытки:</span>
+                    <span class="attempts-label">Попытки: <span id="attemptsText">5</span></span>
                     <div class="attempts-dots" id="attemptsDots">
                         <div class="attempt-dot active"></div>
                         <div class="attempt-dot active"></div>
                         <div class="attempt-dot active"></div>
                         <div class="attempt-dot active"></div>
                         <div class="attempt-dot active"></div>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">
+                        Осталось призов: <span id="prizesLeftText">8</span>
                     </div>
                 </div>
                 
@@ -1100,6 +1116,8 @@
                     <h3>Ты выиграла:</h3>
                     <div class="prize-text" id="prizeText"></div>
                 </div>
+                
+                <div class="casino-status" id="casinoStatus"></div>
                 
                 <div class="final-prizes" id="finalPrizes" style="display: none;">
                     <h3>🎊 Все твои призы! 🎊</h3>
@@ -1134,17 +1152,17 @@
         const puzzleImage = 'https://sun9-26.userapi.com/s/v1/ig2/HfPKFAeNxgKflxlck8NmrBaUC96run9_Gp8cwV7AFTriJ0jD6vGap53Z-CMeLC8Q5-oXlR978tj7SdThkp9PorVw.jpg?quality=95&as=32x27,48x40,72x60,108x90,160x134,240x200,360x301,480x401,540x451,576x481&from=bu&u=m8uZYCmeWdc0uw4FuvEKGJnFUwte48VE6EzrIpa5yOs&cs=576x0';
         
         // ============================================
-        //  НАСТРОЙКИ КОЛЕСА ФОРТУНЫ (ДЕНЬ 8)
+        // 🎰 НАСТРОЙКИ КОЛЕСА ФОРТУНЫ (ДЕНЬ 8)
         // ============================================
         // chance - шанс выпадения (чем больше число, тем выше шанс)
-        // Сумма всех chance не важна, важна пропорция
+        // Каждый приз может выпасть только 1 раз!
         
-        const wheelPrizes = [
+        const allWheelPrizes = [
             { text: "Массаж", emoji: "💆", chance: 25, color: "#ff6b6b" },
-            { text: "Поцелуйчик", emoji: "😘", chance: 15, color: "#4ecdc4" },
-            { text: "Делай со мной что хочешь", emoji: "🐈", chance: 20, color: "#45b7d1" },
+            { text: "Поцелуйчик", emoji: "", chance: 15, color: "#4ecdc4" },
+            { text: "Делай со мной что хочешь", emoji: "", chance: 20, color: "#45b7d1" },
             { text: "10 минут я тебя щекочу", emoji: "🌟", chance: 10, color: "#96ceb4" },
-            { text: "Сюрприз", emoji: "🎁", chance: 5, color: "#ffeaa7" },
+            { text: "Сюрприз", emoji: "", chance: 5, color: "#ffeaa7" },
             { text: "Обнимашки", emoji: "🤗", chance: 30, color: "#fd79a8" },
             { text: "Макарошки", emoji: "🍝", chance: 20, color: "#a29bfe" },
             { text: "День шоппинга", emoji: "🛍️", chance: 8, color: "#fdcb6e" }
@@ -1189,7 +1207,7 @@
             { title: "День 5: 💌 КАПСУЛА ВРЕМЕНИ!", desc: "Напиши послание для встречи", secret: "Твои слова — самое дорогое, что у меня есть! ❤️", isCapsule: true },
             { title: "День 6: 🎁 ХОТЕЛКИ!", desc: "Напиши что хочешь получить в подарок", secret: "Для тебя я готов на всё! Люблю! ❤️", isWishlist: true },
             { title: "День 7: 💝 СВИДАНИЕ!", desc: "Приглашение на свидание — выбери всё сама!", secret: "С тобой любое свидание — лучшее! ❤️", isDate: true },
-            { title: "День 8: 🎰 КАЗИНО!", desc: "Крути колесо и выигрывай приз!", secret: "Ты всегда выигрываешь в моей жизни! ❤️", isCasino: true },
+            { title: "День 8:  КАЗИНО!", desc: "Крути колесо и выигрывай уникальные призы!", secret: "Ты всегда выигрываешь в моей жизни! ❤️", isCasino: true },
             { title: "День 9: Музыка", desc: "Скинь 3 песни про нас.", secret: "Наш плейлист — саундтрек моей жизни." },
             { title: "День 10: ФИНАЛ!", desc: "Собирай вещи! Я уже бегу!", secret: "Я тебя ОЧЕНЬ ЛЮБЛЮ!" }
         ];
@@ -1207,7 +1225,7 @@
         }
 
         let currentLevel = '';
-        const levelNames = { 'sun': '️ Солнышко', 'heart': '💖 Милое сердечко', 'cat': ' Котик' };
+        const levelNames = { 'sun': '☀️ Солнышко', 'heart': ' Милое сердечко', 'cat': '🐱 Котик' };
 
         function openModal(index) {
             document.getElementById('welcomeScreen').classList.remove('active');
@@ -1291,15 +1309,15 @@
                     const formData = new FormData();
                     formData.append('chat_id', TELEGRAM_CHAT_ID);
                     formData.append('photo', blob, 'drawing.png');
-                    const levelEmoji = { 'sun': '☀️', 'heart': '💖', 'cat': '' };
-                    const caption = ' Рисунок от любимой!\nУровень: ' + levelEmoji[currentLevel] + ' ' + levelNames[currentLevel] + '\n📅 День 2';
+                    const levelEmoji = { 'sun': '☀️', 'heart': '💖', 'cat': '🐱' };
+                    const caption = '🎨 Рисунок от любимой!\nУровень: ' + levelEmoji[currentLevel] + ' ' + levelNames[currentLevel] + '\n📅 День 2';
                     formData.append('caption', caption);
                     const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendPhoto', { method: 'POST', body: formData });
                     const result = await response.json();
                     if (result.ok) { showStatus('✅ Рисунок отправлен в Telegram!', 'success'); }
                     else { showStatus('❌ Ошибка: ' + result.description, 'error'); }
                 }, 'image/png');
-            } catch (error) { showStatus(' Ошибка: ' + error.message, 'error'); }
+            } catch (error) { showStatus('❌ Ошибка: ' + error.message, 'error'); }
         }
 
         // ===== ИГРА С СЕРДЕЧКАМИ =====
@@ -1643,7 +1661,7 @@
             document.getElementById('capsuleSeal').classList.add('active');
             document.getElementById('sealCapsuleBtn').style.display = 'none';
             document.getElementById('sendCapsuleBtn').style.display = 'block';
-            showCapsuleStatus('🔒 Капсула запечатана! Теперь отправь мне.', 'success');
+            showCapsuleStatus(' Капсула запечатана! Теперь отправь мне.', 'success');
         }
 
         async function sendCapsule() {
@@ -1688,7 +1706,7 @@
             const input = document.getElementById('wishlistInput');
             const photoInput = document.getElementById('wishlistPhotoInput');
             const item = input.value.trim();
-            if (item === '') { showWishlistStatus('❌ Напиши что хочешь!', 'error'); return; }
+            if (item === '') { showWishlistStatus(' Напиши что хочешь!', 'error'); return; }
             const itemPhoto = photoInput.files[0];
             wishlistItems.push({ text: item, photo: itemPhoto });
             input.value = '';
@@ -1733,7 +1751,7 @@
             if (wishlistItems.length === 0) { showWishlistStatus('❌ Добавь хотя бы одну хотелку!', 'error'); return; }
             showWishlistStatus('⏳ Отправляю список...', 'loading');
             try {
-                let message = ' Список хотелок от любимой (День 6):\n\n';
+                let message = '🎁 Список хотелок от любимой (День 6):\n\n';
                 wishlistItems.forEach(function(item, index) {
                     message += (index + 1) + '. ' + item.text + '\n';
                 });
@@ -1799,10 +1817,10 @@
                 message += '🍕 Еда: ' + food + '\n';
                 
                 if (wishes) {
-                    message += '\n💬 Пожелания:\n' + wishes + '\n';
+                    message += '\n Пожелания:\n' + wishes + '\n';
                 }
                 
-                message += '\n💕 От любимой';
+                message += '\n От любимой';
                 
                 const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
                     method: 'POST',
@@ -1835,6 +1853,7 @@
         let isSpinning = false;
         let attemptsLeft = 5;
         let wonPrizes = [];
+        let availablePrizes = []; // Призы которые ещё могут выпасть
         
         function initCasino() {
             attemptsLeft = 5;
@@ -1842,17 +1861,26 @@
             currentRotation = 0;
             isSpinning = false;
             
+            // Копируем все призы в доступные
+            availablePrizes = [...allWheelPrizes];
+            
             document.getElementById('prizeResult').classList.remove('active');
             document.getElementById('finalPrizes').style.display = 'none';
             document.getElementById('casinoCompleteBtn').style.display = 'none';
+            document.getElementById('casinoStatus').className = 'casino-status';
+            document.getElementById('casinoStatus').style.display = 'none';
             
             const spinBtn = document.getElementById('spinBtn');
             spinBtn.disabled = false;
-            spinBtn.innerText = ' КРУТИТЬ! (5)';
+            spinBtn.innerText = '🎯 КРУТИТЬ! (5)';
             
             // Сбросить точки попыток
             const dots = document.querySelectorAll('.attempt-dot');
             dots.forEach(dot => dot.classList.remove('used'));
+            
+            // Обновить счётчики
+            document.getElementById('attemptsText').innerText = attemptsLeft;
+            document.getElementById('prizesLeftText').innerText = availablePrizes.length;
             
             drawWheel();
         }
@@ -1866,11 +1894,13 @@
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            const numSegments = wheelPrizes.length;
+            const numSegments = availablePrizes.length;
+            if (numSegments === 0) return;
+            
             const arcSize = (2 * Math.PI) / numSegments;
             
             // Рисуем сегменты
-            wheelPrizes.forEach((prize, index) => {
+            availablePrizes.forEach((prize, index) => {
                 const startAngle = index * arcSize;
                 const endAngle = startAngle + arcSize;
                 
@@ -1891,7 +1921,7 @@
                 ctx.rotate(startAngle + arcSize / 2);
                 ctx.textAlign = 'right';
                 ctx.fillStyle = 'white';
-                ctx.font = 'bold 14px Roboto';
+                ctx.font = 'bold 13px Roboto';
                 ctx.shadowColor = 'rgba(0,0,0,0.5)';
                 ctx.shadowBlur = 3;
                 ctx.shadowOffsetX = 1;
@@ -1920,42 +1950,48 @@
             ctx.fillText('❤️', centerX, centerY);
         }
         
+        function showCasinoStatus(message, type) {
+            const statusEl = document.getElementById('casinoStatus');
+            statusEl.innerText = message;
+            statusEl.className = 'casino-status show ' + type;
+        }
+        
         function spinWheel() {
-            if (isSpinning || attemptsLeft <= 0) return;
+            if (isSpinning || attemptsLeft <= 0 || availablePrizes.length === 0) return;
             isSpinning = true;
             
             const spinBtn = document.getElementById('spinBtn');
             spinBtn.disabled = true;
             spinBtn.innerText = '🎰 Крутится...';
             
-            // Выбираем приз на основе шансов
-            const totalChance = wheelPrizes.reduce((sum, prize) => sum + prize.chance, 0);
+            // Выбираем приз из ДОСТУПНЫХ на основе шансов
+            const totalChance = availablePrizes.reduce((sum, prize) => sum + prize.chance, 0);
             let random = Math.random() * totalChance;
             let selectedPrizeIndex = 0;
             
-            for (let i = 0; i < wheelPrizes.length; i++) {
-                random -= wheelPrizes[i].chance;
+            for (let i = 0; i < availablePrizes.length; i++) {
+                random -= availablePrizes[i].chance;
                 if (random <= 0) {
                     selectedPrizeIndex = i;
                     break;
                 }
             }
             
+            const selectedPrize = availablePrizes[selectedPrizeIndex];
+            
             // Вычисляем угол для выбранного приза
-            const numSegments = wheelPrizes.length;
+            const numSegments = availablePrizes.length;
             const segmentAngle = 360 / numSegments;
             
-            // Центр выбранного сегмента (в градусах от 0)
+            // Центр выбранного сегмента
             const prizeCenterAngle = selectedPrizeIndex * segmentAngle + segmentAngle / 2;
             
-            // Указатель сверху (270 градусов или -90)
-            // Нужно повернуть колесо так, чтобы центр приза оказался под указателем
+            // Указатель сверху (270 градусов)
             const targetRotation = 270 - prizeCenterAngle;
             
-            // Добавляем несколько полных оборотов (5-8)
+            // Добавляем несколько полных оборотов
             const extraSpins = (Math.floor(Math.random() * 4) + 5) * 360;
             
-            // Итоговый угол вращения
             const finalRotation = currentRotation + extraSpins + targetRotation - (currentRotation % 360);
             
             const canvas = document.getElementById('wheelCanvas');
@@ -1964,8 +2000,11 @@
             currentRotation = finalRotation;
             
             setTimeout(() => {
-                const prize = wheelPrizes[selectedPrizeIndex];
-                wonPrizes.push(prize);
+                wonPrizes.push(selectedPrize);
+                
+                // Удаляем выпавший приз из доступных
+                availablePrizes.splice(selectedPrizeIndex, 1);
+                
                 attemptsLeft--;
                 
                 // Обновить точки
@@ -1974,12 +2013,19 @@
                     dots[4 - attemptsLeft].classList.add('used');
                 }
                 
+                // Обновить счётчики
+                document.getElementById('attemptsText').innerText = attemptsLeft;
+                document.getElementById('prizesLeftText').innerText = availablePrizes.length;
+                
                 // Показать приз
-                document.getElementById('prizeEmoji').innerText = prize.emoji;
-                document.getElementById('prizeText').innerText = prize.text;
+                document.getElementById('prizeEmoji').innerText = selectedPrize.emoji;
+                document.getElementById('prizeText').innerText = selectedPrize.text;
                 document.getElementById('prizeResult').classList.add('active');
                 
-                if (attemptsLeft <= 0) {
+                // Перерисовать колесо без выпавшего приза
+                drawWheel();
+                
+                if (attemptsLeft <= 0 || availablePrizes.length === 0) {
                     spinBtn.disabled = true;
                     spinBtn.innerText = '🔒 Попытки закончились';
                     showFinalPrizes();
@@ -1993,9 +2039,11 @@
         }
         
         async function sendCasinoPrizesToTelegram() {
+            showCasinoStatus(' Отправляю призы в Telegram...', 'loading');
+            
             try {
                 let message = '🎰 РЕЗУЛЬТАТЫ КОЛЕСА ФОРТУНЫ (День 8)\n\n';
-                message += 'Все выигранные призы:\n\n';
+                message += ' Все выигранные призы:\n\n';
                 
                 wonPrizes.forEach((prize, index) => {
                     message += `${index + 1}. ${prize.emoji} ${prize.text}\n`;
@@ -2003,7 +2051,7 @@
                 
                 message += '\n💕 От любимой';
                 
-                await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
+                const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -2011,8 +2059,16 @@
                         text: message
                     })
                 });
+                
+                const result = await response.json();
+                
+                if (result.ok) {
+                    showCasinoStatus('✅ Призы отправлены в Telegram!', 'success');
+                } else {
+                    showCasinoStatus('❌ Ошибка отправки: ' + result.description, 'error');
+                }
             } catch (error) {
-                console.error('Ошибка отправки призов:', error);
+                showCasinoStatus('❌ Ошибка сети: ' + error.message, 'error');
             }
         }
         
