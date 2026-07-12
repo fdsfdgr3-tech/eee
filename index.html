@@ -172,8 +172,8 @@
         .level-name { font-weight: bold; color: #d63384; font-size: 1.05rem; }
         .level-desc { font-size: 0.85rem; color: #666; margin-top: 3px; }
         
-        .drawing-container, .game-container, .quiz-container, .puzzle-container, .capsule-container, .wishlist-container, .date-container, .safe-container { display: none; }
-        .drawing-container.active, .game-container.active, .quiz-container.active, .puzzle-container.active, .capsule-container.active, .wishlist-container.active, .date-container.active, .safe-container.active { display: block; }
+        .drawing-container, .game-container, .quiz-container, .puzzle-container, .capsule-container, .wishlist-container, .date-container, .casino-container { display: none; }
+        .drawing-container.active, .game-container.active, .quiz-container.active, .puzzle-container.active, .capsule-container.active, .wishlist-container.active, .date-container.active, .casino-container.active { display: block; }
         
         .current-level, .quiz-progress, .puzzle-info {
             background: #fff0f5;
@@ -557,184 +557,128 @@
         .date-complete.active { display: block; }
         .date-complete h3 { color: #28a745; margin-bottom: 10px; }
         
-        /* СЕЙФ */
-        .safe-container { text-align: center; }
+        /* КАЗИНО - КОЛЕСО ФОРТУНЫ */
+        .casino-container { text-align: center; }
         
-        .safe-icon {
-            font-size: 5rem;
-            margin: 20px 0;
-        }
-        
-        .safe-description {
+        .casino-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 20px;
-            line-height: 1.6;
         }
         
-        .safe-games {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .safe-game-btn {
-            background: white;
-            border: 3px solid #ffb6c1;
-            padding: 15px 10px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            min-height: 100px;
-        }
-        
-        .safe-game-btn:active { transform: scale(0.95); }
-        
-        .safe-game-btn.completed {
-            background: #d4edda;
-            border-color: #28a745;
-        }
-        
-        .safe-game-btn .game-emoji {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 5px;
-        }
-        
-        .safe-game-btn .game-name {
-            font-weight: bold;
-            color: #d63384;
-            font-size: 0.9rem;
-        }
-        
-        .safe-game-btn.completed .game-name {
-            color: #28a745;
-        }
-        
-        .safe-game-btn .game-status {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        .safe-code-input {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .code-digit {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            border: 3px solid #ffb6c1;
-            border-radius: 10px;
-            background: white;
-        }
-        
-        .code-digit:focus {
-            outline: none;
-            border-color: #d63384;
-        }
-        
-        .safe-unlock {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 15px;
-        }
-        
-        .safe-unlock h3 {
-            font-size: 1.5rem;
+        .casino-header h2 {
+            font-size: 1.8rem;
             margin-bottom: 10px;
         }
         
-        /* МИНИ-ИГРЫ ДЛЯ СЕЙФА */
-        .mini-game {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin: 15px 0;
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
         }
         
-        .memory-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 15px 0;
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 8px solid #d63384;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
         }
         
-        .memory-card {
-            aspect-ratio: 1;
-            background: #d63384;
-            border-radius: 10px;
-            cursor: pointer;
+        .wheel-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: right bottom;
+            left: 0;
+            top: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            transition: transform 0.3s;
         }
         
-        .memory-card.flipped {
-            background: white;
-            border: 2px solid #d63384;
+        .wheel-segment span {
+            position: absolute;
+            left: 60%;
+            top: 70%;
+            transform: translate(-50%, -50%);
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            white-space: nowrap;
         }
         
-        .memory-card.matched {
-            background: #d4edda;
-            border: 2px solid #28a745;
+        .wheel-pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #d63384;
+            z-index: 10;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
         }
         
-        .guess-input {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.2rem;
-            text-align: center;
-            border: 2px solid #ffb6c1;
-            border-radius: 10px;
-            margin: 10px 0;
-        }
-        
-        .reaction-btn {
-            width: 100%;
-            padding: 30px;
-            font-size: 1.2rem;
-            border-radius: 15px;
+        .spin-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
             border: none;
+            padding: 20px 50px;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: bold;
             cursor: pointer;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
             transition: all 0.3s;
         }
         
-        .reaction-btn.waiting {
-            background: #ff6b6b;
-            color: white;
+        .spin-btn:active {
+            transform: scale(0.95);
         }
         
-        .reaction-btn.ready {
-            background: #51cf66;
-            color: white;
-            animation: pulse 1s infinite;
+        .spin-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
         
-        .safe-complete {
+        .prize-result {
             display: none;
             background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
             padding: 25px;
             border-radius: 15px;
             margin-top: 20px;
+            animation: celebrate 0.5s ease-in-out;
         }
         
-        .safe-complete.active { display: block; }
-        .safe-complete h3 { color: #28a745; margin-bottom: 15px; font-size: 1.5rem; }
-        .safe-complete p { line-height: 1.6; font-size: 1.1rem; }
+        .prize-result.active { display: block; }
+        
+        .prize-result h3 {
+            color: #28a745;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .prize-result .prize-text {
+            font-size: 1.2rem;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .prize-emoji {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
         
         .comparison { display: none; margin-top: 20px; }
         .comparison.active { display: block; }
@@ -801,9 +745,9 @@
         }
         
         @keyframes celebrate {
-            0% { transform: scale(1); }
+            0% { transform: scale(0.5); opacity: 0; }
             50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+            100% { transform: scale(1); opacity: 1; }
         }
         
         .celebrate { animation: celebrate 0.5s ease-in-out 3; }
@@ -898,7 +842,7 @@
             
             <!-- РИСОВАЛКА -->
             <div class="welcome-screen" id="welcomeScreen">
-                <div class="welcome-emoji">🎨</div>
+                <div class="welcome-emoji"></div>
                 <h2>Сейчас мы будем рисовать!</h2>
                 <p>Выбери уровень сложности и покажи свои художественные таланты! 🎨</p>
                 <button class="btn" onclick="showLevels()">Выбрать уровень 🖌️</button>
@@ -933,7 +877,7 @@
                 <canvas id="drawingCanvas" width="350" height="350"></canvas>
                 <div class="drawing-tools">
                     <input type="color" class="color-picker" id="colorPicker" value="#d63384">
-                    <button class="tool-btn" onclick="setTool('brush', this)">🖌️ Кисть</button>
+                    <button class="tool-btn" onclick="setTool('brush', this)">️ Кисть</button>
                     <button class="tool-btn" onclick="setTool('eraser', this)">🧹 Ластик</button>
                     <button class="tool-btn" onclick="clearCanvas()">🗑️ Очистить</button>
                 </div>
@@ -964,14 +908,14 @@
                 </div>
                 <div id="puzzleGameArea" style="display: none;">
                     <div class="puzzle-stats">
-                        <div>🔄 Ходов: <span id="puzzleMoves">0</span></div>
+                        <div> Ходов: <span id="puzzleMoves">0</span></div>
                         <div>⏱️ <span id="puzzleTimer">0:00</span></div>
                     </div>
                     <div class="puzzle-board" id="puzzleBoard"></div>
                     <button class="btn" onclick="showPuzzleHint()" style="margin-top: 10px; background: #6c757d;">👁️ Подсказка</button>
                 </div>
                 <div class="puzzle-win" id="puzzleWin">
-                    <h3>🎉 Пазл собран! ❤️</h3>
+                    <h3> Пазл собран! ❤️</h3>
                     <p>За <span id="puzzleFinalMoves">0</span> ходов и <span id="puzzleFinalTime">0:00</span>!</p>
                     <img id="puzzleFinalImage" class="puzzle-preview" src="" alt="Собранный пазл" style="margin-top: 15px;">
                 </div>
@@ -1023,25 +967,21 @@
                     <div class="invitation-fields">
                         <h2 class="invitation-title">💝 Приглашение 💝</h2>
                         
-                        <!-- Дата -->
                         <div class="invitation-field">
                             <label class="field-label"><span class="emoji">📅</span> Дата свидания</label>
                             <input type="date" class="field-input" id="dateDate">
                         </div>
                         
-                        <!-- Время -->
                         <div class="invitation-field">
-                            <label class="field-label"><span class="emoji">⏰</span> Во сколько встретимся?</label>
+                            <label class="field-label"><span class="emoji"></span> Во сколько встретимся?</label>
                             <input type="time" class="field-input" id="dateTime">
                         </div>
                         
-                        <!-- Еда -->
                         <div class="invitation-field">
                             <label class="field-label"><span class="emoji">🍕</span> Что хочешь поесть?</label>
                             <input type="text" class="field-input" id="dateFood" placeholder="Напиши что любишь (пицца, суши, бургеры...)">
                         </div>
                         
-                        <!-- Пожелания -->
                         <div class="invitation-field" style="background: rgba(255, 240, 255, 0.98); border: 2px solid #d63384;">
                             <label class="field-label"><span class="emoji">💬</span> Пожелания</label>
                             <textarea class="field-textarea" id="dateWishes" placeholder="Напиши свои пожелания или просто что-то милое..."></textarea>
@@ -1061,66 +1001,27 @@
                 <button class="btn" id="dateCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
-            <!-- СЕЙФ -->
-            <div class="safe-container" id="safeContainer">
-                <div class="safe-icon">🔐</div>
-                <h2 style="color: #d63384;">Секретный сейф</h2>
-                <div class="safe-description">
-                    <p>Внутри сейфа — что-то особенное для тебя! 💝</p>
-                    <p>Чтобы открыть, пройди 4 мини-игры и получи цифры кода!</p>
+            <!-- КАЗИНО - КОЛЕСО ФОРТУНЫ -->
+            <div class="casino-container" id="casinoContainer">
+                <div class="casino-header">
+                    <h2>🎰 Колесо Фортуны </h2>
+                    <p>Крути колесо и выигрывай приз! 💝</p>
                 </div>
                 
-                <div class="safe-games">
-                    <button class="safe-game-btn" id="safeGame1Btn" onclick="startSafeGame(1)">
-                        <span class="game-emoji">🎴</span>
-                        <span class="game-name">Игра на память</span>
-                        <span class="game-status" id="safeGame1Status">Найди пары</span>
-                    </button>
-                    
-                    <button class="safe-game-btn" id="safeGame2Btn" onclick="startSafeGame(2)">
-                        <span class="game-emoji">❤️</span>
-                        <span class="game-name">Лови сердечки</span>
-                        <span class="game-status" id="safeGame2Status">Поймай 20</span>
-                    </button>
-                    
-                    <button class="safe-game-btn" id="safeGame3Btn" onclick="startSafeGame(3)">
-                        <span class="game-emoji">🔢</span>
-                        <span class="game-name">Угадай число</span>
-                        <span class="game-status" id="safeGame3Status">От 1 до 10</span>
-                    </button>
-                    
-                    <button class="safe-game-btn" id="safeGame4Btn" onclick="startSafeGame(4)">
-                        <span class="game-emoji">⚡</span>
-                        <span class="game-name">Реакция</span>
-                        <span class="game-status" id="safeGame4Status">Быстро нажми</span>
-                    </button>
+                <div class="wheel-container">
+                    <div class="wheel-pointer"></div>
+                    <div class="wheel" id="wheel"></div>
                 </div>
                 
-                <div id="safeGameArea" style="display: none;"></div>
+                <button class="spin-btn" id="spinBtn" onclick="spinWheel()">🎯 КРУТИТЬ!</button>
                 
-                <h3 style="color: #d63384; margin-top: 20px;">Введи код:</h3>
-                <div class="safe-code-input">
-                    <input type="text" maxlength="1" class="code-digit" id="code1">
-                    <input type="text" maxlength="1" class="code-digit" id="code2">
-                    <input type="text" maxlength="1" class="code-digit" id="code3">
-                    <input type="text" maxlength="1" class="code-digit" id="code4">
+                <div class="prize-result" id="prizeResult">
+                    <div class="prize-emoji" id="prizeEmoji">🎉</div>
+                    <h3>Поздравляю! Ты выиграла:</h3>
+                    <div class="prize-text" id="prizeText"></div>
                 </div>
                 
-                <button class="btn" onclick="unlockSafe()" style="background: #28a745;">🔓 Открыть сейф</button>
-                
-                <div id="safeStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
-                
-                <div class="safe-complete" id="safeComplete">
-                    <h3>🎉 Сейф открыт! 🎉</h3>
-                    <p>Ты молодец, что прошла все игры!</p>
-                    <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 15px;">
-                        <p style="font-size: 1.2rem; color: #d63384; font-weight: bold;">Ты самая лучшая! ❤️</p>
-                        <p style="margin-top: 10px;">Я так счастлив, что ты у меня есть. Спасибо что ты такая классная, весёлая и заботливая!</p>
-                        <p style="margin-top: 10px;">Люблю тебя больше всего на свете! 💕</p>
-                    </div>
-                </div>
-                
-                <button class="btn" id="safeCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
+                <button class="btn" id="casinoCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
             <div class="comparison" id="comparison">
@@ -1146,12 +1047,26 @@
         const correctDate = '2026-03-27';
         const puzzleImage = 'https://sun9-26.userapi.com/s/v1/ig2/HfPKFAeNxgKflxlck8NmrBaUC96run9_Gp8cwV7AFTriJ0jD6vGap53Z-CMeLC8Q5-oXlR978tj7SdThkp9PorVw.jpg?quality=95&as=32x27,48x40,72x60,108x90,160x134,240x200,360x301,480x401,540x451,576x481&from=bu&u=m8uZYCmeWdc0uw4FuvEKGJnFUwte48VE6EzrIpa5yOs&cs=576x0';
         
-        // Код сейфа (4 цифры)
-        const SAFE_CODE = ['3', '7', '2', '9'];
-        let safeDigits = ['', '', '', ''];
-        let safeGamesCompleted = [false, false, false, false];
-        
         let wishlistItems = [];
+        
+        // ============================================
+        // 🎰 НАСТРОЙКИ КОЛЕСА ФОРТУНЫ (ДЕНЬ 8)
+        // ============================================
+        // chance - шанс выпадения (чем больше число, тем выше шанс)
+        // Сумма всех chance не важна, важна пропорция
+        
+        const wheelPrizes = [
+            { text: "Массаж 30 минут", emoji: "💆", chance: 25, color: "#ff6b6b" },
+            { text: "Ужин в ресторане", emoji: "🍽️", chance: 15, color: "#4ecdc4" },
+            { text: "Поход в кино", emoji: "🎬", chance: 20, color: "#45b7d1" },
+            { text: "День без забот", emoji: "🌟", chance: 10, color: "#96ceb4" },
+            { text: "Сюрприз от меня", emoji: "🎁", chance: 5, color: "#ffeaa7" },
+            { text: "Обнимашки", emoji: "🤗", chance: 30, color: "#fd79a8" },
+            { text: "Любимое блюдо", emoji: "", chance: 20, color: "#a29bfe" },
+            { text: "День шоппинга", emoji: "🛍️", chance: 8, color: "#fdcb6e" }
+        ];
+        
+        // ============================================
         
         if (localStorage.getItem('loggedIn') === 'true') {
             showMainSite();
@@ -1186,9 +1101,9 @@
             { title: "День 3: 🔮 ЗАГАДКИ!", desc: "Ответь на 5 загадок про любовь!", secret: "Ты знаешь о любви всё! А я знаю всё о тебе ❤️", isQuiz: true },
             { title: "День 4: 🧩 ПАЗЛ!", desc: "Собери разбитое фото!", secret: "Ты собрала мой мир по кусочкам — ты моё всё! ❤️", isPuzzle: true },
             { title: "День 5: 💌 КАПСУЛА ВРЕМЕНИ!", desc: "Напиши послание для встречи", secret: "Твои слова — самое дорогое, что у меня есть! ❤️", isCapsule: true },
-            { title: "День 6: 🎁 ХОТЕЛКИ!", desc: "Напиши что хочешь получить в подарок", secret: "Для тебя я готов на всё! Люблю! ❤️", isWishlist: true },
+            { title: "День 6:  ХОТЕЛКИ!", desc: "Напиши что хочешь получить в подарок", secret: "Для тебя я готов на всё! Люблю! ❤️", isWishlist: true },
             { title: "День 7: 💝 СВИДАНИЕ!", desc: "Приглашение на свидание — выбери всё сама!", secret: "С тобой любое свидание — лучшее! ❤️", isDate: true },
-            { title: "День 8: 🔐 СЕЙФ!", desc: "Открой секретный сейф — пройди 4 игры!", secret: "Ты прошла все испытания — ты мой герой! ❤️", isSafe: true },
+            { title: "День 8: 🎰 КАЗИНО!", desc: "Крути колесо и выигрывай приз!", secret: "Ты всегда выигрываешь в моей жизни! ❤️", isCasino: true },
             { title: "День 9: Музыка", desc: "Скинь 3 песни про нас.", secret: "Наш плейлист — саундтрек моей жизни." },
             { title: "День 10: ФИНАЛ!", desc: "Собирай вещи! Я уже бегу!", secret: "Я тебя ОЧЕНЬ ЛЮБЛЮ!" }
         ];
@@ -1206,7 +1121,7 @@
         }
 
         let currentLevel = '';
-        const levelNames = { 'sun': '☀️ Солнышко', 'heart': '💖 Милое сердечко', 'cat': '🐱 Котик' };
+        const levelNames = { 'sun': '☀️ Солнышко', 'heart': ' Милое сердечко', 'cat': '🐱 Котик' };
 
         function openModal(index) {
             document.getElementById('welcomeScreen').classList.remove('active');
@@ -1219,7 +1134,7 @@
             document.getElementById('capsuleContainer').classList.remove('active');
             document.getElementById('wishlistContainer').classList.remove('active');
             document.getElementById('dateContainer').classList.remove('active');
-            document.getElementById('safeContainer').classList.remove('active');
+            document.getElementById('casinoContainer').classList.remove('active');
             document.getElementById('secretMsg').classList.remove('active');
             document.getElementById('statusMsg').className = 'status-msg';
             document.getElementById('gameWin').style.display = 'none';
@@ -1236,7 +1151,7 @@
             else if (tasks[index].isCapsule) { document.getElementById('capsuleContainer').classList.add('active'); initCapsule(); }
             else if (tasks[index].isWishlist) { document.getElementById('wishlistContainer').classList.add('active'); initWishlist(); }
             else if (tasks[index].isDate) { document.getElementById('dateContainer').classList.add('active'); initDateInvitation(); }
-            else if (tasks[index].isSafe) { document.getElementById('safeContainer').classList.add('active'); initSafe(); }
+            else if (tasks[index].isCasino) { document.getElementById('casinoContainer').classList.add('active'); initCasino(); }
             
             document.getElementById('taskModal').classList.add('active');
             window.currentTaskIndex = index;
@@ -1789,10 +1704,10 @@
             const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
             const formattedDate = dateObj.getDate() + ' ' + months[dateObj.getMonth()] + ' ' + dateObj.getFullYear();
             
-            showDateStatus('⏳ Отправляю приглашение...', 'loading');
+            showDateStatus(' Отправляю приглашение...', 'loading');
             
             try {
-                let message = '💝 ПРИГЛАШЕНИЕ НА СВИДАНИЕ! 💝\n\n';
+                let message = '💝 ПРИГЛАШЕНИЕ НА СВИДАНИЕ! \n\n';
                 message += '📅 Дата: ' + formattedDate + '\n';
                 message += '⏰ Время: ' + time + '\n';
                 message += '🍕 Еда: ' + food + '\n';
@@ -1829,298 +1744,85 @@
             statusEl.className = 'status-msg ' + type;
         }
 
-        // ===== СЕЙФ =====
-        function initSafe() {
-            safeDigits = ['', '', '', ''];
-            safeGamesCompleted = [false, false, false, false];
-            document.getElementById('safeGameArea').style.display = 'none';
-            document.getElementById('safeComplete').classList.remove('active');
-            document.getElementById('safeCompleteBtn').style.display = 'none';
-            document.getElementById('safeStatusMsg').className = 'status-msg';
-            
-            // Сброс полей ввода
-            document.getElementById('code1').value = '';
-            document.getElementById('code2').value = '';
-            document.getElementById('code3').value = '';
-            document.getElementById('code4').value = '';
-            
-            // Сброс кнопок игр
-            for (let i = 1; i <= 4; i++) {
-                const btn = document.getElementById('safeGame' + i + 'Btn');
-                btn.classList.remove('completed');
-                document.getElementById('safeGame' + i + 'Status').innerText = getGameDescription(i);
-            }
+        // ===== КАЗИНО - КОЛЕСО ФОРТУНЫ =====
+        let currentRotation = 0;
+        let isSpinning = false;
+        
+        function initCasino() {
+            createWheel();
+            document.getElementById('prizeResult').classList.remove('active');
+            document.getElementById('casinoCompleteBtn').style.display = 'none';
+            document.getElementById('spinBtn').disabled = false;
         }
         
-        function getGameDescription(num) {
-            const descriptions = ['Найди пары', 'Поймай 20', 'От 1 до 10', 'Быстро нажми'];
-            return descriptions[num - 1];
-        }
-
-        function startSafeGame(gameNum) {
-            if (safeGamesCompleted[gameNum - 1]) {
-                showSafeStatus('✅ Эта игра уже пройдена! Цифра: ' + SAFE_CODE[gameNum - 1], 'success');
-                return;
-            }
+        function createWheel() {
+            const wheel = document.getElementById('wheel');
+            wheel.innerHTML = '';
             
-            const gameArea = document.getElementById('safeGameArea');
-            gameArea.style.display = 'block';
-            gameArea.innerHTML = '';
+            const numSegments = wheelPrizes.length;
+            const segmentAngle = 360 / numSegments;
             
-            if (gameNum === 1) {
-                // Игра на память
-                gameArea.innerHTML = `
-                    <div class="mini-game">
-                        <h3 style="color: #d63384;">🎴 Найди пары!</h3>
-                        <p>Переверни карточки и найди все пары</p>
-                        <div class="memory-grid" id="memoryGrid"></div>
-                        <button class="btn" onclick="startMemoryGame()" style="margin-top: 10px;">Начать</button>
-                    </div>
-                `;
-                setTimeout(() => startMemoryGame(), 100);
-            } else if (gameNum === 2) {
-                // Лови сердечки
-                gameArea.innerHTML = `
-                    <div class="mini-game">
-                        <h3 style="color: #d63384;">❤️ Лови сердечки!</h3>
-                        <p>Поймай 20 сердечек</p>
-                        <p style="font-size: 1.5rem; font-weight: bold; color: #d63384;">Поймано: <span id="safeHeartScore">0</span>/20</p>
-                        <button class="btn" onclick="startSafeHearts()" style="margin-top: 10px;">Начать</button>
-                        <div id="safeHeartsArea" style="margin-top: 15px;"></div>
-                    </div>
-                `;
-            } else if (gameNum === 3) {
-                // Угадай число
-                gameArea.innerHTML = `
-                    <div class="mini-game">
-                        <h3 style="color: #d63384;">🔢 Угадай число!</h3>
-                        <p>Я загадал число от 1 до 10. Угадай за 3 попытки!</p>
-                        <p>Попыток осталось: <span id="guessAttempts">3</span></p>
-                        <input type="number" min="1" max="10" class="guess-input" id="guessInput" placeholder="Введи число">
-                        <button class="btn" onclick="checkGuess()">Проверить</button>
-                        <p id="guessHint" style="margin-top: 10px; font-weight: bold;"></p>
-                    </div>
-                `;
-                window.safeSecretNumber = Math.floor(Math.random() * 10) + 1;
-                window.guessAttemptsLeft = 3;
-            } else if (gameNum === 4) {
-                // Реакция
-                gameArea.innerHTML = `
-                    <div class="mini-game">
-                        <h3 style="color: #d63384;">⚡ Тест на реакцию!</h3>
-                        <p>Нажми на кнопку как только она станет ЗЕЛЁНОЙ!</p>
-                        <button class="reaction-btn waiting" id="reactionBtn" onclick="handleReaction()">Жди...</button>
-                        <p id="reactionResult" style="margin-top: 15px; font-weight: bold;"></p>
-                    </div>
-                `;
-                startReactionGame();
-            }
-        }
-        
-        // ИГРА 1: Память
-        let memoryCards = [];
-        let flippedCards = [];
-        let matchedPairs = 0;
-        
-        function startMemoryGame() {
-            const emojis = ['❤️', '💕', '💖', '💗', '💘', '💝'];
-            memoryCards = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
-            flippedCards = [];
-            matchedPairs = 0;
-            
-            const grid = document.getElementById('memoryGrid');
-            grid.innerHTML = '';
-            
-            memoryCards.forEach((emoji, index) => {
-                const card = document.createElement('div');
-                card.className = 'memory-card';
-                card.dataset.index = index;
-                card.dataset.emoji = emoji;
-                card.innerText = '?';
-                card.onclick = () => flipCard(card, index);
-                grid.appendChild(card);
+            wheelPrizes.forEach((prize, index) => {
+                const segment = document.createElement('div');
+                segment.className = 'wheel-segment';
+                segment.style.backgroundColor = prize.color;
+                segment.style.transform = `rotate(${index * segmentAngle}deg) skewY(-${90 - segmentAngle}deg)`;
+                
+                const span = document.createElement('span');
+                span.innerText = prize.emoji;
+                span.style.transform = `rotate(${segmentAngle / 2}deg) translate(60px) rotate(90deg)`;
+                
+                segment.appendChild(span);
+                wheel.appendChild(segment);
             });
         }
         
-        function flipCard(card, index) {
-            if (flippedCards.length >= 2) return;
-            if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+        function spinWheel() {
+            if (isSpinning) return;
+            isSpinning = true;
             
-            card.classList.add('flipped');
-            card.innerText = memoryCards[index];
-            flippedCards.push({ card, index });
+            const spinBtn = document.getElementById('spinBtn');
+            spinBtn.disabled = true;
+            spinBtn.innerText = '🎰 Крутится...';
             
-            if (flippedCards.length === 2) {
-                setTimeout(() => {
-                    if (memoryCards[flippedCards[0].index] === memoryCards[flippedCards[1].index]) {
-                        flippedCards[0].card.classList.add('matched');
-                        flippedCards[1].card.classList.add('matched');
-                        matchedPairs++;
-                        
-                        if (matchedPairs === 6) {
-                            completeSafeGame(1);
-                        }
-                    } else {
-                        flippedCards[0].card.classList.remove('flipped');
-                        flippedCards[0].card.innerText = '?';
-                        flippedCards[1].card.classList.remove('flipped');
-                        flippedCards[1].card.innerText = '?';
-                    }
-                    flippedCards = [];
-                }, 1000);
-            }
-        }
-        
-        // ИГРА 2: Лови сердечки
-        let safeHeartScore = 0;
-        let safeHeartInterval = null;
-        
-        function startSafeHearts() {
-            safeHeartScore = 0;
-            document.getElementById('safeHeartScore').innerText = '0';
-            document.getElementById('safeHeartsArea').innerHTML = '<p style="text-align: center; font-size: 3rem;">❤️</p><p style="text-align: center;">Нажимай на сердечко!</p>';
+            // Выбираем приз на основе шансов
+            const totalChance = wheelPrizes.reduce((sum, prize) => sum + prize.chance, 0);
+            let random = Math.random() * totalChance;
+            let selectedPrizeIndex = 0;
             
-            safeHeartInterval = setInterval(() => {
-                const heart = document.createElement('div');
-                heart.innerText = '❤️';
-                heart.style.cssText = `
-                    position: absolute;
-                    font-size: 2.5rem;
-                    cursor: pointer;
-                    left: ${Math.random() * 80 + 10}%;
-                    top: ${Math.random() * 60 + 20}%;
-                    transition: all 0.5s;
-                `;
-                heart.onclick = () => {
-                    safeHeartScore++;
-                    document.getElementById('safeHeartScore').innerText = safeHeartScore;
-                    heart.remove();
-                    
-                    if (safeHeartScore >= 20) {
-                        clearInterval(safeHeartInterval);
-                        completeSafeGame(2);
-                    }
-                };
-                document.getElementById('safeHeartsArea').appendChild(heart);
-                
-                setTimeout(() => heart.remove(), 2000);
-            }, 500);
-        }
-        
-        // ИГРА 3: Угадай число
-        function checkGuess() {
-            const input = document.getElementById('guessInput');
-            const guess = parseInt(input.value);
-            const hint = document.getElementById('guessHint');
-            
-            if (isNaN(guess) || guess < 1 || guess > 10) {
-                hint.innerText = '❌ Введи число от 1 до 10!';
-                hint.style.color = '#dc3545';
-                return;
-            }
-            
-            window.guessAttemptsLeft--;
-            document.getElementById('guessAttempts').innerText = window.guessAttemptsLeft;
-            
-            if (guess === window.safeSecretNumber) {
-                completeSafeGame(3);
-            } else if (window.guessAttemptsLeft === 0) {
-                hint.innerText = '❌ Попытки закончились! Число было: ' + window.safeSecretNumber + '. Попробуй ещё раз!';
-                hint.style.color = '#dc3545';
-                setTimeout(() => {
-                    window.safeSecretNumber = Math.floor(Math.random() * 10) + 1;
-                    window.guessAttemptsLeft = 3;
-                    document.getElementById('guessAttempts').innerText = '3';
-                    hint.innerText = '';
-                    input.value = '';
-                }, 2000);
-            } else {
-                if (guess < window.safeSecretNumber) {
-                    hint.innerText = '⬆️ Больше!';
-                    hint.style.color = '#28a745';
-                } else {
-                    hint.innerText = '⬇️ Меньше!';
-                    hint.style.color = '#28a745';
+            for (let i = 0; i < wheelPrizes.length; i++) {
+                random -= wheelPrizes[i].chance;
+                if (random <= 0) {
+                    selectedPrizeIndex = i;
+                    break;
                 }
-                input.value = '';
-            }
-        }
-        
-        // ИГРА 4: Реакция
-        let reactionTimeout = null;
-        let reactionStartTime = 0;
-        let reactionReady = false;
-        
-        function startReactionGame() {
-            const btn = document.getElementById('reactionBtn');
-            btn.className = 'reaction-btn waiting';
-            btn.innerText = 'Жди...';
-            reactionReady = false;
-            
-            const delay = Math.random() * 3000 + 2000; // 2-5 секунд
-            reactionTimeout = setTimeout(() => {
-                btn.className = 'reaction-btn ready';
-                btn.innerText = 'ЖМИИ!!!';
-                reactionStartTime = Date.now();
-                reactionReady = true;
-            }, delay);
-        }
-        
-        function handleReaction() {
-            if (!reactionReady) {
-                clearTimeout(reactionTimeout);
-                document.getElementById('reactionResult').innerText = '❌ Слишком рано! Попробуй ещё раз.';
-                document.getElementById('reactionResult').style.color = '#dc3545';
-                setTimeout(() => startReactionGame(), 1500);
-                return;
             }
             
-            const reactionTime = Date.now() - reactionStartTime;
-            const result = document.getElementById('reactionResult');
+            // Вычисляем угол для выбранного приза
+            const numSegments = wheelPrizes.length;
+            const segmentAngle = 360 / numSegments;
+            const targetAngle = 360 - (selectedPrizeIndex * segmentAngle + segmentAngle / 2);
             
-            if (reactionTime < 500) {
-                result.innerText = '⚡ Отличная реакция! ' + reactionTime + 'мс';
-                result.style.color = '#28a745';
-                completeSafeGame(4);
-            } else {
-                result.innerText = '😅 Медленно! ' + reactionTime + 'мс. Попробуй ещё раз!';
-                result.style.color = '#dc3545';
-                setTimeout(() => startReactionGame(), 1500);
-            }
-        }
-        
-        function completeSafeGame(gameNum) {
-            safeGamesCompleted[gameNum - 1] = true;
-            const btn = document.getElementById('safeGame' + gameNum + 'Btn');
-            btn.classList.add('completed');
-            document.getElementById('safeGame' + gameNum + 'Status').innerText = '✅ Цифра: ' + SAFE_CODE[gameNum - 1];
+            // Добавляем несколько полных оборотов (5-8)
+            const extraSpins = (Math.floor(Math.random() * 4) + 5) * 360;
+            const finalRotation = currentRotation + extraSpins + targetAngle - (currentRotation % 360);
             
-            showSafeStatus('🎉 Игра пройдена! Цифра: ' + SAFE_CODE[gameNum - 1], 'success');
+            const wheel = document.getElementById('wheel');
+            wheel.style.transform = `rotate(${finalRotation}deg)`;
+            currentRotation = finalRotation;
             
+            // Показываем результат после анимации
             setTimeout(() => {
-                document.getElementById('safeGameArea').style.display = 'none';
-            }, 2000);
-        }
-        
-        function unlockSafe() {
-            const code1 = document.getElementById('code1').value;
-            const code2 = document.getElementById('code2').value;
-            const code3 = document.getElementById('code3').value;
-            const code4 = document.getElementById('code4').value;
-            
-            if (code1 === SAFE_CODE[0] && code2 === SAFE_CODE[1] && code3 === SAFE_CODE[2] && code4 === SAFE_CODE[3]) {
-                document.getElementById('safeComplete').classList.add('active');
-                document.getElementById('safeCompleteBtn').style.display = 'block';
-                showSafeStatus('🎉 Сейф открыт!', 'success');
-            } else {
-                showSafeStatus('❌ Неверный код! Пройди игры чтобы узнать цифры.', 'error');
-            }
-        }
-        
-        function showSafeStatus(message, type) {
-            const statusEl = document.getElementById('safeStatusMsg');
-            statusEl.innerText = message;
-            statusEl.className = 'status-msg ' + type;
+                const prize = wheelPrizes[selectedPrizeIndex];
+                document.getElementById('prizeEmoji').innerText = prize.emoji;
+                document.getElementById('prizeText').innerText = prize.text;
+                document.getElementById('prizeResult').classList.add('active');
+                document.getElementById('casinoCompleteBtn').style.display = 'block';
+                
+                spinBtn.disabled = false;
+                spinBtn.innerText = '🎯 КРУТИТЬ ЕЩЁ!';
+                isSpinning = false;
+            }, 4000);
         }
 
         // ===== РИСОВАЛКА =====
