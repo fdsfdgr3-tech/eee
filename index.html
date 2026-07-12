@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>10 Дней с Зайкой ❤️</title>
+    <title>10 Дней с Любимой ❤️</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap');
         
@@ -172,8 +172,8 @@
         .level-name { font-weight: bold; color: #d63384; font-size: 1.05rem; }
         .level-desc { font-size: 0.85rem; color: #666; margin-top: 3px; }
         
-        .drawing-container, .game-container, .quiz-container, .puzzle-container, .capsule-container, .wishlist-container, .date-container { display: none; }
-        .drawing-container.active, .game-container.active, .quiz-container.active, .puzzle-container.active, .capsule-container.active, .wishlist-container.active, .date-container.active { display: block; }
+        .drawing-container, .game-container, .quiz-container, .puzzle-container, .capsule-container, .wishlist-container, .date-container, .safe-container { display: none; }
+        .drawing-container.active, .game-container.active, .quiz-container.active, .puzzle-container.active, .capsule-container.active, .wishlist-container.active, .date-container.active, .safe-container.active { display: block; }
         
         .current-level, .quiz-progress, .puzzle-info {
             background: #fff0f5;
@@ -557,6 +557,185 @@
         .date-complete.active { display: block; }
         .date-complete h3 { color: #28a745; margin-bottom: 10px; }
         
+        /* СЕЙФ */
+        .safe-container { text-align: center; }
+        
+        .safe-icon {
+            font-size: 5rem;
+            margin: 20px 0;
+        }
+        
+        .safe-description {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .safe-games {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .safe-game-btn {
+            background: white;
+            border: 3px solid #ffb6c1;
+            padding: 15px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 100px;
+        }
+        
+        .safe-game-btn:active { transform: scale(0.95); }
+        
+        .safe-game-btn.completed {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .safe-game-btn .game-emoji {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .safe-game-btn .game-name {
+            font-weight: bold;
+            color: #d63384;
+            font-size: 0.9rem;
+        }
+        
+        .safe-game-btn.completed .game-name {
+            color: #28a745;
+        }
+        
+        .safe-game-btn .game-status {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .safe-code-input {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .code-digit {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            border: 3px solid #ffb6c1;
+            border-radius: 10px;
+            background: white;
+        }
+        
+        .code-digit:focus {
+            outline: none;
+            border-color: #d63384;
+        }
+        
+        .safe-unlock {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+        
+        .safe-unlock h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        /* МИНИ-ИГРЫ ДЛЯ СЕЙФА */
+        .mini-game {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+        }
+        
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .memory-card {
+            aspect-ratio: 1;
+            background: #d63384;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: transform 0.3s;
+        }
+        
+        .memory-card.flipped {
+            background: white;
+            border: 2px solid #d63384;
+        }
+        
+        .memory-card.matched {
+            background: #d4edda;
+            border: 2px solid #28a745;
+        }
+        
+        .guess-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            text-align: center;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        
+        .reaction-btn {
+            width: 100%;
+            padding: 30px;
+            font-size: 1.2rem;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .reaction-btn.waiting {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .reaction-btn.ready {
+            background: #51cf66;
+            color: white;
+            animation: pulse 1s infinite;
+        }
+        
+        .safe-complete {
+            display: none;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .safe-complete.active { display: block; }
+        .safe-complete h3 { color: #28a745; margin-bottom: 15px; font-size: 1.5rem; }
+        .safe-complete p { line-height: 1.6; font-size: 1.1rem; }
+        
         .comparison { display: none; margin-top: 20px; }
         .comparison.active { display: block; }
         .comparison h3 { color: #d63384; margin-bottom: 15px; }
@@ -796,7 +975,7 @@
                     <p>За <span id="puzzleFinalMoves">0</span> ходов и <span id="puzzleFinalTime">0:00</span>!</p>
                     <img id="puzzleFinalImage" class="puzzle-preview" src="" alt="Собранный пазл" style="margin-top: 15px;">
                 </div>
-                <button class="btn" id="puzzleCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! </button>
+                <button class="btn" id="puzzleCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
             <!-- КАПСУЛА ВРЕМЕНИ -->
@@ -812,7 +991,7 @@
                     <div style="font-weight: bold;">Капсула запечатана!</div>
                     <div style="font-size: 0.9rem; margin-top: 5px;">Открою только при встрече</div>
                 </div>
-                <button class="btn" id="sealCapsuleBtn" onclick="sealCapsule()" style="background: #667eea;"> Запечатать капсулу</button>
+                <button class="btn" id="sealCapsuleBtn" onclick="sealCapsule()" style="background: #667eea;">🔒 Запечатать капсулу</button>
                 <button class="btn" id="sendCapsuleBtn" onclick="sendCapsule()" style="display: none; background: #28a745; margin-top: 10px;">📤 Отправить мне</button>
                 <div id="capsuleStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
                 <div class="capsule-complete" id="capsuleComplete">
@@ -882,6 +1061,68 @@
                 <button class="btn" id="dateCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
             </div>
             
+            <!-- СЕЙФ -->
+            <div class="safe-container" id="safeContainer">
+                <div class="safe-icon">🔐</div>
+                <h2 style="color: #d63384;">Секретный сейф</h2>
+                <div class="safe-description">
+                    <p>Внутри сейфа — что-то особенное для тебя! 💝</p>
+                    <p>Чтобы открыть, пройди 4 мини-игры и получи цифры кода!</p>
+                </div>
+                
+                <div class="safe-games">
+                    <button class="safe-game-btn" id="safeGame1Btn" onclick="startSafeGame(1)">
+                        <span class="game-emoji">🎴</span>
+                        <span class="game-name">Игра на память</span>
+                        <span class="game-status" id="safeGame1Status">Найди пары</span>
+                    </button>
+                    
+                    <button class="safe-game-btn" id="safeGame2Btn" onclick="startSafeGame(2)">
+                        <span class="game-emoji">❤️</span>
+                        <span class="game-name">Лови сердечки</span>
+                        <span class="game-status" id="safeGame2Status">Поймай 20</span>
+                    </button>
+                    
+                    <button class="safe-game-btn" id="safeGame3Btn" onclick="startSafeGame(3)">
+                        <span class="game-emoji">🔢</span>
+                        <span class="game-name">Угадай число</span>
+                        <span class="game-status" id="safeGame3Status">От 1 до 10</span>
+                    </button>
+                    
+                    <button class="safe-game-btn" id="safeGame4Btn" onclick="startSafeGame(4)">
+                        <span class="game-emoji">⚡</span>
+                        <span class="game-name">Реакция</span>
+                        <span class="game-status" id="safeGame4Status">Быстро нажми</span>
+                    </button>
+                </div>
+                
+                <div id="safeGameArea" style="display: none;"></div>
+                
+                <h3 style="color: #d63384; margin-top: 20px;">Введи код:</h3>
+                <div class="safe-code-input">
+                    <input type="text" maxlength="1" class="code-digit" id="code1">
+                    <input type="text" maxlength="1" class="code-digit" id="code2">
+                    <input type="text" maxlength="1" class="code-digit" id="code3">
+                    <input type="text" maxlength="1" class="code-digit" id="code4">
+                </div>
+                
+                <button class="btn" onclick="unlockSafe()" style="background: #28a745;">🔓 Открыть сейф</button>
+                
+                <div id="safeStatusMsg" class="status-msg" style="margin-top: 15px;"></div>
+                
+                <div class="safe-complete" id="safeComplete">
+                    <h3>🎉 Сейф открыт! 🎉</h3>
+                    <p>Ты молодец, что прошла все игры!</p>
+                    <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 15px;">
+                        <p style="font-size: 1.2rem; color: #d63384; font-weight: bold;">Ты самая лучшая! ❤️</p>
+                        <p style="margin-top: 10px;">Я так счастлив, что ты у меня есть. Спасибо что ты такая классная, весёлая и заботливая!</p>
+                        <p style="margin-top: 10px;">Люблю тебя больше всего на свете! 💕</p>
+                    </div>
+                </div>
+                
+                <button class="btn" id="safeCompleteBtn" onclick="showSecret()" style="display: none; margin-top: 15px; background: #28a745;">Я выполнила! 💖</button>
+            </div>
+            
             <div class="comparison" id="comparison">
                 <h3>🎨 Твой рисунок!</h3>
                 <div class="user-drawing-container">
@@ -904,6 +1145,11 @@
         const TELEGRAM_CHAT_ID = '805970318';
         const correctDate = '2026-03-27';
         const puzzleImage = 'https://sun9-26.userapi.com/s/v1/ig2/HfPKFAeNxgKflxlck8NmrBaUC96run9_Gp8cwV7AFTriJ0jD6vGap53Z-CMeLC8Q5-oXlR978tj7SdThkp9PorVw.jpg?quality=95&as=32x27,48x40,72x60,108x90,160x134,240x200,360x301,480x401,540x451,576x481&from=bu&u=m8uZYCmeWdc0uw4FuvEKGJnFUwte48VE6EzrIpa5yOs&cs=576x0';
+        
+        // Код сейфа (4 цифры)
+        const SAFE_CODE = ['3', '7', '2', '9'];
+        let safeDigits = ['', '', '', ''];
+        let safeGamesCompleted = [false, false, false, false];
         
         let wishlistItems = [];
         
@@ -942,7 +1188,7 @@
             { title: "День 5: 💌 КАПСУЛА ВРЕМЕНИ!", desc: "Напиши послание для встречи", secret: "Твои слова — самое дорогое, что у меня есть! ❤️", isCapsule: true },
             { title: "День 6: 🎁 ХОТЕЛКИ!", desc: "Напиши что хочешь получить в подарок", secret: "Для тебя я готов на всё! Люблю! ❤️", isWishlist: true },
             { title: "День 7: 💝 СВИДАНИЕ!", desc: "Приглашение на свидание — выбери всё сама!", secret: "С тобой любое свидание — лучшее! ❤️", isDate: true },
-            { title: "День 8: Мечты", desc: "Скинь скриншот вещи, которую хочешь.", secret: "Для тебя мне ничего не жалко." },
+            { title: "День 8: 🔐 СЕЙФ!", desc: "Открой секретный сейф — пройди 4 игры!", secret: "Ты прошла все испытания — ты мой герой! ❤️", isSafe: true },
             { title: "День 9: Музыка", desc: "Скинь 3 песни про нас.", secret: "Наш плейлист — саундтрек моей жизни." },
             { title: "День 10: ФИНАЛ!", desc: "Собирай вещи! Я уже бегу!", secret: "Я тебя ОЧЕНЬ ЛЮБЛЮ!" }
         ];
@@ -973,6 +1219,7 @@
             document.getElementById('capsuleContainer').classList.remove('active');
             document.getElementById('wishlistContainer').classList.remove('active');
             document.getElementById('dateContainer').classList.remove('active');
+            document.getElementById('safeContainer').classList.remove('active');
             document.getElementById('secretMsg').classList.remove('active');
             document.getElementById('statusMsg').className = 'status-msg';
             document.getElementById('gameWin').style.display = 'none';
@@ -989,6 +1236,7 @@
             else if (tasks[index].isCapsule) { document.getElementById('capsuleContainer').classList.add('active'); initCapsule(); }
             else if (tasks[index].isWishlist) { document.getElementById('wishlistContainer').classList.add('active'); initWishlist(); }
             else if (tasks[index].isDate) { document.getElementById('dateContainer').classList.add('active'); initDateInvitation(); }
+            else if (tasks[index].isSafe) { document.getElementById('safeContainer').classList.add('active'); initSafe(); }
             
             document.getElementById('taskModal').classList.add('active');
             window.currentTaskIndex = index;
@@ -1402,7 +1650,7 @@
             if (text === '') { showCapsuleStatus('❌ Напиши послание!', 'error'); return; }
             showCapsuleStatus('⏳ Отправляю капсулу...', 'loading');
             try {
-                const message = ' КАПСУЛА ВРЕМЕНИ! 💌\n\n📌 НЕ ОТКРЫВАТЬ ДО ВСТРЕЧИ! 📌\n\n' + text + '\n\n💕 От любимой';
+                const message = '💌 КАПСУЛА ВРЕМЕНИ! 💌\n\n📌 НЕ ОТКРЫВАТЬ ДО ВСТРЕЧИ! 📌\n\n' + text + '\n\n💕 От любимой';
                 const response = await fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1577,6 +1825,300 @@
 
         function showDateStatus(message, type) {
             const statusEl = document.getElementById('dateStatusMsg');
+            statusEl.innerText = message;
+            statusEl.className = 'status-msg ' + type;
+        }
+
+        // ===== СЕЙФ =====
+        function initSafe() {
+            safeDigits = ['', '', '', ''];
+            safeGamesCompleted = [false, false, false, false];
+            document.getElementById('safeGameArea').style.display = 'none';
+            document.getElementById('safeComplete').classList.remove('active');
+            document.getElementById('safeCompleteBtn').style.display = 'none';
+            document.getElementById('safeStatusMsg').className = 'status-msg';
+            
+            // Сброс полей ввода
+            document.getElementById('code1').value = '';
+            document.getElementById('code2').value = '';
+            document.getElementById('code3').value = '';
+            document.getElementById('code4').value = '';
+            
+            // Сброс кнопок игр
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById('safeGame' + i + 'Btn');
+                btn.classList.remove('completed');
+                document.getElementById('safeGame' + i + 'Status').innerText = getGameDescription(i);
+            }
+        }
+        
+        function getGameDescription(num) {
+            const descriptions = ['Найди пары', 'Поймай 20', 'От 1 до 10', 'Быстро нажми'];
+            return descriptions[num - 1];
+        }
+
+        function startSafeGame(gameNum) {
+            if (safeGamesCompleted[gameNum - 1]) {
+                showSafeStatus('✅ Эта игра уже пройдена! Цифра: ' + SAFE_CODE[gameNum - 1], 'success');
+                return;
+            }
+            
+            const gameArea = document.getElementById('safeGameArea');
+            gameArea.style.display = 'block';
+            gameArea.innerHTML = '';
+            
+            if (gameNum === 1) {
+                // Игра на память
+                gameArea.innerHTML = `
+                    <div class="mini-game">
+                        <h3 style="color: #d63384;">🎴 Найди пары!</h3>
+                        <p>Переверни карточки и найди все пары</p>
+                        <div class="memory-grid" id="memoryGrid"></div>
+                        <button class="btn" onclick="startMemoryGame()" style="margin-top: 10px;">Начать</button>
+                    </div>
+                `;
+                setTimeout(() => startMemoryGame(), 100);
+            } else if (gameNum === 2) {
+                // Лови сердечки
+                gameArea.innerHTML = `
+                    <div class="mini-game">
+                        <h3 style="color: #d63384;">❤️ Лови сердечки!</h3>
+                        <p>Поймай 20 сердечек</p>
+                        <p style="font-size: 1.5rem; font-weight: bold; color: #d63384;">Поймано: <span id="safeHeartScore">0</span>/20</p>
+                        <button class="btn" onclick="startSafeHearts()" style="margin-top: 10px;">Начать</button>
+                        <div id="safeHeartsArea" style="margin-top: 15px;"></div>
+                    </div>
+                `;
+            } else if (gameNum === 3) {
+                // Угадай число
+                gameArea.innerHTML = `
+                    <div class="mini-game">
+                        <h3 style="color: #d63384;">🔢 Угадай число!</h3>
+                        <p>Я загадал число от 1 до 10. Угадай за 3 попытки!</p>
+                        <p>Попыток осталось: <span id="guessAttempts">3</span></p>
+                        <input type="number" min="1" max="10" class="guess-input" id="guessInput" placeholder="Введи число">
+                        <button class="btn" onclick="checkGuess()">Проверить</button>
+                        <p id="guessHint" style="margin-top: 10px; font-weight: bold;"></p>
+                    </div>
+                `;
+                window.safeSecretNumber = Math.floor(Math.random() * 10) + 1;
+                window.guessAttemptsLeft = 3;
+            } else if (gameNum === 4) {
+                // Реакция
+                gameArea.innerHTML = `
+                    <div class="mini-game">
+                        <h3 style="color: #d63384;">⚡ Тест на реакцию!</h3>
+                        <p>Нажми на кнопку как только она станет ЗЕЛЁНОЙ!</p>
+                        <button class="reaction-btn waiting" id="reactionBtn" onclick="handleReaction()">Жди...</button>
+                        <p id="reactionResult" style="margin-top: 15px; font-weight: bold;"></p>
+                    </div>
+                `;
+                startReactionGame();
+            }
+        }
+        
+        // ИГРА 1: Память
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        
+        function startMemoryGame() {
+            const emojis = ['❤️', '💕', '💖', '💗', '💘', '💝'];
+            memoryCards = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+            flippedCards = [];
+            matchedPairs = 0;
+            
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = '';
+            
+            memoryCards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.index = index;
+                card.dataset.emoji = emoji;
+                card.innerText = '?';
+                card.onclick = () => flipCard(card, index);
+                grid.appendChild(card);
+            });
+        }
+        
+        function flipCard(card, index) {
+            if (flippedCards.length >= 2) return;
+            if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+            
+            card.classList.add('flipped');
+            card.innerText = memoryCards[index];
+            flippedCards.push({ card, index });
+            
+            if (flippedCards.length === 2) {
+                setTimeout(() => {
+                    if (memoryCards[flippedCards[0].index] === memoryCards[flippedCards[1].index]) {
+                        flippedCards[0].card.classList.add('matched');
+                        flippedCards[1].card.classList.add('matched');
+                        matchedPairs++;
+                        
+                        if (matchedPairs === 6) {
+                            completeSafeGame(1);
+                        }
+                    } else {
+                        flippedCards[0].card.classList.remove('flipped');
+                        flippedCards[0].card.innerText = '?';
+                        flippedCards[1].card.classList.remove('flipped');
+                        flippedCards[1].card.innerText = '?';
+                    }
+                    flippedCards = [];
+                }, 1000);
+            }
+        }
+        
+        // ИГРА 2: Лови сердечки
+        let safeHeartScore = 0;
+        let safeHeartInterval = null;
+        
+        function startSafeHearts() {
+            safeHeartScore = 0;
+            document.getElementById('safeHeartScore').innerText = '0';
+            document.getElementById('safeHeartsArea').innerHTML = '<p style="text-align: center; font-size: 3rem;">❤️</p><p style="text-align: center;">Нажимай на сердечко!</p>';
+            
+            safeHeartInterval = setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerText = '❤️';
+                heart.style.cssText = `
+                    position: absolute;
+                    font-size: 2.5rem;
+                    cursor: pointer;
+                    left: ${Math.random() * 80 + 10}%;
+                    top: ${Math.random() * 60 + 20}%;
+                    transition: all 0.5s;
+                `;
+                heart.onclick = () => {
+                    safeHeartScore++;
+                    document.getElementById('safeHeartScore').innerText = safeHeartScore;
+                    heart.remove();
+                    
+                    if (safeHeartScore >= 20) {
+                        clearInterval(safeHeartInterval);
+                        completeSafeGame(2);
+                    }
+                };
+                document.getElementById('safeHeartsArea').appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 2000);
+            }, 500);
+        }
+        
+        // ИГРА 3: Угадай число
+        function checkGuess() {
+            const input = document.getElementById('guessInput');
+            const guess = parseInt(input.value);
+            const hint = document.getElementById('guessHint');
+            
+            if (isNaN(guess) || guess < 1 || guess > 10) {
+                hint.innerText = '❌ Введи число от 1 до 10!';
+                hint.style.color = '#dc3545';
+                return;
+            }
+            
+            window.guessAttemptsLeft--;
+            document.getElementById('guessAttempts').innerText = window.guessAttemptsLeft;
+            
+            if (guess === window.safeSecretNumber) {
+                completeSafeGame(3);
+            } else if (window.guessAttemptsLeft === 0) {
+                hint.innerText = '❌ Попытки закончились! Число было: ' + window.safeSecretNumber + '. Попробуй ещё раз!';
+                hint.style.color = '#dc3545';
+                setTimeout(() => {
+                    window.safeSecretNumber = Math.floor(Math.random() * 10) + 1;
+                    window.guessAttemptsLeft = 3;
+                    document.getElementById('guessAttempts').innerText = '3';
+                    hint.innerText = '';
+                    input.value = '';
+                }, 2000);
+            } else {
+                if (guess < window.safeSecretNumber) {
+                    hint.innerText = '⬆️ Больше!';
+                    hint.style.color = '#28a745';
+                } else {
+                    hint.innerText = '⬇️ Меньше!';
+                    hint.style.color = '#28a745';
+                }
+                input.value = '';
+            }
+        }
+        
+        // ИГРА 4: Реакция
+        let reactionTimeout = null;
+        let reactionStartTime = 0;
+        let reactionReady = false;
+        
+        function startReactionGame() {
+            const btn = document.getElementById('reactionBtn');
+            btn.className = 'reaction-btn waiting';
+            btn.innerText = 'Жди...';
+            reactionReady = false;
+            
+            const delay = Math.random() * 3000 + 2000; // 2-5 секунд
+            reactionTimeout = setTimeout(() => {
+                btn.className = 'reaction-btn ready';
+                btn.innerText = 'ЖМИИ!!!';
+                reactionStartTime = Date.now();
+                reactionReady = true;
+            }, delay);
+        }
+        
+        function handleReaction() {
+            if (!reactionReady) {
+                clearTimeout(reactionTimeout);
+                document.getElementById('reactionResult').innerText = '❌ Слишком рано! Попробуй ещё раз.';
+                document.getElementById('reactionResult').style.color = '#dc3545';
+                setTimeout(() => startReactionGame(), 1500);
+                return;
+            }
+            
+            const reactionTime = Date.now() - reactionStartTime;
+            const result = document.getElementById('reactionResult');
+            
+            if (reactionTime < 500) {
+                result.innerText = '⚡ Отличная реакция! ' + reactionTime + 'мс';
+                result.style.color = '#28a745';
+                completeSafeGame(4);
+            } else {
+                result.innerText = '😅 Медленно! ' + reactionTime + 'мс. Попробуй ещё раз!';
+                result.style.color = '#dc3545';
+                setTimeout(() => startReactionGame(), 1500);
+            }
+        }
+        
+        function completeSafeGame(gameNum) {
+            safeGamesCompleted[gameNum - 1] = true;
+            const btn = document.getElementById('safeGame' + gameNum + 'Btn');
+            btn.classList.add('completed');
+            document.getElementById('safeGame' + gameNum + 'Status').innerText = '✅ Цифра: ' + SAFE_CODE[gameNum - 1];
+            
+            showSafeStatus('🎉 Игра пройдена! Цифра: ' + SAFE_CODE[gameNum - 1], 'success');
+            
+            setTimeout(() => {
+                document.getElementById('safeGameArea').style.display = 'none';
+            }, 2000);
+        }
+        
+        function unlockSafe() {
+            const code1 = document.getElementById('code1').value;
+            const code2 = document.getElementById('code2').value;
+            const code3 = document.getElementById('code3').value;
+            const code4 = document.getElementById('code4').value;
+            
+            if (code1 === SAFE_CODE[0] && code2 === SAFE_CODE[1] && code3 === SAFE_CODE[2] && code4 === SAFE_CODE[3]) {
+                document.getElementById('safeComplete').classList.add('active');
+                document.getElementById('safeCompleteBtn').style.display = 'block';
+                showSafeStatus('🎉 Сейф открыт!', 'success');
+            } else {
+                showSafeStatus('❌ Неверный код! Пройди игры чтобы узнать цифры.', 'error');
+            }
+        }
+        
+        function showSafeStatus(message, type) {
+            const statusEl = document.getElementById('safeStatusMsg');
             statusEl.innerText = message;
             statusEl.className = 'status-msg ' + type;
         }
