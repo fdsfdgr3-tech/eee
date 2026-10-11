@@ -5,7 +5,8 @@ const db=ready?window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_
 let user=null,progress={},attempts=[],route='home',selected=0;
 let demoMode=false;
 function saveDemo(){if(demoMode)localStorage.setItem('java-academy-demo',JSON.stringify({progress,attempts}));}
-function startDemo(){demoMode=true;user={id:'demo',email:'demo@java-academy.local'};try{const saved=JSON.parse(localStorage.getItem('java-academy-demo')||'{}');progress=saved.progress||{};attempts=saved.attempts||[]}catch{progress={};attempts=[]}location.hash='dashboard';render();}\nfunction endDemo(){demoMode=false;user=null;progress={};attempts=[];location.hash='home';render();}
+function startDemo(){demoMode=true;user={id:'demo',email:'demo@java-academy.local'};try{const saved=JSON.parse(localStorage.getItem('java-academy-demo')||'{}');progress=saved.progress||{};attempts=saved.attempts||[]}catch{progress={};attempts=[]}location.hash='dashboard';render();}
+function endDemo(){demoMode=false;user=null;progress={};attempts=[];location.hash='home';render();}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const completed=()=>Object.values(progress).filter(x=>x.completed).length;
 const unlocked=i=>i===0||Boolean(progress['lesson-'+i]?.completed);
